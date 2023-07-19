@@ -5,16 +5,15 @@ footer {
     color: #f2f2f2;
     justify-content: space-evenly;
     padding: 30px 60px;
-}
-
-.footer-one h3 {
+    margin-top: 50px;
+    z-index: 3;
+  }
+  
+  .footer-one h3, .footer-three h3 {
     margin-bottom: 30px;
-}
-
-.footer-three h3 {
-    margin-bottom: 30px;
-}
-
-.footer-four span{
+  }
+  
+  .footer-four span {
     padding: 10px;
-}
+  }
+  

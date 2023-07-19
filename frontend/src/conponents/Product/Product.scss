@@ -1,0 +1,19 @@
+.product {
+    display: flex;
+    padding: 30px 0px;
+    width: 95%;
+    margin: auto;
+    .product-show {
+        overflow: hidden;
+        width: 25%;
+        border-radius: 30px;
+        border: 2px solid var(--main-color);
+        margin: 5px;
+        .product-show-img {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    }
+}

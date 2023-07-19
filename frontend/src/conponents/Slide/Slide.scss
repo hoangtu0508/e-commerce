@@ -1,0 +1,29 @@
+.slide {
+    padding-left: 20px;
+  }
+  
+  .slide-img {
+    width: 50%;
+    height: auto;
+  
+    img {
+      width: 98%;
+      height: auto;
+      border-radius: 30px;
+      margin-right: 10px !important;
+    }
+  }
+  
+  .slick-prev {
+    z-index: 50;
+    left: 10px;
+  
+    /* Thay đổi vị trí của nút Previous */
+  }
+  
+  .slick-next {
+    right: 10px;
+  
+    /* Thay đổi vị trí của nút Next */
+  }
+  

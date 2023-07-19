@@ -1,5 +1,5 @@
 import React from 'react'
-import './Footer.css'
+import './Footer.scss'
 import {BsFacebook, BsInstagram, BsTiktok, BsShop} from 'react-icons/bs'
 import {GiSunglasses} from 'react-icons/gi'
 
