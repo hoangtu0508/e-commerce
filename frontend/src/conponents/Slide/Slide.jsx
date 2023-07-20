@@ -1,41 +1,37 @@
-import React, { useState } from 'react'
+import React from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './Slide.scss'
+import './Slide.scss';
+import SlideFlashSale from '../FlashSale/SlideFlashSale/SlideFlashSale';
 
-const Slide = () => {
-
-
+const Slide = ({ images = [], products = [] , slidesToShow, autoplaySpeed }) => {
     const settings = {
-        // dots: true,
         infinite: true,
         speed: 500,
-        slidesToShow: 2,
+        slidesToShow: slidesToShow,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
-    }
+        autoplaySpeed: autoplaySpeed,
+    };
+    // const {products} = props
+    console.log('slide:',products);
     return (
         <div className='slide'>
             <Slider {...settings}>
-                <div className='slide-img'>
-                    <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-06-768x983.jpg'></img>
-                </div>
-                <div className='slide-img'>
-                    <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-04-768x983.jpg'></img>
-                </div>
-                <div className='slide-img'>
-                    <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-03-768x983.jpg'></img>
-                </div>
-                <div className='slide-img'>
-                    <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-02-768x983.jpg'></img>
-                </div>
-                <div className='slide-img'>
-                    <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-05-768x983.jpg'></img>
-                </div>
+                {images &&
+                    images.map((image, index) => (
+                        <div className="slide-img" key={index}>
+                            <img src={image} alt="" />
+                        </div>
+                    ))}
+                {products &&
+                    products.map((product, index) => (
+                        <SlideFlashSale key={index} product={product}/>
+                    ))}
             </Slider>
-        </div >
+        </div>
     );
-}
-export default Slide
+};
+
+export default Slide;

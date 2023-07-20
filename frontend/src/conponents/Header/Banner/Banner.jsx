@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom'
 import Slide from '../../Slide/Slide'
 
 const Banner = () => {
+    const images = [
+        'https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-06-768x983.jpg',
+        'https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-04-768x983.jpg',
+        'https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-03-768x983.jpg',
+        'https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-02-768x983.jpg',
+        'https://kinhmatanna.com/wp-content/uploads/2023/04/Untitled-4-01-01-05-768x983.jpg',
+      ];
     return (
         <div className='banner'>
             <div className='banner-title'>
@@ -26,7 +33,7 @@ const Banner = () => {
                     <img src='https://kinhmatanna.com/wp-content/uploads/2023/04/261kb-1536x964.jpg'></img>
                 </div>
                 <div className='banner-slides-slides'>
-                    <Slide />
+                    <Slide images={images} slidesToShow={2} autoplaySpeed={2000} />
                 </div>
             </div>
         </div>

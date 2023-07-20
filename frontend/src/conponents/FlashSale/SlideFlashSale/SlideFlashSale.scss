@@ -1,0 +1,36 @@
+.product-slide-item {
+
+    width: 95%;
+    overflow: hidden;
+    border-radius: 15px;
+    // border: 2px solid var(--main-color);
+
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #ffffff;
+
+    .product-slide-item-img {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .product-slide-item-details {
+        padding: 10px 0;
+
+        h3 {
+            color: var(--main-color);
+            font-family: Montserrat;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 21px;
+            text-align: center;
+            padding: 5px;
+
+            span {
+                text-decoration: line-through;
+                color: var(--main-color-little);
+            }
+        }
+    }
+}

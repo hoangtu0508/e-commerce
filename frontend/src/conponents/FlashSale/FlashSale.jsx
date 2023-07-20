@@ -1,7 +1,10 @@
 import React from 'react'
-import './Product.scss'
+import './FlashSale.scss'
 
-const Product = () => {
+import Slide from '../Slide/Slide'
+
+
+const FlashSale = () => {
     const products = [
         {
             id: 1,
@@ -37,23 +40,35 @@ const Product = () => {
             price: 20000,
             price_sale: 150000,
             img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
+        },
+        {
+            id: 6,
+            name: 'Kính cận 46',
+            price: 20000,
+            price_sale: 150000,
+            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
+        },
+        {
+            id: 7,
+            name: 'Kính cận 56',
+            price: 20000,
+            price_sale: 150000,
+            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
         }
     ]
-  return (
-    <div className='product'>
-        {products.map((product) => {
-            return (
-                <div className='product-show' key={product.id}>
-                    <div className='product-show-img'><img src={product.img}></img></div>
-                    <div className='product-show-content'>
-                        <h3>{product.name} - {product.id}</h3>
-                        <h3>{product.price_sale}đ <span>{product.price}đ</span></h3>
-                    </div>
-                </div>
-            )
-            })}
-    </div>
-  )
+    return (
+        <div className='flash-sale'>
+            <div className='flash-sale-header'>
+                <h1>SĂN FLASH SALE</h1>
+                <p>Hàng trăm sản phẩm bắt trend mới nhất</p>
+            </div>
+            <div className='flash-sale-container'>
+               
+                {/* <Product /> */}
+                <Slide products={products} slidesToShow={5} autoplaySpeed={3000}/>
+            </div>
+        </div>
+    )
 }
 
-export default Product
+export default FlashSale
