@@ -17,8 +17,9 @@
     }
 
     .cart-content {
+        color: var(--main-color);
         height: 100%;
-        background-color: aliceblue;
+        background-color: white;
         z-index: 1;
         flex-direction: column;
 
@@ -40,6 +41,7 @@
         }
 
         .cart-products {
+            margin-bottom: 30px;
             .cart-product {
                 display: flex;
                 justify-content: space-between;
@@ -76,7 +78,36 @@
                     }
                 }
             }
+            .cart-total {
+                padding: 0 30px;
+                display: flex;
+                justify-content: space-between;
+                p {
+                    font-size: 20px;
+                }
+            }
             
+        }
+
+        .cart-button {
+            padding: 10px 30px;
+            width: 100%;
+            button {
+                border: none;
+                background-color: var(--main-color);
+                color: var(--background-color);
+                margin: 10px 0 ;
+                padding: 10px 20px;
+                width: 100%;
+
+            }
+
+            button:hover {
+                border: 2px solid var(--main-color);
+                background-color: var(--background-color);
+                color: var(--main-color);
+            }
+
         }
 
     }

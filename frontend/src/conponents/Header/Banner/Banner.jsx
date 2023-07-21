@@ -25,7 +25,7 @@ const Banner = () => {
                     <Link to='shop' className='banner-content-title-btn'>Shop now</Link>
                 </div>
                 <div className='banner-content-img'>
-                    <img src='https://salinaka-ecommerce.web.app/images/banner-girl.789f1fa6f451ad26c5039fcbc049ace7.png'></img>
+                    <img src='https://salinaka-oecmmerce.web.app/images/banner-girl.789f1fa6f451ad26c5039fcbc049ace7.png'></img>
                 </div>
             </div>
             <div className='banner-slides'>

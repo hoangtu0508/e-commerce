@@ -1,0 +1,13 @@
+.button {
+    span {
+        button {
+            padding: 10px 20px;
+            border: 2px solid var(--main-color);
+            color: var(--background-color);
+            background-color: var(--main-color);
+            width: 100%;
+            border-radius: 10px;
+            // text-decoration: none;
+        }
+    }
+}

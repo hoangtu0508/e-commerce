@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Cart.scss'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdDeleteForever } from 'react-icons/md'
@@ -28,6 +28,28 @@ const Cart = ({ setShowCart }) => {
         }
     ]
 
+    const [cart, setCart] = useState(cartProducts)
+
+    console.log(cart)
+
+    const [total, setTotal] = useState(0)
+
+    const totalPrice = cart.reduce((acc, item) => {
+        return acc + item.productPrice * item.Vty;
+    }, 0);
+
+    const handleDele = (Id) => {
+        const shouldDelete = window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?");
+        if (shouldDelete) {
+            const cartNews = cart.filter((item => item.idProduct !== Id));
+            setCart(cartNews);
+        }
+    }
+
+    const handleOnChang = (e) => {
+
+    }
+
     // const totalProduct = () = {
 
     // }
@@ -42,10 +64,12 @@ const Cart = ({ setShowCart }) => {
                 <div className='cart-title'>
                     <h3>Shopping Cart</h3>
                 </div>
+
                 <div className='cart-products'>
-                    {cartProducts.map((productCart) => {
+                    {cart.map((productCart) => {
+                        console.log('prd', productCart)
                         return (
-                            <div className='cart-product' key={productCart.id}>
+                            < div className='cart-product' key={productCart.id} >
                                 <div className='cart-product-content'>
                                     <img src={productCart.imgProduct}></img>
                                     <div className='cart-product-detail'>
@@ -55,25 +79,42 @@ const Cart = ({ setShowCart }) => {
                                     </div>
                                     <input type="number"
                                         value={productCart.Vty}
-                                    // onChange={(event) =>
-                                    //     handleQuantityChange(i, parseInt(event.target.value))
-                                    // }
+                                        onChange={(e) => {
+                                            const index = cart.findIndex((item) => item.idProduct === productCart.idProduct);
+                                            const newCart = [...cart];
+                                            newCart[index].Vty = parseInt(e.target.value);
+                                            if (newCart[index].Vty === 0) {
+                                                const showDele = window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")
+                                                if (showDele) {
+                                                    newCart.splice(index, 1);
+                                                } else {
+                                                    newCart[index].Vty = 1;
+                                                }
+
+                                            }
+                                            setCart(newCart);
+                                        }}
+                                        min={0}
                                     >
                                     </input>
                                 </div>
-                                <span><MdDeleteForever className='dele-cart-product' /></span>
+                                <span onClick={() => handleDele(productCart.idProduct)}><MdDeleteForever className='dele-cart-product' /></span>
                             </div>
                         )
-
                     })}
 
                     <div className='cart-total'>
-                        <h3>Subtotal:</h3>
-                        <p>đ</p>
+                        <h3>Subtotal: </h3>
+                        <p>{totalPrice}.đ</p>
                     </div>
                 </div>
+                <hr></hr>
+                <div className='cart-button'>
+                    <button>VIEW CART</button>
+                    <button>CHECK OUT</button>
+                </div>
             </div>
-        </div>
+        </div >
     )
 }
 

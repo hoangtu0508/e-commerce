@@ -1,0 +1,11 @@
+.link{
+    span {
+        a {
+            padding: 10px 20px;
+            border: 2px solid var(--main-color);
+            color: var(--background-color);
+            background-color: var(--main-color);
+            text-decoration: none;
+        }
+    }
+}

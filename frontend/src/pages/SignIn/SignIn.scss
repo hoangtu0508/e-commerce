@@ -1,0 +1,55 @@
+.sign-in {
+    color: var(--main-color);
+    width: 80%;
+    display: flex;
+    padding-left: 10%;
+    justify-content: center;
+    margin-top: 10rem;
+    .sign-in-left {
+        width: 50%;
+        display: flex;
+        justify-content: right;
+        img {
+            width: 80%;
+        }
+
+    }
+
+    .sign-in-right {
+        width: 50%;
+        margin-left: 40px;
+        .header-title {
+            text-align: center;
+            p {
+                padding: 15px;
+                font-weight: 500;
+            }
+        }
+    }
+
+    .input-from {
+        
+        .radio {
+            margin: 10px 0px;
+            display: flex;
+            justify-content: left;
+            label {
+                font-size: 15px;
+            }
+            input {
+                margin-left: 20px;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+    .forgot-password {
+        margin: 10px 0;
+        text-align: left;
+        a {
+            text-decoration: none;
+            color: var(--main-color);
+        }
+    }
+}

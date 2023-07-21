@@ -4,6 +4,7 @@ import './App.scss';
 import Layout from './pages/Layout';
 import Shop from './pages/Shop/Shop';
 import Home from './pages/Home/Home';
+import SignIn from './pages/SignIn/SignIn';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path='shop' element={<Shop />}>
 
           </Route>
+          <Route path='sign-in' element={<SignIn />} />
 
         </Route>
 
