@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import './SignIn.scss'
-import Nav from '../../conponents/Header/Nav/Nav'
-import Footer from '../../conponents/Footer/Footer'
-import Input from '../../conponents/Input/Input'
-import Button from '../../conponents/Button/Button'
-import LinkFieds from '../../conponents/LinkFieds/LinkFieds'
+import Nav from '../../../conponents/Header/Nav/Nav'
+import Footer from '../../../conponents/Footer/Footer'
+import Input from '../../../conponents/Input/Input'
+import Button from '../../../conponents/Button/Button'
+import LinkFieds from '../../../conponents/LinkFieds/LinkFieds'
 import { Link } from 'react-router-dom'
+import AuthLogin from '../AuthLogin/AuthLogin'
 
 const SignIn = () => {
     const [email, setEmail] = useState('')
@@ -13,10 +14,10 @@ const SignIn = () => {
 
     function handleEmailChange(event) {
         setEmail(event.target.value);
-      }
+    }
     function handlePasswordChange(event) {
         setPassword(event.target.value);
-      }
+    }
     return (
         <>
             <div className='sign-in'>
@@ -28,7 +29,7 @@ const SignIn = () => {
                     <div className='header-title'>
                         <h1>Login</h1>
                         <p>Please login to enjoy exclusive privileges for you</p>
-                        <hr/>
+                        <hr />
                     </div>
 
                     <div className='input-from'>
@@ -37,22 +38,27 @@ const SignIn = () => {
                                 type="text"
                                 name="name"
                                 value={email}
-                                onChange={handleEmailChange} 
+                                onChange={handleEmailChange}
                             />
                             <Input label="PASSWORD"
                                 type="password"
                                 name="password"
                                 value={password}
-                                onChange={handlePasswordChange} 
+                                onChange={handlePasswordChange}
                             />
                             <div className='radio'>
                                 <label>Save Account</label>
                                 <input type='radio'></input>
                             </div>
-                            <Button name="LOGIN"/>
+                            <Button name="LOGIN" />
                         </form>
                         <div className='forgot-password'>
                             <Link>Forgot password</Link>
+                        </div>
+                        <AuthLogin />
+                        <div className='btn-sign-us'>
+                            <span>Do not have an account</span><br />
+                            <Link>Sign Up here</Link>
                         </div>
                     </div>
                 </div>

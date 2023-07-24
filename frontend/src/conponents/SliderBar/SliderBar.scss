@@ -1,0 +1,36 @@
+.slider-bar-shop {
+    width: 100%;
+    .category {
+        text-align: left;
+        padding: 0 30px;
+        margin-bottom: 30px;
+        h3 {
+            padding-bottom: 10px;
+        }
+        ul {
+            padding-top: 10px;
+            li{
+                list-style: none;
+                padding: 5px 0;
+                input {
+                    width: 20px;
+                    height: 20px;
+                    padding: none;
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+
+    .slider-price {
+        h3 {
+            margin: 10px 0;
+        }
+        text-align: left;
+        padding: 0 30px;
+
+        .price {
+            margin: 10px 0;
+        }
+    }
+}

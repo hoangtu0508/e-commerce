@@ -2,6 +2,7 @@ import React from 'react'
 import './Footer.scss'
 import { BsFacebook, BsInstagram, BsTiktok, BsShop } from 'react-icons/bs'
 import { GiSunglasses } from 'react-icons/gi'
+import Button from '../Button/Button'
 
 const Footer = () => {
     return (
@@ -50,7 +51,7 @@ const Footer = () => {
                     <h2>DON'T MISS OUT ON THE LATEST</h2>
                     <div className='input'>
                         <input></input>
-                        <button>SUBSCRIBE!</button>
+                        <Button name='SUBSCRIBE!'/>
                     </div>
                 </div>
             </div>

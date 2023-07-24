@@ -1,0 +1,69 @@
+.auth-login {
+    margin-top: 10px;
+    .login-fb {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+
+        a {
+            background-color: #1877f2;
+            color: white;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 20px;
+            width: 100%;
+            text-decoration: none;
+            border-radius: 10px;
+            padding-left: 20px;
+
+            .login-fb-icon {
+                margin-right: 10px;
+                /* Khoảng cách giữa biểu tượng và văn bản */
+                display: flex;
+                align-items: center;
+            }
+
+            .login-fb-text {
+                display: inline-block;
+            }
+
+        }
+    }
+
+    .login-google {
+        width: 100%;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        margin-top: 10px;
+
+        a {
+            color: var(--main-color);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 10px 20px;
+            box-shadow: 4px 4px 8px 4px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            text-decoration: none;
+            border-radius: 10px;
+            padding-left: 20px;
+
+            .login-gg-icon {
+                margin-right: 10px;
+                /* Khoảng cách giữa biểu tượng và văn bản */
+                display: flex;
+                align-items: center;
+            }
+
+            .login-gg-text {
+                display: inline-block;
+            }
+
+        }
+    }
+    
+
+}

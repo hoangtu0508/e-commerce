@@ -88,6 +88,7 @@ footer {
 
       .input {
         padding-top: 20px;
+        display: flex;
 
         input {
           width: 500px;
@@ -95,9 +96,9 @@ footer {
         }
 
         button {
-          padding: 10px 20px;
           border: 1px solid var(--background-color);
           color: var(--main-color);
+          border-radius: none !important;
           background-color: var(--background-color);
           text-decoration: none;
         }

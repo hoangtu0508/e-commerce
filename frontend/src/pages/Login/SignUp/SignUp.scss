@@ -1,25 +1,30 @@
-.sign-in {
+.sign-up {
     color: var(--main-color);
-    width: 80%;
-    display: flex;
-    padding-left: 10%;
-    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
     margin-top: 10rem;
-    .sign-in-left {
+    display: flex;
+    justify-content: center;
+
+    .sign-up-left {
         width: 50%;
         display: flex;
         justify-content: right;
+        align-items: center;
         img {
-            width: 80%;
+            width: 100%;
+            height: 500px;
         }
 
     }
 
-    .sign-in-right {
+    .sign-up-right {
         width: 50%;
         margin-left: 40px;
+
         .header-title {
             text-align: center;
+
             p {
                 padding: 15px;
                 font-weight: 500;
@@ -29,27 +34,24 @@
 
     .input-from {
         
-        .radio {
-            margin: 10px 0px;
-            display: flex;
-            justify-content: left;
-            label {
-                font-size: 15px;
-            }
-            input {
-                margin-left: 20px;
-                width: 20px;
-                height: 20px;
-            }
-        }
+        
+        
     }
 
     .forgot-password {
         margin: 10px 0;
         text-align: left;
+
         a {
             text-decoration: none;
             color: var(--main-color);
         }
+    }
+
+    .btn-sign-us {
+        margin-top: 15px;
+        text-align: center;
+        color: var(--main-color);
+        
     }
 }

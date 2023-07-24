@@ -32,6 +32,14 @@
             background-color: var(--main-color);
             text-decoration: none;
         }
+
+        .list-products {
+            margin: 20px;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); // 4 cột bằng nhau
+            grid-gap: 10px;
+            margin-bottom: 40px;
+        }
     }
 
 }

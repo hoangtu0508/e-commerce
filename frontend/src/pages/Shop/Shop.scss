@@ -1,0 +1,53 @@
+.shop-page {
+    padding: 0 auto;
+    .banner-shop {
+        height: 500px;
+        background-image: url(../../img/banner-shop.png);
+        position: relative;
+
+        h1 {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            font-size: 40px;
+            transform: translate(150px, -80px);
+            color: var(--background-color);
+        }
+
+    }
+
+    .shop-container {
+        width: 90%;
+        display: flex;
+        justify-content: center;
+        margin-left: 5%;
+        margin-top: 40px;
+        .slider-bar {
+            width: 25%;
+        }
+
+        .content {
+            width: 75%;
+
+            .list-products {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr); // 4 cột bằng nhau
+                grid-gap: 20px;
+
+            }
+        }
+    }
+
+    .highlights-products {
+        margin-left: 10%;
+        text-align: left;
+        width: 80%;
+        h2 {
+            margin: 20px 0;
+        }
+
+        .product-sale {
+            padding: 20px 0;
+        }
+    }
+}

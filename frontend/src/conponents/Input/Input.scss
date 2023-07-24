@@ -1,6 +1,6 @@
 .input {
     label {
-        padding: 20px 0;
+        padding: 10px 0;
         font-size: 20px;
         font-weight: 600;
         display: flex;
@@ -8,10 +8,12 @@
     }
 
     input {
+        margin: 10px 0;
         width: 100%;
         height: 40px;
         border-radius: 5px;
         display: flex;
         justify-content: left;
+        padding-left: 15px;
     }
 }
