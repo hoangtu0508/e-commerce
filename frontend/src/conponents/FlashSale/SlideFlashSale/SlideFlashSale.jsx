@@ -7,7 +7,7 @@ const SlideFlashSale = ({ product }) => {
   return (
     <div className='product-slide-item'>
       <div className='product-slide-item-img'>
-        <img src={product.img} alt='' />
+        <a href={`../product/${product.id}`}><img src={product.img} alt='' /></a>
       </div>
       <div className='product-slide-item-details'>
         <div className='product-slide-title'>

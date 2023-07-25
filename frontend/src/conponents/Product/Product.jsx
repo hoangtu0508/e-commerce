@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import './Product.scss'
 import { AiOutlineStar, AiOutlineHeart, AiOutlineArrowDown } from 'react-icons/ai'
+import ProductDetails from '../ProductDetails/ProductDetails'
 
 const Product = ({ product }) => {
-    console.log('prd',product)
+
     if (!product) {
         return null; // hoặc có thể trả về một thông báo lỗi
     }
@@ -12,7 +13,7 @@ const Product = ({ product }) => {
         <>
             <div className='product-show' key={product.id}>
                 <div className='product-show-img'>
-                    <img src={product.img}></img>
+                    <a href={`/product/${product.id}`}><img src={product.img}></img></a>
                 </div>
                 <div className='product-show-content'>
                     <div className='product-title'>
@@ -25,7 +26,7 @@ const Product = ({ product }) => {
                         </div>
                     </div>
                     <div className='btn-add-cart'>
-                        <button>ADD TO CART</button>
+                        <button onClick={console.log('hello')}>ADD TO CART</button>
                         <div className='cart-icons-btn'>
                             <div className='star'>
                                 <span><AiOutlineStar /></span>
@@ -43,7 +44,9 @@ const Product = ({ product }) => {
                 </div>
 
             </div>
+
         </>
+        
     )
 }
 

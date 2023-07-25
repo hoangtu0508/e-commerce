@@ -54,6 +54,7 @@ const NewProducts = () => {
                         return (
                             <div className='product-new'>
                                 <Product product={product} key={product.id}/>
+                                
                             </div>
                             
                         )         

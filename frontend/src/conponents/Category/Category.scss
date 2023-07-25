@@ -1,0 +1,30 @@
+.category {
+    
+    select {
+        border: 1px solid var(--background-color);
+        color: var(--main-color);
+        font-weight: 700;
+        font-size: 16px;
+        // padding: 10px;
+        background: var(--background-color);
+        height: 40px;
+        width: 150px;
+        margin-top: 5px;
+    }
+
+    option {
+        color: #333;
+        height: 20px;
+        font-size: 16px;
+    }
+
+    select:hover {
+        color: #333;
+    }
+
+    option:hover {
+        color: var(--main-color);
+        background-color: #eee;
+    }
+
+}

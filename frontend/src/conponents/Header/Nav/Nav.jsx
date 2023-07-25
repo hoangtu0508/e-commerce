@@ -4,6 +4,7 @@ import { GiSunglasses } from 'react-icons/gi'
 import { BsSearch, BsCartCheck } from 'react-icons/bs'
 import './Nav.scss'
 import Cart from '../../Cart/Cart'
+import Category from '../../Category/Category'
 
 const Nav = () => {
     const [showCart, setShowCart] = useState(false)
@@ -25,7 +26,7 @@ const Nav = () => {
 
                         </li>
                         <li><Link to='shop'>Shop</Link></li>
-                        <li><Link to='blog'>Blog</Link></li>
+                        <li><Category /></li>
                     </ul>
                 </div>
                 <div className='nav-search'>
