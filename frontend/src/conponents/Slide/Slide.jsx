@@ -15,7 +15,7 @@ const Slide = ({ images = [], products = [] , slidesToShow, autoplaySpeed }) => 
         autoplaySpeed: autoplaySpeed,
     };
     // const {products} = props
-    console.log('slide:',products);
+
     return (
         <div className='slide'>
             <Slider {...settings}>

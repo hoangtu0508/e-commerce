@@ -3,7 +3,7 @@ import './SlideFlashSale.scss'
 import { AiOutlineStar, AiOutlineHeart,AiOutlineArrowDown } from 'react-icons/ai'
 
 const SlideFlashSale = ({ product }) => {
-  console.log('flash:', product)
+
   return (
     <div className='product-slide-item'>
       <div className='product-slide-item-img'>

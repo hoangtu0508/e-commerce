@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Banner from '../../conponents/Header/Banner/Banner'
 import Slide from '../../conponents/Slide/Slide'
 import './Home.scss'
@@ -9,6 +9,7 @@ import NewProducts from '../../conponents/NewProducts/NewProducts'
 
 
 const Home = () => {
+  
   return (
     <div className='home-page'>
       <Banner />

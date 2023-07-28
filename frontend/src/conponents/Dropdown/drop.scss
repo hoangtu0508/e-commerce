@@ -1,0 +1,40 @@
+/* Tạo một div để bao gồm dropdown menu */
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Tạo nút dropdown */
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Tạo dropdown content */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}
+
+/* Hiển thị dropdown content khi mở dropdown menu */
+.dropdown .dropdown-content {
+    display: block;
+}
+
+/* Tùy chỉnh mục trong dropdown */
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Thay đổi màu sắc của mục khi hover */
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}

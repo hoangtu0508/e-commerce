@@ -26,7 +26,7 @@ const Product = ({ product }) => {
                         </div>
                     </div>
                     <div className='btn-add-cart'>
-                        <button onClick={console.log('hello')}>ADD TO CART</button>
+                        <button onClick={()=>{}}>ADD TO CART</button>
                         <div className='cart-icons-btn'>
                             <div className='star'>
                                 <span><AiOutlineStar /></span>

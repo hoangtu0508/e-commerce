@@ -12,59 +12,75 @@
     flex-basis: 50%;
     flex-direction: row;
     line-height: 18px;
-    padding: 15px;
-    justify-content: space-around;
+    padding: 15px 7%;
+    justify-content: space-between;
+
     .nav-left {
         display: flex;
         text-align: center;
         align-items: center;
 
-        .nav-left-menu {
-            text-align: left;
-            padding-left: 30px;
-        
-            &.active a {
-                color: black;
-            }
-        
-            li {
-                display: inline-block;
-        
-                a {
-                    background-color: var(--background-color);
-                    color: var(--main-color);
-                    display: inline;
-                    
-                    font-size: 16px;
-                    font-weight: 700;
-                    line-height: 16px;
-                    padding: 10px 15px;
-                    text-decoration: none;
-                }
-            }
-        }
+        // .nav-left-menu {
+        //     text-align: left;
+        //     padding-left: 30px;
+
+        //     &.active a {
+        //         color: black;
+        //     }
+
+        //     li {
+        //         display: inline-block;
+
+        //         a {
+        //             background-color: var(--background-color);
+        //             color: var(--main-color);
+        //             display: inline;
+
+        //             font-size: 16px;
+        //             font-weight: 700;
+        //             line-height: 16px;
+        //             padding: 10px 15px;
+        //             text-decoration: none;
+        //         }
+        //     }
+        // }
     }
 
-    .nav-search {
-        display: flex;
-        justify-content: center;
-        text-align: right;
-    
-        span {
-            padding: 10px;
-            align-items: center;
-        }
-    
-        input {
-            width: 300px;
-        }
-    }
 }
 
 
 
-.nav-left-logo-icon {
-    display: inline;
+.nav-center {
+    ul {
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.active a {
+            color: black;
+        }
+
+        li {
+            display: inline-block;
+
+            a {
+                background-color: var(--background-color);
+                color: var(--main-color);
+                display: inline;
+
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 16px;
+                padding: 10px 15px;
+                text-decoration: none;
+            }
+
+
+        }
+
+    }
+
     width: 50px;
     height: 50px;
     color: var(--main-color);
@@ -72,17 +88,80 @@
 
 
 .nav-right {
-    display: flex;
-    list-style: none;
-    flex-direction: row;
+    ul {
+        display: flex;
+        list-style: none;
+        justify-content: center;
+        align-items: center;
 
-    .nav-right-cart {
-        padding-right: 20px;
+        li {
+            margin-left: 20px;
+        }
+
+        .nav-search {
+            display: flex;
+            justify-content: center;
+            text-align: right;
+
+            span {
+                .icon-search {
+                    width: 25px;
+                    height: 25px;
+                }
+
+                padding: 10px;
+                align-items: center;
+            }
+
+            // input {
+            //     width: 300px;
+            // }
+        }
+
+        .nav-right-cart {
+            padding-right: 20px;
+        }
+
+        .nav-right-btn {
+            position: relative;
+            display: inline-block;
+
+            .icon-profile {
+                width: 25px;
+                height: 25px;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+                top: 30px;
+                left: 50%;
+                transform: translateX(-50%);
+                background-color: #f9f9f9;
+                min-width: 150px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+
+                a {
+                    display: block;
+                    padding: 12px 16px;
+                    text-decoration: none;
+                    color: #333;
+                }
+
+                a:hover {
+                    background-color: var(--main-color);
+                    color: var(--background-color);
+                }
+            }
+        }
+
+        .nav-right-btn .dropdown-content {
+            display: block;
+        }
     }
 
-    .nav-right-btn a {
-        border: 2px solid var(--main-color);
-    }
+    // flex-direction: row;
 }
 
 
@@ -99,4 +178,3 @@
     padding: 12px 16px;
     text-decoration: none;
 }
-
