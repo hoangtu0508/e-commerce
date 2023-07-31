@@ -1,47 +1,12 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import Product from '../Product/Product'
 import { Link } from 'react-router-dom'
 import './NewProducts.scss'
-
+import { Context } from '../../utils/AppContext'
 
 const NewProducts = () => {
-    const products = [
-        {
-            id: 1,
-            name: 'Kính cận',
-            price: 200000,
-            price_sale: 150000,
-            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-        },
-        {
-            id: 2,
-            name: 'Kính cận 2',
-            price: 200000,
-            price_sale: 150000,
-            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-        },
-        {
-            id: 3,
-            name: 'Kính cận 3',
-            price: 200000,
-            price_sale: 150000,
-            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-        },
-        {
-            id: 4,
-            name: 'Kính cận 4',
-            price: 200000,
-            price_sale: 150000,
-            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-        },
-        {
-            id: 5,
-            name: 'Kính cận 5',
-            price: 200000,
-            price_sale: 150000,
-            img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-        }
-    ]
+    const {products} = useContext(Context)
+    console.log(products)
     return (
         <div className='product-hot'>
             <div className='product-hot-header'>

@@ -9,8 +9,7 @@ import Cart from '../../Cart/Cart'
 import Category from '../../Category/Category'
 import DropdownMenu from '../../Dropdown/Dropdown'
 
-const Nav = (props) => {
-    const {categories} = props
+const Nav = () => {
 
     const [showCart, setShowCart] = useState(false)
     const location = useLocation()
@@ -50,7 +49,7 @@ const Nav = (props) => {
                         <li className='nav-right-cart'><span onClick={() => setShowCart(true)}><HiOutlineShoppingBag style={{ width: 25, height: 25 }} /></span></li>
                         <li className='nav-right-btn'>
                             <CgProfile className='icon-profile' onClick={handleClick} />
-                            {isOpen && (
+                            {isOpen && (  
                                 <div className="dropdown-content">
                                     <a href="sign-in">Sign In</a>
                                     <a href="sign-up">Sign Up</a>

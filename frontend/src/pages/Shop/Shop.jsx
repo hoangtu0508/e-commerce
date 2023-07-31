@@ -1,54 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import './Shop.scss'
 import SliderBar from '../../conponents/SliderBar/SliderBar'
 import Product from '../../conponents/Product/Product'
 import Slide from '../../conponents/Slide/Slide'
+import { Context } from '../../utils/AppContext'
 
 const Shop = () => {
-  const products = [
-    {
-      id: 1,
-      name: 'Kính cận',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 2,
-      name: 'Kính cận 2',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 3,
-      name: 'Kính cận 3',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 4,
-      name: 'Kính cận 4',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 5,
-      name: 'Kính cận 5',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 6,
-      name: 'Kính cận 6',
-      price: 200000,
-      price_sale: 150000,
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    }
-  ]
+  const {products} = useContext(Context)
+  
   return (
     <div className='shop-page'>
       <div className='banner-shop'>

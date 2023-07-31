@@ -1,20 +1,20 @@
-import React,{createContext, useState} from 'react'
+import React, { createContext, useState } from 'react'
 
 export const Context = createContext()
 
-const AppContext = ({children}) => {
-    const [categories, setCategories] = useState([])
-    const [products, setProducts] = useState()
+const AppContext = ({ children }) => {
+  const [categories, setCategories] = useState([])
+  const [products, setProducts] = useState([])
   return (
     <Context.Provider
-        value={{
-            categories,
-            setCategories,
-            products,
-            setProducts
-        }}
+      value={{
+        categories,
+        setCategories,
+        products,
+        setProducts
+      }}
     >
-        {children}
+      {children}
     </Context.Provider>
   )
 }

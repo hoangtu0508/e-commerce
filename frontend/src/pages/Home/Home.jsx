@@ -6,6 +6,7 @@ import Product from '../../conponents/Product/Product'
 import { Link } from 'react-router-dom'
 import FlashSale from '../../conponents/FlashSale/FlashSale'
 import NewProducts from '../../conponents/NewProducts/NewProducts'
+import { Context } from '../../utils/AppContext'
 
 
 const Home = () => {

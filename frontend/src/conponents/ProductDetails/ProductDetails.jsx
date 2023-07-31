@@ -1,66 +1,18 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ProductDetails.scss'
 import { useParams } from 'react-router-dom'
 import { FaCarSide } from 'react-icons/fa'
 import { AiOutlineHeart } from 'react-icons/ai'
 import Button from '../Button/Button'
 import Slide from '../Slide/Slide'
+import { Context } from '../../utils/AppContext'
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const products = [
-    {
-      id: 1,
-      name: 'Kính cận',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 2,
-      name: 'Kính cận 2',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 3,
-      name: 'Kính cận 3',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 4,
-      name: 'Kính cận 4',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 5,
-      name: 'Kính cận 5',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    },
-    {
-      id: 6,
-      name: 'Kính cận 5',
-      price: 200000,
-      price_sale: 150000,
-      describe: 'Miễn phí giao hàng từ 500k ( vận chuyển 3 - 5 ngày )',
-      img: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
-    }
-  ]
-
+  const {products} = useContext(Context)
+  console.log(products)
   const product = products.find((item) => item.id === parseInt(id))
-
+  console.log(product)
   const [qty, setQty] = useState(1)
 
   const decrement = () => {
@@ -76,7 +28,7 @@ const ProductDetails = () => {
     <div className='product-detail-page'>
       <div className='product-detail'>
         <div className='img-product'>
-          <img src={product.img}></img>
+          <img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url}></img>
         </div>
 
         <div className='content-product'>
