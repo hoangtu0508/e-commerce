@@ -16,9 +16,10 @@ const NewProducts = () => {
             <div className='product-hot-container'>
                 <div className='list-products'>
                     {products.map((product) => {
+                        console.log(product)
                         return (
-                            <div className='product-new'>
-                                <Product product={product} key={product.id}/>
+                            <div className='product-new' key={product.id}>
+                                <Product product={product} />
                                 
                             </div>
                             

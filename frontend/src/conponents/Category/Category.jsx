@@ -6,7 +6,9 @@ const Category = () => {
   const { categories } = useContext(Context);
 
   const [valueSelect, setValueSelect] = useState(null);
-
+  if (categories === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className='category'>

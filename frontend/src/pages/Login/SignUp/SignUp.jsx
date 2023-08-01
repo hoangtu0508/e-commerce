@@ -1,19 +1,37 @@
 import React, {useState} from 'react'
 import Input from '../../../conponents/Input/Input'
 import Button from '../../../conponents/Button/Button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
 import './SignUp.scss'
+import axios from 'axios'
 
+const initialUser = {email: "", password: "", username: ""}
 const SignUp = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
+    const [user, setUser] = useState(initialUser);
+    const navigate = useNavigate();
+    const SignUp = async () => {
+        try {
+            const url = `http://localhost:1337/api/auth/local/register`
+            if(user.username && user.email && user.password){
+                const res = await axios.post(url, user);
+                if(res) {
+                    setUser(initialUser);
+                    navigate("/sign-in")
+                }
+            }
+        } catch (error) {
+            return error
+        }
     }
-    function handlePasswordChange(event) {
-        setPassword(event.target.value);
+
+    const handleUserChange = ({target}) => {
+        const {name, value} = target;
+
+        setUser((currentUser) => ({
+            ...currentUser,
+            [name]: value,
+        }))
     }
     return (
         <div className='sign-up'>
@@ -29,34 +47,30 @@ const SignUp = () => {
                 </div>
 
                 <div className='input-from'>
-                    <form>
+              
                         <Input label="FULL NAME"
                             type="text"
-                            name="name"
-                            value={email}
-                            onChange={handleEmailChange}
+                            name="username"
+                            value={user.username}
+                            onChange={handleUserChange}
                         />
                         <Input label="EMAIL"
-                            type="text"
+                            type="email"
                             name="email"
-                            value={email}
-                            onChange={handleEmailChange}
+                            value={user.email}
+                            onChange={handleUserChange}
                         />
                         <Input label="PASSWORD"
                             type="password"
                             name="password"
-                            value={password}
-                            onChange={handlePasswordChange}
-                        />
-                        <Input label="RE-PASSWORD"
-                            type="re-password"
-                            name="re-password"
-                            value={password}
-                            onChange={handlePasswordChange}
+                            value={user.password}
+                            onChange={handleUserChange}
                         />
                         <span >Your information will be kept confidential according to our <Link>privacy policy</Link></span>
+                        <div className='btn-register' onClick={() => SignUp()}>
                         <Button name="Register" style={{margin: 10}}/>
-                    </form>
+                        </div>
+               
                     <span>Or</span>
                     <AuthLogin />
                     <div className='btn-sign-us'>

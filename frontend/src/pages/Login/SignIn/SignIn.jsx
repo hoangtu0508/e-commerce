@@ -1,22 +1,38 @@
 import React, { useState } from 'react'
 import './SignIn.scss'
-import Nav from '../../../conponents/Header/Nav/Nav'
-import Footer from '../../../conponents/Footer/Footer'
 import Input from '../../../conponents/Input/Input'
 import Button from '../../../conponents/Button/Button'
-import LinkFieds from '../../../conponents/LinkFieds/LinkFieds'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
+import axios from 'axios'
 
+const initialUser = {password: "", identifier: ""};
 const SignIn = () => {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
-    function handleEmailChange(event) {
-        setEmail(event.target.value);
+    const [user, setUser] = useState(initialUser)
+    const navigate = useNavigate()
+    const handleChange = ({target}) => {
+        const {name, value} = target;
+        setUser((currentUser) => ({
+            ...currentUser,
+            [name]: value,
+        }))
     }
-    function handlePasswordChange(event) {
-        setPassword(event.target.value);
+
+    const handleLogin = async () => {
+        const url = `http://localhost:1337/api/auth/local`
+        try {
+            if(user.identifier && user.password) {
+                const {data} = await axios.post(url, user);
+                const { jwt } = data;
+                localStorage.setItem('jwtToken', jwt);
+                if(data.jwt) {
+                    setUser(initialUser)
+                    navigate("/")
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
     return (
         <>
@@ -33,25 +49,28 @@ const SignIn = () => {
                     </div>
 
                     <div className='input-from'>
-                        <form>
+                        
                             <Input label="EMAIL"
-                                type="text"
-                                name="name"
-                                value={email}
-                                onChange={handleEmailChange}
+                                type="email"
+                                name="identifier"
+                                value={user.identifier}
+                                onChange={handleChange}
                             />
                             <Input label="PASSWORD"
                                 type="password"
                                 name="password"
-                                value={password}
-                                onChange={handlePasswordChange}
+                                value={user.password}
+                                onChange={handleChange}
                             />
                             <div className='radio'>
                                 <label>Save Account</label>
                                 <input type='radio'></input>
                             </div>
-                            <Button name="LOGIN" />
-                        </form>
+                            <div className='btn-login' onClick={() => handleLogin()}>
+                                <Button name="LOGIN" />
+                            </div>
+                            
+                        
                         <div className='forgot-password'>
                             <Link>Forgot password</Link>
                         </div>

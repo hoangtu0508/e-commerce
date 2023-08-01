@@ -12,7 +12,7 @@ const Layout = () => {
   useEffect(() => {
     getProducts();
     getCategories();
-  }, []);
+  },[]);
 
   const getProducts = () => {
     fetchDataFromApi("/api/products?populate=*").then((res) => {

@@ -6,7 +6,7 @@ import { Context } from '../../utils/AppContext'
 import { useContext } from 'react'
 
 const Product = ({ product }) => {
-
+    console.log(product)
     if (!product) {
         return null; // hoặc có thể trả về một thông báo lỗi
     }
