@@ -5,6 +5,7 @@ import Button from '../../../conponents/Button/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
 import axios from 'axios'
+import { storeUser } from '../../../helpers'
 
 const initialUser = {password: "", identifier: ""};
 const SignIn = () => {
@@ -23,9 +24,8 @@ const SignIn = () => {
         try {
             if(user.identifier && user.password) {
                 const {data} = await axios.post(url, user);
-                const { jwt } = data;
-                localStorage.setItem('jwtToken', jwt);
                 if(data.jwt) {
+                    storeUser(data)
                     setUser(initialUser)
                     navigate("/")
                 }
