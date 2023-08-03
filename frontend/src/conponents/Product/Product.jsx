@@ -6,7 +6,9 @@ import { Context } from '../../utils/AppContext'
 import { useContext } from 'react'
 
 const Product = ({ product }) => {
-    console.log(product)
+    const {addToCart, cartItems} = useContext(Context)
+    const qty = 1
+    console.log(cartItems)
     if (!product) {
         return null; // hoặc có thể trả về một thông báo lỗi
     }
@@ -28,7 +30,7 @@ const Product = ({ product }) => {
                         </div>
                     </div>
                     <div className='btn-add-cart'>
-                        <button onClick={()=>{}}>ADD TO CART</button>
+                        <button onClick={() => {addToCart(product, qty)}}>ADD TO CART</button>
                         <div className='cart-icons-btn'>
                             <div className='star'>
                                 <span><AiOutlineStar /></span>

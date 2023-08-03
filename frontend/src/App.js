@@ -9,9 +9,10 @@ import SignUp from './pages/Login/SignUp/SignUp';
 import Category from './conponents/Category/Category';
 import ProductDetails from './conponents/ProductDetails/ProductDetails';
 import AppContext from './utils/AppContext';
-
+import Nav from './conponents/Header/Nav/Nav';
 
 function App() {
+
   return (
     <BrowserRouter>
       <AppContext>

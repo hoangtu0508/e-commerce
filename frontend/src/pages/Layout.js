@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom'
 import Footer from '../conponents/Footer/Footer'
 import { fetchDataFromApi } from '../utils/api'
 import { Context } from '../utils/AppContext'
+import { userData } from '../helpers';
 
 const Layout = () => {
 
@@ -24,11 +25,14 @@ const Layout = () => {
       setCategories(res.data);
     });
   };
+
+  const {jwt} = userData();
+  const isLoggedIn = !!jwt
   return (
 
 
     <div className='App'>
-      <Nav />
+      <Nav basketItems={0} isLoggedIn={isLoggedIn}/>
       <Outlet />
       <Footer />
     </div>

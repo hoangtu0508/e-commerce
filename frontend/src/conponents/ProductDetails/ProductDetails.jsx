@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './ProductDetails.scss'
 import { useParams } from 'react-router-dom'
 import { FaCarSide } from 'react-icons/fa'
@@ -6,15 +6,18 @@ import { AiOutlineHeart } from 'react-icons/ai'
 import Button from '../Button/Button'
 import Slide from '../Slide/Slide'
 import useFetch from '../../hooks/useFetch'
+import { Context } from '../../utils/AppContext'
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { data } = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
   const [qty, setQty] = useState(1)
+
+  const {addToCart,cartItems} = useContext(Context)
+  console.log(cartItems)
   if(!data) return;
 
   const product = data.data[0].attributes
-  console.log(product)
   // const product = products.find((item) => item.id === parseInt(id))
 
   const decrement = () => {
@@ -55,7 +58,7 @@ const ProductDetails = () => {
             </div>
             <div className="product-btn">
               <span><AiOutlineHeart className='icon-heart' /></span>
-              <div className="btn-add-cart">
+              <div className="btn-add-cart" onClick={() => {addToCart(data.data[0], qty);setQty(1)}}>
                 <Button name='Add to cart' />
               </div>
             </div>

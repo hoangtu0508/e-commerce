@@ -1,14 +1,30 @@
+.profile {
+    .profile_account {
+        .profile_account_img {
 
+        }
 
-.profile_menu_one_item {
-    display: flex;
-    justify-content:space-between;
-}
+        .profile_account_info{
 
-span {
-    margin-left: 20%;
-    text-align: center;
-}
-.icon_item {
-    text-align: left;
+        }
+    }
+    .profile_menu {
+        .profile_menu_one {
+            .profile_menu_one_item {
+                display: flex;
+                align-items: center;
+                p {
+                    a {
+                        display: flex;
+                        align-items: center;
+                        justify-content: flex-start;
+                        .text-item {
+                            margin-left: 20%;
+                        }
+                    }
+  
+                }
+            }
+        }
+    }
 }

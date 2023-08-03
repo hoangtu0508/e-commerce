@@ -9,7 +9,7 @@ import Cart from '../../Cart/Cart'
 import Category from '../../Category/Category'
 import Profile from './Profile/Profile'
 
-const Nav = () => {
+const Nav = ({basketItems, isLoggedIn}) => {
     const [showCart, setShowCart] = useState(false)
     const location = useLocation()
 
@@ -35,11 +35,6 @@ const Nav = () => {
         setIsOpen(false);
     }
 
-    function handleLogout() {
-        localStorage.clear();
-        // localStorage.removeItem('userInfo');
-        setIsLogin(false);
-    }
 
     return (
         <>
@@ -67,15 +62,14 @@ const Nav = () => {
                 <div className="nav-right">
                     <ul>
                         <li className='nav-search'><span><RiSearch2Line className='icon-search' /></span></li>
-                        <li className='nav-right-cart'><span onClick={() => setShowCart(true)}><HiOutlineShoppingBag style={{ width: 25, height: 25 }} /></span></li>
+                        <li className='nav-right-cart'><span onClick={() => setShowCart(true)}>{basketItems}<HiOutlineShoppingBag style={{ width: 25, height: 25 }} /></span></li>
                         {isLogin ? (
                             // if user is logged in, show profile button and dropdown menu
                             <li className='nav-right-btn'>
                                 <CgProfile className='icon-profile' onClick={handleClick} />
                                 {isOpen && (
                                     <div className="dropdown-content">
-                                        <Profile/>
-                                        <button onClick={handleLogout}>Logout</button>
+                                        <Profile setIsLogin={setIsLogin}/>
                                     </div>
                                 )}
                             </li>

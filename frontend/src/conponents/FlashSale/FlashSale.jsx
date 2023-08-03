@@ -3,7 +3,6 @@ import './FlashSale.scss'
 import { Context } from '../../utils/AppContext'
 import Slide from '../Slide/Slide'
 
-
 const FlashSale = () => {
     const {products} = useContext(Context)
    
