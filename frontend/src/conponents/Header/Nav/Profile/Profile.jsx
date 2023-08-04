@@ -5,6 +5,7 @@ import { FaUserAlt, FaRegImage, FaUserEdit } from "react-icons/fa";
 import { MdHelpCenter } from "react-icons/md";
 import { BiSolidLogOutCircle } from 'react-icons/bi'
 import './Profile.scss'
+import { getCurrentUser, getUser } from '../../../../helpers';
 
 const Profile = ({ setIsLogin }) => {
   function handleLogout() {
@@ -12,6 +13,9 @@ const Profile = ({ setIsLogin }) => {
     // localStorage.removeItem('userInfo');
     setIsLogin(false);
   }
+
+  const userProfile = getUser()
+  console.log(userProfile) 
   return (
     <div className='profile'>
       <div className='profile_account'>
@@ -24,7 +28,7 @@ const Profile = ({ setIsLogin }) => {
         />
 
         <div className='profile_account_info'>
-          <p>Shoaib Bhai</p>
+          <p>{userProfile.username}</p>
         </div>
       </div>
 

@@ -10,9 +10,11 @@ import Category from './conponents/Category/Category';
 import ProductDetails from './conponents/ProductDetails/ProductDetails';
 import AppContext from './utils/AppContext';
 import Nav from './conponents/Header/Nav/Nav';
+import Basket from './conponents/Basket';
+import useBasket from './conponents/Basket/useBasket';
 
 function App() {
-
+  const {basket, addToBasket} = useBasket()
   return (
     <BrowserRouter>
       <AppContext>
@@ -27,7 +29,7 @@ function App() {
             <Route path='sign-in' element={<SignIn />} />
             <Route path='sign-up' element={<SignUp />} />
             <Route path='product/:id' element={<ProductDetails />} />
-
+            <Route path='basket' element={<Basket basket={basket}/>}/>
           </Route>
 
         </Routes>

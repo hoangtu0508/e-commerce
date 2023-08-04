@@ -3,6 +3,7 @@ import './Cart.scss'
 import { AiOutlineClose } from 'react-icons/ai'
 import { MdDeleteForever } from 'react-icons/md'
 import { Context } from '../../utils/AppContext'
+import { useNavigate } from 'react-router-dom'
 
 const Cart = ({ setShowCart }) => {
     const cartProducts = [
@@ -28,7 +29,7 @@ const Cart = ({ setShowCart }) => {
             imgProduct: 'https://kinhmatanna.com/wp-content/uploads/2023/06/DSC_4082-copy-1-300x300.jpg'
         }
     ]
-    const {cartItems} = useContext(Context)
+    const {cartItems, removeItemCart} = useContext(Context)
     const [cart, setCart] = useState(cartProducts)
 
     console.log(cartItems)
@@ -45,6 +46,13 @@ const Cart = ({ setShowCart }) => {
             const cartNews = cartItems.filter((item => item.id !== Id));
             setCart(cartNews);
         }
+    }
+
+    const navigate = useNavigate()
+
+    const handleViewCart = () => {
+        setShowCart(false)
+        navigate('basket')
     }
     return (
         <div className='cart-panel'>
@@ -91,7 +99,7 @@ const Cart = ({ setShowCart }) => {
                                     >
                                     </input>
                                 </div>
-                                <span onClick={() => handleDele(productCart.id)}><MdDeleteForever className='dele-cart-product' /></span>
+                                <span onClick={() => removeItemCart()}><MdDeleteForever className='dele-cart-product' /></span>
                             </div>
                         )
                     })}
@@ -103,7 +111,7 @@ const Cart = ({ setShowCart }) => {
                 </div>
                 <hr></hr>
                 <div className='cart-button'>
-                    <button>VIEW CART</button>
+                    <button onClick={() => handleViewCart()}>VIEW CART</button>
                     <button>CHECK OUT</button>
                 </div>
             </div>

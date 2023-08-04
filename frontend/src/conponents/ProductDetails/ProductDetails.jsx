@@ -8,7 +8,7 @@ import Slide from '../Slide/Slide'
 import useFetch from '../../hooks/useFetch'
 import { Context } from '../../utils/AppContext'
 
-const ProductDetails = () => {
+const ProductDetails = ({addToBasket}) => {
   const { id } = useParams();
   const { data } = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
   const [qty, setQty] = useState(1)
