@@ -67,6 +67,20 @@
                         margin-left: 10px;
                         
                     }
+
+                    .quantity {
+                        font-size: 16px;
+                        font-weight: 500;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        margin-left: 5px;
+                        span {
+                            padding: 5px;
+                            border: 2px solid var(--main-color);
+                            border-radius: 5px;
+                        }
+                    }
                 }
 
                 span {
@@ -108,6 +122,22 @@
                 color: var(--main-color);
             }
 
+        }
+
+        .no-product-cart {
+            .icon {
+                span {
+                    .icon-cartX {
+                        width: 70px;
+                        height: 70px;
+                    }
+                }
+            }
+
+            .btn {
+                width: 50%;
+                margin: 0 auto;
+            }
         }
 
     }

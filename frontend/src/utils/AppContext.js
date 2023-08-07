@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { getToken } from '../helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
+import { useLocation } from 'react-router-dom'
 
 export const Context = createContext()
 const jwt = getToken()
@@ -15,8 +16,17 @@ const AppContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
   const [cartSubTotal, setCartSubTotal] = useState(0)
+  const location = useLocation();
 
-  useEffect(() => { }, [cartItems]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location])
+
+  useEffect(() => { 
+    let count = 0;
+    cartItems.map(item => (count += item.attributes.qty))
+    setCartCount(count)
+  }, [cartItems]);
 
   const addToCart = async (product, qty) => {
     let items = [...cartItems];
@@ -28,47 +38,29 @@ const AppContext = ({ children }) => {
       items = [...items, product];
     }
     setCartItems(items);
-
-    // try {
-    //   const cartData = { items };
-    //   console.log(cartData)
-    //   console.log(jwt)
-    //   if (!!jwt) {
-    //     await axios.post("http://localhost:1337/api/carts",
-    //       {cartData},
-    //       {
-    //         headers: {
-    //           Authorization: `bearer ${jwt}`,
-    //         },
-    //       }
-    //     )
-    //   }
-    //   // const response = await strapi.request('/api/carts', {
-    //   //   method: 'POST',
-    //   //   headers: {
-    //   //     Authorization: `bearer ${token}`,
-    //   //     'Content-Type': 'application/json'
-    //   //   },
-    //   //   body: JSON.stringify(cartData)
-    //   // });
-    //   // if(!!token) {
-    //   //   await axios.post("http://localhost:1337/api/carts") {
-    //   //     data: {
-
-    //   //     }
-    //   //   }
-    //   // }
-    //   // console.log('Cart saved to Strapi:', response);
-    // } catch (error) {
-    //   console.error('Error saving cart to Strapi:', error);
-    // }
   }
 
   const removeItemCart = (product) => {
-    let items = [...cartItems];
-    items = items.filter((p) => p.id !== product.id);
-    setCartItems(items);
+    const shouldDelete = window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?");
+    if (shouldDelete) {
+      let items = [...cartItems];
+      items = items.filter((p) => p.id !== product.id);
+      setCartItems(items);
+    }
+
   }
+
+  const handleCartProductQuantity = (type, product) => {
+    let items = [...cartItems];
+    let index = items?.findIndex((p) => p.id === product?.id);
+    if (type === "inc") {
+      items[index].attributes.qty += 1;
+    } else if (type === "dec") {
+      if (items[index].attributes.qty === 1) return;
+      items[index].attributes.qty -= 1;
+    }
+    setCartItems(items);
+  };
   return (
     <Context.Provider
       value={{
@@ -83,7 +75,8 @@ const AppContext = ({ children }) => {
         cartSubTotal,
         setCartSubTotal,
         addToCart,
-        removeItemCart
+        removeItemCart,
+        handleCartProductQuantity
       }}
     >
       {children}

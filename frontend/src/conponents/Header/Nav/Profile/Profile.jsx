@@ -28,7 +28,7 @@ const Profile = ({ setIsLogin }) => {
         />
 
         <div className='profile_account_info'>
-          <p>{userProfile.username}</p>
+          <p>{userProfile?.username || "Guest"}</p>
         </div>
       </div>
 

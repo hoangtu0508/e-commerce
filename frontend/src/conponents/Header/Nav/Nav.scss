@@ -120,6 +120,19 @@
 
         .nav-right-cart {
             padding-right: 20px;
+            position: relative;
+            span {
+                .cart-count {
+                    font-size: 10px;
+                    position: absolute;
+                    background-color: var(--main-color);
+                    color: var(--background-color);
+                    padding: 0px 5px;
+                    border-radius: 50%;
+                    top: -5px;
+                    right: 10px;
+                }
+            }
         }
 
         .nav-right-btn {

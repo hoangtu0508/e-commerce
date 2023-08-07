@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { GiSunglasses } from 'react-icons/gi'
 import { RiSearch2Line } from 'react-icons/ri'
@@ -8,13 +8,16 @@ import './Nav.scss'
 import Cart from '../../Cart/Cart'
 import Category from '../../Category/Category'
 import Profile from './Profile/Profile'
+import { Context } from '../../../utils/AppContext'
 
-const Nav = ({basketItems, isLoggedIn}) => {
+const Nav = () => {
     const [showCart, setShowCart] = useState(false)
     const location = useLocation()
 
     const [isOpen, setIsOpen] = useState(false);
     const [isLogin, setIsLogin] = useState(false)
+
+    const {cartCount} = useContext(Context)
 
     useEffect(() => {
         const userInfo = localStorage.getItem('userInfo');
@@ -62,7 +65,7 @@ const Nav = ({basketItems, isLoggedIn}) => {
                 <div className="nav-right">
                     <ul>
                         <li className='nav-search'><span><RiSearch2Line className='icon-search' /></span></li>
-                        <li className='nav-right-cart'><span onClick={() => setShowCart(true)}>{basketItems}<HiOutlineShoppingBag style={{ width: 25, height: 25 }} /></span></li>
+                        <li className='nav-right-cart'><span onClick={() => setShowCart(true)}>{!!cartCount && <span className='cart-count'>{cartCount}</span>}<HiOutlineShoppingBag style={{ width: 25, height: 25 }} /></span></li>
                         {isLogin ? (
                             // if user is logged in, show profile button and dropdown menu
                             <li className='nav-right-btn'>
