@@ -12,6 +12,10 @@ import AppContext from './utils/AppContext';
 import Nav from './conponents/Header/Nav/Nav';
 import Basket from './conponents/Basket';
 import useBasket from './conponents/Basket/useBasket';
+import Profile from './conponents/Profile/Profile';
+import MyProfile from './conponents/Profile/MyProfile/MyProfile';
+import EditProfile from './conponents/Profile/EditProfile/EditProfile';
+import Order from './conponents/Profile/Order/Order';
 
 function App() {
   const {basket, addToBasket} = useBasket()
@@ -30,6 +34,11 @@ function App() {
             <Route path='sign-up' element={<SignUp />} />
             <Route path='product/:id' element={<ProductDetails />} />
             <Route path='basket' element={<Basket basket={basket}/>}/>
+            <Route path='/profile' element={<Profile/>}>
+              <Route path='/profile/my-profile' element={<MyProfile />}></Route>
+              <Route path='/profile/edit-profile' element={<EditProfile />}></Route>
+              <Route path='/profile/order' element={<Order />}></Route>
+            </Route>
           </Route>
 
         </Routes>

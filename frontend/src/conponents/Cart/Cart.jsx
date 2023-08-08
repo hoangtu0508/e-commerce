@@ -8,6 +8,7 @@ import Button from '../Button/Button'
 import { BsCartX } from 'react-icons/bs'
 import { loadStripe } from "@stripe/stripe-js"
 import { makePaymentRequest } from '../../utils/api'
+import { getUser } from '../../helpers'
 
 const Cart = ({ setShowCart }) => {
     const { cartItems, removeItemCart, handleCartProductQuantity } = useContext(Context)
@@ -19,13 +20,6 @@ const Cart = ({ setShowCart }) => {
         return acc + item.attributes.ProductPrice * item.attributes.qty;
     }, 0);
 
-    // const handleDele = (Id) => {
-    //     const shouldDelete = window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?");
-    //     if (shouldDelete) {
-    //         const cartNews = cartItems.filter((item => item.id !== Id));
-    //         setCart(cartNews);
-    //     }
-    // }
 
     const navigate = useNavigate()
 
@@ -40,15 +34,22 @@ const Cart = ({ setShowCart }) => {
 
     }
 
+
+
     const stripePromise = loadStripe(
         process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
     );
+    const userProfile = getUser()
+    const userId = userProfile.id
+    console.log(userId)
 
     const handlePayment = async () => {
         try {
             const stripe = await stripePromise;
             const res = await makePaymentRequest.post("/api/orders", {
                 products: cartItems,
+                userId: userId,
+                status: 'Processing'
             });
             await stripe.redirectToCheckout({
                 sessionId: res.data.stripeSession.id,
@@ -57,6 +58,8 @@ const Cart = ({ setShowCart }) => {
             console.log(err);
         }
     };
+
+    
 
     return (
         <div className='cart-panel'>
@@ -84,26 +87,7 @@ const Cart = ({ setShowCart }) => {
                                                 <p>{productCart.attributes.qty} x {productCart.attributes.ProductPrice}</p>
 
                                             </div>
-                                            {/* <input type="number"
-                                        value={productCart.attributes.qty}
-                                        onChange={(e) => {
-                                            const index = cart.findIndex((item) => item.id === productCart.attributes.id);
-                                            const newCart = [...cart];
-                                            newCart[index].qty = parseInt(e.target.value);
-                                            if (newCart[index].qty === 0) {
-                                                const showDele = window.confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")
-                                                if (showDele) {
-                                                    newCart.splice(index, 1);
-                                                } else {
-                                                    newCart[index].qty = 1;
-                                                }
-
-                                            }
-                                            setCart(newCart);
-                                        }}
-                                        min={0}
-                                    >
-                                    </input> */}
+                                           
 
                                             <div className='quantity'>
                                                 <span onClick={() => handleCartProductQuantity("dec", productCart)}>-</span>
@@ -124,7 +108,7 @@ const Cart = ({ setShowCart }) => {
                         <hr></hr>
                         <div className='cart-button'>
                             <button onClick={() => handleViewCart()}>VIEW CART</button>
-                            <button onClick={handlePayment}>CHECK OUT</button>
+                            <button onClick={() => handlePayment()}>CHECK OUT</button>
                         </div>
                     </>
 

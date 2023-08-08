@@ -3,6 +3,7 @@ import { getToken } from '../helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
+import { getUserProfile } from './api'
 
 export const Context = createContext()
 const jwt = getToken()
@@ -18,15 +19,40 @@ const AppContext = ({ children }) => {
   const [cartSubTotal, setCartSubTotal] = useState(0)
   const location = useLocation();
 
+  const [userData, setUserData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    newPassword: '',
+    confirmPassword: '', 
+  });
+
+  const user = JSON.parse(localStorage.getItem('user'))
+  const userId = user?.user.id
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location])
 
-  useEffect(() => { 
+  useEffect(() => {
     let count = 0;
     cartItems.map(item => (count += item.attributes.qty))
     setCartCount(count)
   }, [cartItems]);
+
+  useEffect(() => {
+    // Lấy thông tin người dùng hiện tại từ API của Strapi và cập nhật state
+    const fetchUserData = async () => {
+      try {
+        const response = await getUserProfile.get(`/api/users/${userId}`); // Thay đổi URL tương ứng với API của Strapi
+        setUserData(response.data);
+      } catch (error) {
+        console.error('Lỗi khi lấy thông tin người dùng:', error);
+      }
+    };
+
+    fetchUserData();
+  }, []);
 
   const addToCart = async (product, qty) => {
     let items = [...cartItems];
@@ -76,7 +102,9 @@ const AppContext = ({ children }) => {
         setCartSubTotal,
         addToCart,
         removeItemCart,
-        handleCartProductQuantity
+        handleCartProductQuantity,
+        userData,
+        setUserData,
       }}
     >
       {children}

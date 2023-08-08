@@ -1,0 +1,83 @@
+.profile-page {
+    width: 80%;
+    margin: 10rem auto;
+    display: flex;
+    justify-content: center;
+    
+
+    .left-profile {
+
+        width: 40%;
+        box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        padding: 30px ;
+
+        .left-profile-img {
+            
+
+            .left-profile-icon {
+                color: var(--main-color);
+                width: 100px;
+                height: 100px;
+            }
+        }
+
+        .left-profile-title {
+            margin-bottom: 30px;
+            color: var(--main-color);
+        }
+
+        .left-profile-link {
+            margin: 30px 0;
+            
+            .left-profile-link-item {
+                padding: 10px;
+                a {
+                    text-decoration: none;
+                    color: var(--main-color);
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    margin-left: 20%;
+                    
+                    .text-item {
+                        margin-left: 20%;
+                    }
+                }
+            }
+        }
+
+        .left-profile-link-item:hover {
+            background-color: var(--main-color);
+            a {
+                color: var(--background-color);
+            }
+            
+        }
+    }
+
+    .right-profile {
+        margin-left: 30px;
+        padding: 30px;
+        width: 60%;
+        border-radius: 5px;
+        box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.2);
+
+        .right-profile-content {
+            .right-profile-content-info {
+                text-align: left;
+                margin: 30px 0;
+                span {
+                    width: 100%;
+                    
+                }
+                .content-info-title {
+                    margin-top: 10px;
+                    width: 100%;
+                    padding: 10px;
+                    border: 2px solid var(--main-color);
+                }
+            }
+        }
+    }
+}

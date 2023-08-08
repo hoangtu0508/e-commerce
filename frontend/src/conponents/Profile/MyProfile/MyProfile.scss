@@ -1,0 +1,20 @@
+.my-profile {
+    .right-profile-content {
+        .right-profile-content-info {
+            text-align: left;
+            margin: 30px 0;
+
+            span {
+                width: 100%;
+
+            }
+
+            .content-info-title {
+                margin-top: 10px;
+                width: 100%;
+                padding: 10px;
+                border: 2px solid var(--main-color);
+            }
+        }
+    }
+}

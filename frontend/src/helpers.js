@@ -15,7 +15,7 @@ export const userData = () => {
 
 export const getToken = () => {
     const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token.jwt
+    const jwt = token?.jwt
     return jwt 
 }
 

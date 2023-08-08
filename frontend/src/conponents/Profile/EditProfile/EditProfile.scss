@@ -1,0 +1,50 @@
+.edit-profile {
+    .edit-profile-content {
+        .edit-profile-title {
+            text-align: left;
+            margin: 0 auto;
+            .title-item {
+                margin: 30px 0;
+                text-align: left;
+
+                label {
+                    text-align: left;
+                }
+
+                .title-item-input {
+                    input {
+                        margin-top: 10px;
+                        height: 40px;
+                        padding: 10px;
+                        width: 100%;
+                    }
+                }
+
+                .new-pass {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    .title-item-new-pass {
+                        width: 49%;
+                        margin: 0 auto;
+                    }
+                }
+
+                
+            }
+
+            button {
+                margin-top: 30px;
+                padding: 10px 30px;
+                background-color: var(--background-color);
+                color: var(--main-color);
+                border: 2px solid var(--main-color);
+            }
+
+            button:hover {
+                background-color: var(--main-color);
+                color: var(--background-color);
+            }
+        }
+    }
+}

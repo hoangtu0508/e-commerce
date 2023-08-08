@@ -4,6 +4,7 @@ import { AiOutlineStar, AiOutlineHeart, AiOutlineArrowDown } from 'react-icons/a
 import ProductDetails from '../ProductDetails/ProductDetails'
 import { Context } from '../../utils/AppContext'
 import { useContext } from 'react'
+import { Link } from 'react-router-dom'
 
 const Product = ({ product }) => {
     const {addToCart, cartItems} = useContext(Context)
@@ -17,7 +18,8 @@ const Product = ({ product }) => {
         <>
             <div className='product-show' key={product.id}>
                 <div className='product-show-img'>
-                    <a href={`/product/${product.id}`}><img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url}></img></a>
+                    <Link to={`/product/${product.id}`}><img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url}></img></Link>
+                    {/* <a href={`/product/${product.id}`}></a> */}
                 </div>
                 <div className='product-show-content'>
                     <div className='product-title'>

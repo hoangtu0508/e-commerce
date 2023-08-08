@@ -1,13 +1,15 @@
 import React from 'react'
 import './SlideFlashSale.scss'
 import { AiOutlineStar, AiOutlineHeart,AiOutlineArrowDown } from 'react-icons/ai'
+import { Link } from 'react-router-dom';
 
 const SlideFlashSale = ({ product }) => {
 
   return (
     <div className='product-slide-item'>
       <div className='product-slide-item-img'>
-        <a href={`../product/${product.id}`}><img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url} alt='' /></a>
+        <Link to={`/product/${product.id}`}><img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url} alt='' /></Link>
+        {/* <a href={`../product/${product.id}`}></a> */}
       </div>
       <div className='product-slide-item-details'>
         <div className='product-slide-title'>
