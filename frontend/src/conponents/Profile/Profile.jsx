@@ -10,12 +10,13 @@ import { Context } from '../../utils/AppContext';
 
 const Profile = () => {
 
-    const {userData, setUserData} = useContext(Context)
+    const {userData, setUserData, setIsLogin} = useContext(Context)
 
     const navigate = useNavigate()
     function handleLogout() {
-        localStorage.clear();
         navigate('/')
+        localStorage.clear();
+        setIsLogin(false)
         // localStorage.removeItem('userInfo');
     }
 
@@ -56,9 +57,9 @@ const Profile = () => {
                         </p>
 
                     </div>
-                    <div className='left-profile-link-item'>
+                    <div className='left-profile-link-item' onClick={handleLogout}>
                         <p>
-                            <Link onClick={handleLogout}><BiSolidLogOutCircle className='icon_item' /><span className='text-item'>Logout</span></Link>
+                            <Link ><BiSolidLogOutCircle className='icon_item' /><span className='text-item'>Logout</span></Link>
                         </p>
 
                     </div>

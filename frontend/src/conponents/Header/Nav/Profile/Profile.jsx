@@ -56,7 +56,7 @@ const Profile = ({ setIsLogin }) => {
           </div>
           <div className='profile_menu_one_item'>
             <p>
-              <Link to={'order'}><FaShoppingCart className='icon_item' /><span className='text-item'>Order</span></Link>
+              <Link to={'profile/order'}><FaShoppingCart className='icon_item' /><span className='text-item'>Order</span></Link>
             </p>
           </div>
           <div className='profile_menu_one_item'>

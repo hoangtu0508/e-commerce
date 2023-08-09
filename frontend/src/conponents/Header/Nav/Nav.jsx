@@ -15,9 +15,9 @@ const Nav = () => {
     const location = useLocation()
 
     const [isOpen, setIsOpen] = useState(false);
-    const [isLogin, setIsLogin] = useState(false)
+    // const [isLogin, setIsLogin] = useState(false)
 
-    const {cartCount} = useContext(Context)
+    const {cartCount, isLogin, setIsLogin} = useContext(Context)
 
     useEffect(() => {
         const userInfo = localStorage.getItem('userInfo');

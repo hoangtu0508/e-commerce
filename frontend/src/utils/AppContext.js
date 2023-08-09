@@ -17,6 +17,8 @@ const AppContext = ({ children }) => {
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
   const [cartSubTotal, setCartSubTotal] = useState(0)
+
+  const [isLogin, setIsLogin] = useState(false)
   const location = useLocation();
 
   const [userData, setUserData] = useState({
@@ -105,6 +107,8 @@ const AppContext = ({ children }) => {
         handleCartProductQuantity,
         userData,
         setUserData,
+        isLogin,
+        setIsLogin
       }}
     >
       {children}
