@@ -39,3 +39,10 @@ export const getOrderUser = axios.create({
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
 });
+
+export const postCartUser = axios.create({
+    baseURL: process.env.REACT_APP_DEV_URL,
+    headers: {
+        Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
+    },
+});

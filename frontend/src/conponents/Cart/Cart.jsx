@@ -11,7 +11,7 @@ import { makePaymentRequest } from '../../utils/api'
 import { getUser } from '../../helpers'
 
 const Cart = ({ setShowCart }) => {
-    const { cartItems, removeItemCart, handleCartProductQuantity } = useContext(Context)
+    const { cartItems, removeItemCart, handleCartProductQuantity, userCart, } = useContext(Context)
     // const [cart, setCart] = useState(cartProducts)
 
     // const [total, setTotal] = useState(0)
@@ -34,14 +34,13 @@ const Cart = ({ setShowCart }) => {
 
     }
 
-
-
     const stripePromise = loadStripe(
         process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
     );
     const userProfile = getUser()
     const userId = userProfile.id
-    console.log(userId)
+    console.log(userCart)
+    console.log(cartItems)
 
     const handlePayment = async () => {
         try {
@@ -59,6 +58,8 @@ const Cart = ({ setShowCart }) => {
         }
     };
 
+
+    console.log(cartItems)
     
 
     return (

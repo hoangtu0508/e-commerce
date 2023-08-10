@@ -19,12 +19,6 @@
       "relation": "manyToMany",
       "target": "api::product.product",
       "mappedBy": "categories"
-    },
-    "cart": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::cart.cart",
-      "mappedBy": "category"
     }
   }
 }

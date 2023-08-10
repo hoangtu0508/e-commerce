@@ -4,40 +4,19 @@
   "info": {
     "singularName": "cart",
     "pluralName": "carts",
-    "displayName": "Cart"
+    "displayName": "Cart",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
   },
   "pluginOptions": {},
   "attributes": {
-    "ProductName": {
-      "type": "string"
-    },
-    "ProductDesc": {
-      "type": "text"
-    },
-    "ProductPrice": {
+    "userId": {
       "type": "biginteger"
     },
-    "ProductImg": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true
-    },
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category",
-      "inversedBy": "cart"
-    },
-    "qty": {
-      "type": "biginteger"
+    "products": {
+      "type": "json"
     }
   }
 }
