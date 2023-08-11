@@ -38,7 +38,7 @@ const Cart = ({ setShowCart }) => {
         process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY
     );
     const userProfile = getUser()
-    const userId = userProfile.id
+    const userId = userProfile?.id
     console.log(userCart)
     console.log(cartItems)
 

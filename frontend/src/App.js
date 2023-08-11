@@ -16,6 +16,8 @@ import Profile from './conponents/Profile/Profile';
 import MyProfile from './conponents/Profile/MyProfile/MyProfile';
 import EditProfile from './conponents/Profile/EditProfile/EditProfile';
 import Order from './conponents/Profile/Order/Order';
+import AdminLayout from './Admin/AdminLayout';
+import Dashboard from './Admin/components/pages/Dashboard/Dashboard';
 
 function App() {
   const {basket, addToBasket} = useBasket()
@@ -39,6 +41,10 @@ function App() {
               <Route path='/profile/edit-profile' element={<EditProfile />}></Route>
               <Route path='/profile/order' element={<Order />}></Route>
             </Route>
+          </Route>
+
+          <Route path='/admin' element={<AdminLayout />}>
+            <Route path='/admin' element={<Dashboard />}></Route>
           </Route>
 
         </Routes>

@@ -1,0 +1,12 @@
+.admin-layout {
+    background-color: #eef0f6;
+    display: flex;
+    .admin-layout-slider-bar {
+        width: 20%;
+        // box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .admin-layout-main {
+        
+        width: 80%;
+    }
+}

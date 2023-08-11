@@ -21,7 +21,7 @@ export const getToken = () => {
 
 export const getUser = () => {
     const user = JSON.parse(localStorage.getItem('user'))
-    const userProfile = user.user
+    const userProfile = user?.user
     return userProfile
 }
 

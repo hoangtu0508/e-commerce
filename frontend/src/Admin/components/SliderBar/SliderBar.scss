@@ -1,0 +1,38 @@
+.admin-slider {
+    width: 100%;
+    background-color: white;
+    padding: 30px;
+    color: var(--main-color);
+
+    a {
+        text-decoration: none;
+        color: var(--main-color);
+        display: flex;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 600;
+        padding: 5px 20px;
+    }
+
+    a:hover {
+        background-color: var(--main-color);
+        color: var(--background-color);
+    }
+
+    li {
+        list-style: none;
+    }
+
+    .admin-slider-bar {
+        h3 {
+            font-size: 12px;
+        }
+        .admin-list {
+            
+            padding: 20px 0px;
+            .admin-list-icon {
+                margin-right: 15px;
+            }
+        }
+    }
+}
