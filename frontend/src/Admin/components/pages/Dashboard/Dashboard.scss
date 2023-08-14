@@ -1,14 +1,143 @@
 .dashboard {
-    padding-left: 20px;
-    .box-one {
-        width: 100px;
-        height: 100px;
-        background-color: white;
+    margin: 20px 0px;
+    padding: 30px;
+    color: var(--main-color);
+    height: 80vh;
+    overflow-y: scroll;
+
+    h2 {
+        margin-left: 10px;
     }
 
-    .box-two {
-        width: 100px;
-        height: 100px;
-        background-color: white;
+    .dashboard-content {
+
+        display: flex;
+        width: 100%;
+
+        .dashboard-items {
+            margin: 20px 15px;
+            width: 30%;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+
+            .content {
+                font-size: 12px;
+
+                p {
+                    font-size: 40px;
+                    padding-top: 15px;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .content-icon {
+                    margin-right: 30px;
+                }
+            }
+        }
+
+        .dashboard-total-revenue {
+            .total-revenue-content {}
+        }
+
+        .dashboard-total-order {
+            .total-order-content {}
+        }
     }
+
+    .chart-title {
+        h3 {
+            font-size: 16px;
+        }
+    }
+
+    .charts {
+        display: flex;
+
+        .dashboard-items {
+            margin: 20px 0px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        .chart-col {
+            width: 60%;
+            height: 100%;
+
+            .chart-col-content {
+                width: 90%;
+            }
+        }
+
+        .chart-pie {
+            width: 40%;
+            height: 100%;
+
+            .chart-pie-content {
+                width: 90%;
+            }
+        }
+    }
+
+    .list-order {
+        margin-left: 10px;
+        width: 95%;
+        margin: 20px 0px;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: white;
+
+        .list-order-content {
+            table {
+                width: 100%;
+                padding: 20px 10px;
+                tr {
+                    display: flex;
+                    justify-content: center;
+                    border-bottom: 2px solid var(--main-color);
+                    width: 100%;
+                    align-items: center;
+                    padding: 5px;
+                    
+                    input {
+                        width: 30px;
+                        height: 30px;
+                    }
+                    td {
+                        width: 20%;
+                        margin: 5px auto;
+                        text-align: center;
+                    }
+
+                    th {
+                        width: 20%;
+                    }
+
+                    .td-img {
+                        width: 20%;
+
+                        img {
+                            width: 50px;
+                            height: 50px;
+                        }
+                    }
+
+                    .Pending {
+                        color: red;
+                    }
+
+                    .Processing {
+                        color: rgb(205, 187, 50);
+                    }
+
+                    .Completed {
+                        color: green;
+                    }
+                }
+            }
+        }
+    }
+
 }

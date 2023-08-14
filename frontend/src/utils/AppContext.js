@@ -59,17 +59,6 @@ const AppContext = ({ children }) => {
 
     fetchUserData();
   }, []);
-  // const addToCart = async (product, qty) => {
-  //   let items = [...cartItems];
-  //   let index = items.findIndex(p => p.id === product.id)
-  //   if (index !== -1) {
-  //     items[index].attributes.qty += qty
-  //   } else {
-  //     product.attributes.qty = qty
-  //     items = [...items, product];
-  //   }
-  //   setCartItems(items);
-  // }
 
   const addToCart = async (product, qty) => {
     let items = [...cartItems];
@@ -103,12 +92,6 @@ const AppContext = ({ children }) => {
     setCartItems(items);
   };
 
-  // useEffect(() => {
-  //   const getCartUser = async () => {
-  //     const response = await postCartUser.get(`/api/carts/?filters[userId]=${userId}`)
-  //   }
-  // })
-  
 
   const removeItemCart = async (product) => {
     const updatedItems = cartItems.filter((p) => p.id !== product.id);
@@ -169,19 +152,6 @@ const AppContext = ({ children }) => {
     setCartItems(items);
   };
 
-  
-
-  // const handleCartProductQuantity = (type, product) => {
-  //   let items = [...cartItems];
-  //   let index = items?.findIndex((p) => p.id === product?.id);
-  //   if (type === "inc") {
-  //     items[index].attributes.qty += 1;
-  //   } else if (type === "dec") {
-  //     if (items[index].attributes.qty === 1) return;
-  //     items[index].attributes.qty -= 1;
-  //   }
-  //   setCartItems(items);
-  // };
   return (
     <Context.Provider
       value={{
