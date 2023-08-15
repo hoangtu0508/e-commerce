@@ -12,13 +12,13 @@ const SliderBar = () => {
                 <div className="admin-list">
                     <ul>
                         <li>
-                            <Link><AiFillHome className='admin-list-icon'/>Dashboard</Link>
+                            <Link to='/admin'><AiFillHome className='admin-list-icon'/>Dashboard</Link>
                         </li>
                         <li>
-                            <Link><BiSolidBox className='admin-list-icon'/>New Product</Link>
+                            <Link to='new-product'><BiSolidBox className='admin-list-icon'/>New Product</Link>
                         </li>
                         <li>
-                            <Link><BiLink className='admin-list-icon'/>New Category</Link>
+                            <Link to='new-category'><BiLink className='admin-list-icon'/>New Category</Link>
                         </li>
                     </ul>
                 </div>
@@ -29,10 +29,10 @@ const SliderBar = () => {
                 <div className="admin-list">
                     <ul>
                         <li>
-                            <Link><BiSolidBox className='admin-list-icon'/>Product</Link>
+                            <Link to='product'><BiSolidBox className='admin-list-icon'/>Product</Link>
                         </li>
                         <li>
-                            <Link><BiLink className='admin-list-icon'/>Categories</Link>
+                            <Link to='categories'><BiLink className='admin-list-icon'/>Categories</Link>
                         </li>
                     </ul>
                 </div>
@@ -41,13 +41,13 @@ const SliderBar = () => {
             <div className="admin-slider-bar sale">
                 <h3>SALE</h3>
                 <div className="admin-list">
-                    <Link><BsFillBoxFill className='admin-list-icon'/>Order</Link>
+                    <Link to='orders'><BsFillBoxFill className='admin-list-icon'/>Orders</Link>
                 </div>
             </div>
             <div className="admin-slider-bar customers">
                 <h3>CUSTOMER</h3>
                 <div className="admin-list">
-                    <Link><BsFillPeopleFill className='admin-list-icon'/>Customers</Link>
+                    <Link to='customers'><BsFillPeopleFill className='admin-list-icon'/>Customers</Link>
                 </div>
             </div>
         </div>

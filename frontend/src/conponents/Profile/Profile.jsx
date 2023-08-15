@@ -4,7 +4,6 @@ import { BsEmojiSunglasses } from 'react-icons/bs'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { FaUserAlt, FaRegImage, FaUserEdit,FaShoppingCart} from "react-icons/fa";
 import { BiSolidLogOutCircle } from 'react-icons/bi'
-import { getUser } from '../../helpers';
 import { getUserProfile } from '../../utils/api';
 import { Context } from '../../utils/AppContext';
 

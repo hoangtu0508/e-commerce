@@ -8,7 +8,7 @@ import Button from '../Button/Button'
 import { BsCartX } from 'react-icons/bs'
 import { loadStripe } from "@stripe/stripe-js"
 import { makePaymentRequest } from '../../utils/api'
-import { getUser } from '../../helpers'
+import { getUser } from '../../utils/helpers'
 
 const Cart = ({ setShowCart }) => {
     const { cartItems, removeItemCart, handleCartProductQuantity, userCart, } = useContext(Context)

@@ -18,7 +18,7 @@ const SlideFlashSale = ({ product }) => {
             {product.attributes.ProductName}
             </h3>
             <h3>
-            {product.attributes.ProductPrice}đ <span>{product.attributes.ProductPrice}đ</span>
+            {product.attributes.ProductPrice}USD <span>{product.attributes.ProductPrice}USD</span>
             </h3>
           </div>
           <div className='price-percent'>

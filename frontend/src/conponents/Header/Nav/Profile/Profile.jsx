@@ -5,7 +5,6 @@ import { FaUserAlt, FaRegImage, FaUserEdit,FaShoppingCart } from "react-icons/fa
 import { MdHelpCenter } from "react-icons/md";
 import { BiSolidLogOutCircle } from 'react-icons/bi'
 import './Profile.scss'
-import { getCurrentUser, getUser } from '../../../../helpers';
 import {BsEmojiSunglasses} from 'react-icons/bs'
 import { Context } from '../../../../utils/AppContext';
 

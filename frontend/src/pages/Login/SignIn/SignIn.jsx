@@ -5,7 +5,7 @@ import Button from '../../../conponents/Button/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
 import axios from 'axios'
-import { storeUser } from '../../../helpers'
+import { storeUser } from '../../../utils/helpers'
 import { getUserProfile } from '../../../utils/api'
 
 const initialUser = { password: "", identifier: "" };

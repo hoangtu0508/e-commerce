@@ -92,7 +92,7 @@ const Dashboard = () => {
           ) : (
             <div className="content total-order-content">
               <h3>TOTAL ORDER</h3>
-              <p><BsFillBoxFill className="content-icon" />{orders.data.length}</p>
+              <p><BsFillBoxFill className="content-icon" />{orders.data?.length}</p>
             </div>
           )
 

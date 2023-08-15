@@ -25,7 +25,7 @@ const Product = ({ product }) => {
                     <div className='product-title'>
                         <div className='title-price'>
                             <h3>{product.attributes.ProductName}</h3>
-                            <h3>{product.attributes.ProductPrice}đ <span>{product.attributes.ProductPrice}đ</span></h3>
+                            <h3>{product.attributes.ProductPrice}USD <span>{product.attributes.ProductPrice}USD</span></h3>
                         </div>
                         <div className='price-percent'>
                             <span><AiOutlineArrowDown />{Math.round(((product.attributes.ProductPrice - product.attributes.ProductPrice) / product.attributes.ProductPrice) * 100)}%</span>

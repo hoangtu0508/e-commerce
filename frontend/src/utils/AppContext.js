@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
-import { getToken } from '../helpers'
+import { getToken } from './helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
