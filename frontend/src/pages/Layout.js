@@ -8,24 +8,6 @@ import { getUser, userData } from '../utils/helpers';
 
 const Layout = () => {
   const navigate = useNavigate()
-  const { products, setProducts, categories, setCategories } = useContext(Context);
-  console.log(products)
-  useEffect(() => {
-    getProducts();
-    getCategories();
-  }, []);
-
-  const getProducts = () => {
-    fetchDataFromApi("/api/products?populate=*").then((res) => {
-      setProducts(res.data);
-    });
-  };
-  const getCategories = () => {
-    fetchDataFromApi("/api/categories?populate=*").then((res) => {
-      setCategories(res.data);
-    });
-  };
-
 
   const { jwt } = userData();
   const isLoggedIn = !!jwt

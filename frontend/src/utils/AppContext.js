@@ -3,7 +3,7 @@ import { getToken } from './helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import { getUserProfile, postCartUser } from './api'
+import { fetchDataFromApi, getUserProfile, postCartUser } from './api'
 
 export const Context = createContext()
 const jwt = getToken()
@@ -50,7 +50,7 @@ const AppContext = ({ children }) => {
     // Lấy thông tin người dùng hiện tại từ API của Strapi và cập nhật state
     const fetchUserData = async () => {
       try {
-        const response = await getUserProfile.get(`/api/users/${userId}`); // Thay đổi URL tương ứng với API của Strapi
+        const response = await getUserProfile.get(`/api/users/${userId}`);
         setUserData(response.data);
       } catch (error) {
         console.error('Lỗi khi lấy thông tin người dùng:', error);
@@ -59,6 +59,22 @@ const AppContext = ({ children }) => {
 
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    getProducts();
+    getCategories();
+  }, []);
+
+  const getProducts = () => {
+    fetchDataFromApi("/api/products?populate=*").then((res) => {
+      setProducts(res.data);
+    });
+  };
+  const getCategories = () => {
+    fetchDataFromApi("/api/categories?populate=*").then((res) => {
+      setCategories(res.data);
+    });
+  };
 
   const addToCart = async (product, qty) => {
     let items = [...cartItems];

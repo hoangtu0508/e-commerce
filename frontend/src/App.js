@@ -19,6 +19,7 @@ import Order from './conponents/Profile/Order/Order';
 import AdminLayout from './Admin/AdminLayout';
 import Dashboard from './Admin/components/pages/Dashboard/Dashboard';
 import NewProducts from './Admin/components/pages/Products/NewProducts/NewProducts';
+import NewCategories from './Admin/components/pages/Categories/NewCategories/NewCategories';
 
 function App() {
   const {basket, addToBasket} = useBasket()
@@ -47,6 +48,7 @@ function App() {
           <Route path='/admin' element={<AdminLayout />}>
             <Route path='/admin' element={<Dashboard />}></Route>
             <Route path='new-product' element={<NewProducts />}></Route>
+            <Route path='new-category' element={<NewCategories />}></Route>
           </Route>
 
         </Routes>
