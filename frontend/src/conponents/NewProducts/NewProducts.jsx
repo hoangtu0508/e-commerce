@@ -15,7 +15,7 @@ const NewProducts = () => {
             </div>
             <div className='product-hot-container'>
                 <div className='list-products'>
-                    {products?.map((product) => {
+                    {products?.slice(0, 10).map((product) => {
                         console.log(product)
                         return (
                             <div className='product-new' key={product.id}>

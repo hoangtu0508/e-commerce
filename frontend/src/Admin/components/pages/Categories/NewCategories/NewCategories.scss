@@ -24,7 +24,7 @@
 
     .new-category-form {
         .form-content {
-            width: 95%;
+            width: 100%;
             display: flex;
             border-bottom: 1px solid var(--main-color);
 
@@ -59,7 +59,7 @@
 
             .form-left {
                 margin-top: 20px;
-                width: 60%;
+                width: 65%;
 
                 h4 {
                     margin-bottom: 20px;
@@ -147,21 +147,38 @@
 
             .form-right {
                 margin-top: 20px;
-                width: 40%;
+                width: 35%;
 
                 .form {
-                    
+
 
                     .form-input {
                         margin-top: 20px;
+
                         .parent-categories {
                             margin-top: 20px;
+
                             h5 {
                                 margin: 15px 0px;
 
                                 a {
                                     text-decoration: none;
                                 }
+                            }
+                        }
+
+                        .list-category {
+                            ul {
+                                li {
+                                    list-style-type: none;
+                                    padding: 10px;
+                                    width: 100%;
+                                    border: 1px solid var(--main-color);
+                                    border-radius: 5px;
+                                    margin: 5px 0px;
+                                }
+                                
+                                
                             }
                         }
                     }
@@ -171,6 +188,32 @@
 
 
 
+            }
+
+
+        }
+
+        .form-btn {
+            margin: 20px 0px;
+            display: flex;
+            justify-content: space-between;
+
+            input {
+                padding: 10px 20px;
+            }
+
+            .btn-cancel {
+                color: rgb(249, 91, 48);
+                font-weight: 700;
+                border: 2px solid rgb(249, 91, 48);
+                border-radius: 5px;
+            }
+
+            .btn-upload {
+                color: white;
+                background-color: rgb(6, 112, 77);
+                border-radius: 5px;
+                border: none;
             }
         }
     }

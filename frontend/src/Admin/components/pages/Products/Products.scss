@@ -1,0 +1,203 @@
+.admin-products {
+    margin: 30px;
+    color: var(--main-color);
+
+    .admin-products-title {
+        display: flex;
+        justify-content: space-between;
+
+        .btn-products-new {
+            padding: 10px 15px;
+            border: none;
+            background-color: rgb(6, 112, 77);
+            border-radius: 5px;
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+    .admin-products-content {
+        border-radius: 10px;
+        background-color: white;
+
+        margin-top: 20px;
+
+        .admin-products-content-list {
+            table {
+
+                width: 100%;
+                border: 1px solid var(--main-color-little-2);
+                border-radius: 7px;
+
+                thead {
+
+                    tr {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 3fr 2fr 2fr 1fr 1fr;
+                        /* Chia thành 3 cột có tỷ lệ bằng nhau */
+                        gap: 10px;
+                        padding: 10px 20px;
+
+                        .checkbox {
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        th {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            .input-price {
+                                display: flex;
+                                justify-content: left;
+                                align-items: center;
+
+                                input {
+                                    width: 70px;
+                                    margin: 10px 10px 10px 0px;
+                                }
+                            }
+
+                            input {
+                                margin: 10px 0px;
+                                padding: 10px;
+                                border-radius: 5px;
+                                border: 1px solid var(--main-color);
+                            }
+
+                            select {
+                                margin: 10px 0px;
+                                padding: 10px;
+                                width: 100%;
+                                border-radius: 5px;
+                                border: 1px solid var(--main-color);
+                            }
+                        }
+                    }
+                }
+
+                tbody {
+                    tr {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr 3fr 2fr 2fr 1fr 1fr;
+                        /* Chia thành 3 cột có tỷ lệ bằng nhau */
+                        gap: 10px;
+                        padding: 10px 20px;
+                        border-top: 1px solid var(--main-color-little-2);
+                        text-align: left;
+                        align-items: center;
+
+                        td {
+
+                            text-align: left;
+
+                            input {
+                                width: 20px;
+                                height: 20px;
+                            }
+
+                            img {
+                                width: 70px;
+                                height: 70px;
+                                border-radius: 5px;
+                            }
+
+                            .product-status {
+                                text-align: center;
+
+                                .product-status-true {
+                                    color: rgb(25, 204, 144);
+                                }
+
+                                .product-status-false {
+                                    color: rgb(255, 145, 145);
+                                }
+                            }
+
+                            span {
+                                .icon {
+                                    width: 20px;
+                                    height: 20px;
+                                    margin-right: 15px;
+                                }
+
+                                .action-edit {
+                                    color: rgb(242, 187, 85);
+                                }
+
+                                .action-dele {
+                                    color: rgb(238, 79, 79);
+                                }
+                            }
+                        }
+
+                        .product-actions {
+                            text-align: center;
+                        }
+
+                        
+
+
+                    }
+
+                    .current-page-number {
+                        display: flex;
+                        justify-content:space-between;
+                        align-items: center;
+                        border-top: 1px solid var(--main-color);
+                        padding: 20px;
+
+                        .number-product-page {
+                            display: flex;
+                            align-items: center;
+                            justify-content: left;
+                            input {
+                                margin: 0px 10px;
+                                padding: 10px;
+                            }
+                        }
+                        .pagination-info {
+                            display: flex;
+                            align-items: center;
+                            justify-content: right;
+                            .page-number {
+                                display: flex;
+                                align-items: center;
+
+                                input {
+                                    margin: 0px 10px;
+                                    width: 60px;
+                                    padding: 10px;
+                                    text-align: center;
+                                }
+                            }
+
+                            .number-product-total {
+                                display: flex;
+                                
+                            }
+
+                            .icon {
+                                padding: 10px;
+                                margin: 5px;
+                                border: 1px solid var(--main-color);
+
+                                .icon-next .icon-prev {
+                                    color: var(--main-color);
+                                    // padding: 10px;
+                                    width: 20px;
+                                    height: 20px;
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

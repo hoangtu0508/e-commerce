@@ -116,7 +116,7 @@ function NewProducts() {
   return (
     <div className='new-product'>
       <div className="new-product-title">
-        <Link><BiArrowBack className='icon-back' /></Link>
+        <Link to="/admin/product"><BiArrowBack className='icon-back' /></Link>
         <h2>Create A New Product</h2>
       </div>
 

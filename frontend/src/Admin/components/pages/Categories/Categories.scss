@@ -1,0 +1,22 @@
+.admin-categories {
+    margin: 30px;
+    color: var(--main-color);
+
+    .admin-categories-title {
+        display: flex;
+        justify-content: space-between;
+
+        .btn-category-new {
+            padding: 10px 15px;
+            border: none;
+            background-color: rgb(6, 112, 77);
+            border-radius: 5px;
+
+            a {
+                color: white;
+                text-decoration: none;
+            }
+        }
+    }
+
+}

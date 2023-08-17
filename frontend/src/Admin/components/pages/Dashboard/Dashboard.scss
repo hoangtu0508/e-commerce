@@ -1,19 +1,17 @@
 .dashboard {
     margin: 20px 0px;
-    padding: 30px;
+    padding: 30px ;
     color: var(--main-color);
-
-    h2 {
-        margin-left: 10px;
-    }
 
     .dashboard-content {
 
         display: flex;
         width: 100%;
+        margin: 20px auto;
+        justify-content: space-between;
 
         .dashboard-items {
-            margin: 20px 15px;
+            // margin: 20px 15px;
             width: 30%;
             padding: 20px;
             border-radius: 10px;
@@ -52,6 +50,7 @@
 
     .charts {
         display: flex;
+        justify-content: space-between;
 
         .dashboard-items {
             margin: 20px 0px;
@@ -61,27 +60,25 @@
         }
 
         .chart-col {
-            width: 60%;
-            height: 100%;
+            width: 58%;
 
             .chart-col-content {
-                width: 90%;
+                width: 100%;
             }
         }
 
         .chart-pie {
             width: 40%;
-            height: 100%;
 
             .chart-pie-content {
-                width: 90%;
+                width: 100%;
             }
         }
     }
 
     .list-order {
         margin-left: 10px;
-        width: 95%;
+        width: 100%;
         margin: 20px 0px;
         padding: 20px;
         border-radius: 10px;

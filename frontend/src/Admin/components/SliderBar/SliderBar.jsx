@@ -15,10 +15,10 @@ const SliderBar = () => {
                             <Link to='/admin'><AiFillHome className='admin-list-icon'/>Dashboard</Link>
                         </li>
                         <li>
-                            <Link to='new-product'><BiSolidBox className='admin-list-icon'/>New Product</Link>
+                            <Link to='product/new-product'><BiSolidBox className='admin-list-icon'/>New Product</Link>
                         </li>
                         <li>
-                            <Link to='new-category'><BiLink className='admin-list-icon'/>New Category</Link>
+                            <Link to='categories/new-category'><BiLink className='admin-list-icon'/>New Category</Link>
                         </li>
                     </ul>
                 </div>

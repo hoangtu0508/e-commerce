@@ -20,9 +20,11 @@ import AdminLayout from './Admin/AdminLayout';
 import Dashboard from './Admin/components/pages/Dashboard/Dashboard';
 import NewProducts from './Admin/components/pages/Products/NewProducts/NewProducts';
 import NewCategories from './Admin/components/pages/Categories/NewCategories/NewCategories';
+import Products from './Admin/components/pages/Products/Products';
+import Categories from './Admin/components/pages/Categories/Categories';
 
 function App() {
-  const {basket, addToBasket} = useBasket()
+  const { basket, addToBasket } = useBasket()
   return (
     <BrowserRouter>
       <AppContext>
@@ -37,8 +39,8 @@ function App() {
             <Route path='sign-in' element={<SignIn />} />
             <Route path='sign-up' element={<SignUp />} />
             <Route path='product/:id' element={<ProductDetails />} />
-            <Route path='basket' element={<Basket basket={basket}/>}/>
-            <Route path='/profile' element={<Profile/>}>
+            <Route path='basket' element={<Basket basket={basket} />} />
+            <Route path='/profile' element={<Profile />}>
               <Route path='/profile/my-profile' element={<MyProfile />}></Route>
               <Route path='/profile/edit-profile' element={<EditProfile />}></Route>
               <Route path='/profile/order' element={<Order />}></Route>
@@ -47,8 +49,11 @@ function App() {
 
           <Route path='/admin' element={<AdminLayout />}>
             <Route path='/admin' element={<Dashboard />}></Route>
-            <Route path='new-product' element={<NewProducts />}></Route>
-            <Route path='new-category' element={<NewCategories />}></Route>
+            <Route path='product' element={<Products />}></Route>
+            <Route path='product/new-product' element={<NewProducts />}></Route>
+            <Route path='categories' element={<Categories />}>
+            </Route>
+            <Route path='categories/new-category' element={<NewCategories />}></Route>
           </Route>
 
         </Routes>

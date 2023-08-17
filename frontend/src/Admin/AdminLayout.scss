@@ -1,6 +1,7 @@
 .admin-layout {
     background-color: #eef0f6;
     display: flex;
+    justify-content: left;
     .admin-layout-slider-bar {
         width: 20%;
         // box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
@@ -9,5 +10,7 @@
         height: 80vh;
         overflow-y: scroll;
         width: 80%;
+        margin-left: 20px;
+        padding-right: 3%;
     }
 }
