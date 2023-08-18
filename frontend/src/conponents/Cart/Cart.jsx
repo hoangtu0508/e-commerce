@@ -39,7 +39,8 @@ const Cart = ({ setShowCart }) => {
     );
     const userProfile = getUser()
     const userId = userProfile?.id
-    console.log(userCart)
+    const userEmail = userProfile?.email
+    console.log(userEmail)
     console.log(cartItems)
 
     const handlePayment = async () => {
@@ -48,7 +49,8 @@ const Cart = ({ setShowCart }) => {
             const res = await makePaymentRequest.post("/api/orders", {
                 products: cartItems,
                 userId: userId,
-                status: 'Processing'
+                status: 'Processing',
+                userEmail: userEmail,
             });
             await stripe.redirectToCheckout({
                 sessionId: res.data.stripeSession.id,

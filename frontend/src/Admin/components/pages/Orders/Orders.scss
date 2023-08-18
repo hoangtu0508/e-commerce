@@ -1,31 +1,20 @@
-.admin-categories {
+.admin-orders {
     margin: 30px;
     color: var(--main-color);
 
-    .admin-categories-title {
+    .admin-orders-title {
         display: flex;
         justify-content: space-between;
 
-        .btn-category-new {
-            padding: 10px 15px;
-            border: none;
-            background-color: rgb(6, 112, 77);
-            border-radius: 5px;
-
-            a {
-                color: white;
-                text-decoration: none;
-            }
-        }
     }
 
-    .admin-categories-content {
+    .admin-orders-content {
         border-radius: 10px;
         background-color: white;
 
         margin-top: 20px;
 
-        .admin-categories-content-list {
+        .admin-orders-content-list {
             table {
 
                 width: 100%;
@@ -37,7 +26,7 @@
 
                     tr {
                         display: grid;
-                        grid-template-columns: 1fr 2fr 3fr 2fr 2fr 1fr;
+                        grid-template-columns: 1fr 2.5fr 2fr 3fr 1fr 1fr 1.5fr;
                         /* Chia thành 3 cột có tỷ lệ bằng nhau */
                         gap: 20px;
                         padding: 10px 20px;
@@ -48,10 +37,22 @@
                             height: 20px;
                         }
 
+                        .input-date {
+                            display: flex;
+                            justify-content: left;
+                            input {
+                                margin-right: 5%;
+                                width: 40%;
+                            }
+                        }
+
+    
+
                         th {
                             display: flex;
                             flex-direction: column;
                             align-items: flex-start;
+
                             .checkbox {
                                 width: 20px;
                                 height: 20px;
@@ -79,13 +80,16 @@
                 tbody {
                     tr {
                         display: grid;
-                        grid-template-columns: 1fr 2fr 3fr 2fr 2fr 1fr;
+                        grid-template-columns: 1fr 2.5fr 2fr 3fr 1fr 1fr 1.5fr;
                         /* Chia thành 3 cột có tỷ lệ bằng nhau */
                         gap: 10px;
                         padding: 10px 20px;
                         border-top: 1px solid var(--main-color-little-2);
                         text-align: left;
                         align-items: center;
+                        .orders-total {
+                            text-align: center;
+                        }
 
                         td {
 
@@ -102,14 +106,14 @@
                                 border-radius: 5px;
                             }
 
-                            .categories-status {
+                            .orders-status {
                                 text-align: center;
 
-                                .categories-status-true {
+                                .orders-status-true {
                                     color: rgb(25, 204, 144);
                                 }
 
-                                .categories-status-false {
+                                .orders-status-false {
                                     color: rgb(255, 145, 145);
                                 }
                             }
@@ -128,42 +132,57 @@
                                 .action-dele {
                                     color: rgb(238, 79, 79);
                                 }
+
+                                .action-eye {
+                                    color: rgb(25, 204, 144);
+                                }
                             }
                         }
 
-                        .category-visibility {
-                            text-align: center;
+                        .Pending {
+                            color: red;
                         }
-
-                        .categories-actions {
-                            text-align: center;
-                        }
-
                         
+                        .Processing {
+                            color: rgb(205, 187, 50);
+                        }
+    
+                        .Completed {
+                            color: green;
+                        }
+
+                        .orders-actions {
+                            text-align: center;
+                        }
+
+
 
 
                     }
 
                     .current-page-number {
                         display: flex;
-                        justify-content:space-between;
+                        justify-content: space-between;
                         align-items: center;
                         border-top: 1px solid var(--main-color);
                         padding: 20px;
 
-                        .number-categories-page {
+                        .number-orders-page {
                             display: flex;
                             align-items: center;
                             justify-content: left;
+
                             input {
                                 margin: 0px 10px;
                                 padding: 10px;
                             }
                         }
+
                         .pagination-info {
                             display: flex;
                             align-items: center;
                             justify-content: right;
+
                             .page-number {
                                 display: flex;
                                 align-items: center;
@@ -176,9 +195,9 @@
                                 }
                             }
 
-                            .number-categories-total {
+                            .number-orders-total {
                                 display: flex;
-                                
+
                             }
 
                             .icon {
@@ -200,7 +219,4 @@
             }
         }
     }
-
-
-
 }

@@ -22,6 +22,9 @@ import NewProducts from './Admin/components/pages/Products/NewProducts/NewProduc
 import NewCategories from './Admin/components/pages/Categories/NewCategories/NewCategories';
 import Products from './Admin/components/pages/Products/Products';
 import Categories from './Admin/components/pages/Categories/Categories';
+import Orders from './Admin/components/pages/Orders/Orders';
+import Customers from './Admin/components/pages/Customers/Customers';
+import EditProduct from './Admin/components/pages/Products/EditProduct/EditProduct';
 
 function App() {
   const { basket, addToBasket } = useBasket()
@@ -51,9 +54,12 @@ function App() {
             <Route path='/admin' element={<Dashboard />}></Route>
             <Route path='product' element={<Products />}></Route>
             <Route path='product/new-product' element={<NewProducts />}></Route>
+            <Route path='product/edit-product/:id' element={<EditProduct />}></Route>
             <Route path='categories' element={<Categories />}>
             </Route>
             <Route path='categories/new-category' element={<NewCategories />}></Route>
+            <Route path='orders' element={<Orders />}></Route>
+            <Route path='customers' element={<Customers />}></Route>
           </Route>
 
         </Routes>

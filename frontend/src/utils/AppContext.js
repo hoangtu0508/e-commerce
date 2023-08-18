@@ -3,7 +3,7 @@ import { getToken } from './helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import { fetchDataFromApi, getUserProfile, postCartUser } from './api'
+import { fetchDataFromApi, getData, getUserProfile, postCartUser } from './api'
 
 export const Context = createContext()
 const jwt = getToken()
@@ -13,6 +13,8 @@ const strapi = new Strapi(apiUrl);
 const AppContext = ({ children }) => {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
+  const [orders, setOrders] = useState([])
+  const [users, setUsers] = useState([])
 
   const [cartItems, setCartItems] = useState([])
   const [cartCount, setCartCount] = useState(0)
@@ -63,6 +65,8 @@ const AppContext = ({ children }) => {
   useEffect(() => {
     getProducts();
     getCategories();
+    getOrders();
+    getUsers();
   }, []);
 
   const getProducts = () => {
@@ -75,6 +79,26 @@ const AppContext = ({ children }) => {
       setCategories(res.data);
     });
   };
+
+  const getOrders = () => {
+    fetchDataFromApi("/api/orders?populate=*").then((res) => {
+      setOrders(res.data);
+    });
+  };
+
+  const getUsers = async () => {
+    try {
+      const response = await getData.get("/api/users?populate=*");
+      const data = response.data;
+      setUsers(data);
+
+    } catch (error) {
+      console.log(error);
+   
+    }
+  };
+
+  console.log(users)
 
   const addToCart = async (product, qty) => {
     let items = [...cartItems];
@@ -189,7 +213,11 @@ const AppContext = ({ children }) => {
         isLogin,
         setIsLogin,
         userCart,
-        setUserCart
+        setUserCart,
+        orders,
+        setOrders,
+        users,
+        setUsers
       }}
     >
       {children}

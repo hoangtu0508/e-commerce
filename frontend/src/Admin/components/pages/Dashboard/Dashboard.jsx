@@ -8,6 +8,9 @@ import { BiSolidBox } from 'react-icons/bi'
 import { Bar } from "react-chartjs-2";
 import Charts from "./Charts/Charts";
 import ChartPie from "./Charts/ChartPie";
+import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
+import { AiFillEdit } from 'react-icons/ai'
+import { BsEyeFill } from 'react-icons/bs'
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
@@ -139,6 +142,7 @@ const Dashboard = () => {
                 <th>Status</th>
                 <th>Total</th>
                 <th>Time</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -152,6 +156,11 @@ const Dashboard = () => {
                   <td className={product.attributes.status}>{product.attributes.status}</td>
                   <td>{product.attributes.products[0].attributes.ProductPrice * product.attributes.products[0].attributes.qty}</td>
                   <td>{formatDate(product.attributes.publishedAt)}</td>
+                  <td className='orders-actions'>
+                    <span><BsEyeFill className='icon action-eye' /></span>
+                    <span><AiFillEdit className='icon action-edit' /></span>
+                    <span><MdDelete className='icon action-dele' /></span>
+                  </td>
                 </tr>
               ))}
             </tbody>

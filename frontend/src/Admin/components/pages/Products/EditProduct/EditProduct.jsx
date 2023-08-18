@@ -1,12 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import './NewProducts.scss'
-import { Link } from 'react-router-dom';
+import '../NewProducts/NewProducts.scss'
+import { Link, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import { Context } from '../../../../../utils/AppContext';
+import useFetch from '../../../../../hooks/useFetch';
 
-function NewProducts() {
+function EditProducts() {
+  const { id } = useParams();
+
+  const {categories} = useContext(Context)
+
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [updatesData, setUpdatesData] = useState({
@@ -22,13 +27,13 @@ function NewProducts() {
   const [sale, setSale] = useState(1)
   const [inputCategories, setInputCategories] = useState()
 
+  useEffect(() => {
+    getProductId()
+  }, [])
 
   const token = JSON.parse(localStorage.getItem('user'));
   const jwt = token?.jwt;
-  console.log(jwt);
-
-  const { categories } = useContext(Context)
-  console.log(inputCategories)
+  console.log(inputCategories);
 
   const updateEdit = (e) => {
     const newupdate = { ...updatesData };
@@ -55,8 +60,8 @@ function NewProducts() {
 
       console.log(uploadResponse);
 
-      const res = await axios.post(
-        'http://localhost:1337/api/products',
+      const res = await axios.put(
+        `http://localhost:1337/api/products/${id}`,
         {
           data: {
             ProductName: updatesData.ProductName,
@@ -71,31 +76,14 @@ function NewProducts() {
             categories: inputCategories,
           }
         },
-        {
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
-        }
+        // {
+        //   mode: 'no-cors',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //     Authorization: `Bearer ${jwt}`,
+        //   },
+        // }
       );
-
-      setUpdatesData({
-        ProductName: '',
-        ProductDesc: '',
-        ProductPrice: '',
-        ProductQuantity: null,
-      });
-      setStatus(1);
-      setVisibility(1);
-      setStockAvailabilitty(1);
-      setSale(1);
-      setInputCategories(undefined);
-      setImage(null);
-      setImageUrl(null);
-
-
-
       console.log(res);
 
       if (res.status === 200) {
@@ -112,12 +100,31 @@ function NewProducts() {
     setImageUrl(URL.createObjectURL(e.target.files[0]));
   };
 
+  const getProductId = async () => {
+    try {
+      const response = await axios.get(`http://localhost:1337/api/products/${id}?populate=*`, {
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwt}`,
+        },
+      })
+      setUpdatesData(response.data.data.attributes)
+      setInputCategories(response.data.data.attributes.categories)
+
+    } catch (error) {
+      
+    }
+  }
+
+  console.log(updatesData)
+
 
   return (
     <div className='new-product'>
       <div className="new-product-title">
         <Link to="/admin/product"><BiArrowBack className='icon-back' /></Link>
-        <h2>Create A New Product</h2>
+        <h2>Edit Product</h2>
       </div>
 
       <div className='new-product-form'>
@@ -131,7 +138,7 @@ function NewProducts() {
                   <input
                     onChange={(e) => updateEdit(e)}
                     id="ProductName"
-                    value={updatesData.ProductName}
+                    value={updatesData?.ProductName}
                     type="text"
                     placeholder="Product Name"
                   />
@@ -143,7 +150,7 @@ function NewProducts() {
                     rows="4" cols="50"
                     onChange={(e) => updateEdit(e)}
                     id="ProductDesc"
-                    value={updatesData.ProductDesc}
+                    value={updatesData?.ProductDesc}
                     type="text"
                     placeholder="Description"
                   ></textarea>
@@ -154,7 +161,7 @@ function NewProducts() {
                   <input
                     onChange={(e) => updateEdit(e)}
                     id="ProductPrice"
-                    value={updatesData.ProductPrice}
+                    value={updatesData?.ProductPrice}
                     type="number"
                     min={1}
                     placeholder="Price"
@@ -167,7 +174,8 @@ function NewProducts() {
                   </label>
                   <select
                     name="categories"
-                    value={categories.attributes?.CategoryName}
+                    defaultValue={updatesData?.categories}
+                    value={categories?.attributes?.CategoryName}
                     onChange={(e) => setInputCategories(e.target.value)}
                     required
                     className="categories-select"
@@ -193,7 +201,11 @@ function NewProducts() {
                   </div>
 
                   <div className="media-img">
-                    {imageUrl && <img src={imageUrl} alt="Selected Image" />}
+                    {imageUrl ? (
+                      <img src={imageUrl} alt="Selected Image" />
+                    ) : (
+                      <img src={process.env.REACT_APP_DEV_URL + updatesData?.data?.attributes?.ProductImg?.data[0]?.attributes?.url} alt="Product Image" />
+                    )}
                   </div>
                 </div>
               </div>
@@ -284,7 +296,7 @@ function NewProducts() {
                   <h5>QUANTITY</h5>
                   <input onChange={(e) => updateEdit(e)}
                     id="ProductQuantity"
-                    value={updatesData.ProductQuantity}
+                    value={updatesData?.data?.attributes?.ProductQuantity}
                     type="number"
                     min={1}
                     placeholder="Quantity"
@@ -308,4 +320,4 @@ function NewProducts() {
   );
 }
 
-export default NewProducts;
+export default EditProducts;

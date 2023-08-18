@@ -1,14 +1,23 @@
 import React, { useContext, useState } from 'react'
 import './Products.scss'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Context } from '../../../../utils/AppContext'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
+import axios from 'axios'
 
 const Products = () => {
   const { products } = useContext(Context)
+
+  const token = JSON.parse(localStorage.getItem('user'));
+  const jwt = token?.jwt;
+
+  const [productId, setProductId] = useState(null)
+  console.log(productId)
+
+  const navigate = useNavigate()
 
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage, setProductsPerPage] = useState(10) // Số lượng sản phẩm hiển thị trên mỗi trang
@@ -16,9 +25,9 @@ const Products = () => {
   // Tính chỉ số bắt đầu và kết thúc của danh sách sản phẩm hiển thị trên trang hiện tại
   const startIndex = (currentPage - 1) * productsPerPage
   const endIndex = startIndex + productsPerPage
-  const currentProducts = products.slice(startIndex, endIndex)
+  const currentProducts = products?.slice(startIndex, endIndex)
 
-  const totalPages = Math.ceil(products.length / productsPerPage)
+  const totalPages = Math.ceil(products?.length / productsPerPage)
 
   const next = () => {
     const nextPage = currentPage + 1;
@@ -38,6 +47,26 @@ const Products = () => {
     const productNumber = parseInt(e.target.value)
     setProductsPerPage(productNumber)
   }
+
+  const handleDeleProduct = async (Id) => {
+    try {
+      const response = await axios.delete(`http://localhost:1337/api/products/${Id}`, {
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwt}`,
+        }
+      })
+      window.location.reload()
+    } catch (error) {
+
+    }
+  }
+
+  const handleEditProduct = (productId) => {
+    // Điều hướng đến trang chỉnh sửa sản phẩm với productId
+    navigate(`./edit-product/${productId}`);
+  };
 
   return (
     <div className='admin-products'>
@@ -77,8 +106,8 @@ const Products = () => {
                   <label>Status</label>
                   <select>
                     <option>All</option>
-                    <option>Yes</option>
-                    <option>No</option>
+                    <option>Enabled</option>
+                    <option>Disabled</option>
                   </select>
                 </th>
                 <th><label>Actions</label></th>
@@ -87,7 +116,7 @@ const Products = () => {
             <tbody>
               {currentProducts && currentProducts.map((product) => (
                 <tr key={product.id}>
-                  <td><input type='checkbox' value={product.id} onChange={(e) => console.log(e.target.value)}></input></td>
+                  <td><input type='checkbox' value={product.id} onChange={(e) => setProductId(parseInt(e.target.value))}></input></td>
                   <td className='td-img'><img src={process.env.REACT_APP_DEV_URL + product.attributes.ProductImg.data[0].attributes.url}></img></td>
                   <td>{product.attributes.ProductName}</td>
                   <td>${product.attributes.ProductPrice}</td>
@@ -98,8 +127,8 @@ const Products = () => {
                     </div>
                   </td>
                   <td className='product-actions'>
-                    <span><AiFillEdit className='icon action-edit' /></span>
-                    <span><MdDelete className='icon action-dele' /></span>
+                    <span><AiFillEdit className='icon action-edit' onClick={() => handleEditProduct(product.id)}/></span>
+                    <span><MdDelete className='icon action-dele' value={product.id} onClick={() => handleDeleProduct(product.id)}/></span>
                   </td>
                 </tr>
               ))}
@@ -108,12 +137,12 @@ const Products = () => {
                 <div className="number-product-page">
                   <h4>Show</h4>
                   <input
-                      type="number"
-                      min={10}
-                      max={products.length}
-                      value={productsPerPage}
-                      onChange={handleNumberPageChange}
-                    />
+                    type="number"
+                    min={10}
+                    max={products?.length}
+                    value={productsPerPage}
+                    onChange={handleNumberPageChange}
+                  />
                   <h4>product page</h4>
                 </div>
 
@@ -132,7 +161,7 @@ const Products = () => {
                   </div>
                   <div onClick={next} className='icon'><GrNext className='icon-next' /></div>
                   <div className="number-product-total">
-                    <h4>Total: <span>{products.length}</span> Product</h4>
+                    <h4>Total: <span>{products?.length}</span> Product</h4>
                   </div>
                 </div>
               </div>

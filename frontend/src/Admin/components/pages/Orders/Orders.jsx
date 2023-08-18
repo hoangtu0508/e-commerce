@@ -1,23 +1,26 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import './Categories.scss'
-import { Context } from '../../../../utils/AppContext'
+import React, { useContext, useEffect, useState } from 'react'
+import './Orders.scss'
+import axios from 'axios'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
+import { Context } from '../../../../utils/AppContext'
+import { BsEyeFill } from 'react-icons/bs'
 
-const Categories = () => {
-  const { categories } = useContext(Context)
+const Orders = () => {
+
+  const { orders } = useContext(Context)
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [categoriesPerPage, setCategoriesPerPage] = useState(10)
+  const [ordersPerPage, setOrdersPerPage] = useState(10) // Số lượng sản phẩm hiển thị trên mỗi trang
 
-  const startIndex = (currentPage - 1) * categoriesPerPage
-  const endIndex = startIndex + categoriesPerPage
-  const currentCategories = categories.slice(startIndex, endIndex)
+  // Tính chỉ số bắt đầu và kết thúc của danh sách sản phẩm hiển thị trên trang hiện tại
+  const startIndex = (currentPage - 1) * ordersPerPage
+  const endIndex = startIndex + ordersPerPage
+  const currentOrders = orders?.slice(startIndex, endIndex)
 
-  const totalPages = Math.ceil(categories.length / categoriesPerPage)
+  const totalPages = Math.ceil(orders?.length / ordersPerPage);
 
   const next = () => {
     const nextPage = currentPage + 1;
@@ -35,56 +38,61 @@ const Categories = () => {
 
   const handleNumberPageChange = (e) => {
     const productNumber = parseInt(e.target.value)
-    setCategoriesPerPage(productNumber)
+    setOrdersPerPage(productNumber)
   }
 
-  console.log(categories)
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString();
+  };
+
   return (
-    <div className='admin-categories'>
-      <div className="admin-categories-title">
-        <h3>Categories</h3>
-        <div className="btn-category-new">
-          <Link to="new-category">New Category</Link>
-        </div>
+    <div className='admin-orders'>
+      <div className="admin-orders-title">
+        <h3>Orders</h3>
       </div>
 
-      <div className="admin-categories-content">
-        <div className="admin-categories-content-list">
+      <div className="admin-orders-content">
+        <div className="admin-orders-content-list">
           <table>
             <thead>
               <tr>
                 <th></th>
                 <th>
-                  <label>Background Img</label>
+                  <label>Order Code</label>
                 </th>
                 <th>
-                  <label>Category Name</label>
+                  <label>Date</label>
                 </th>
                 <th>
-                  <label>Category Status</label>
+                  <label>Customer Email</label>
                 </th>
                 <th>
-                  <label>Include In Menu</label>
+                  <label>Status</label>
+                </th>
+                <th>
+                  <label>Total</label>
                 </th>
                 <th>
                   <label>Actions</label>
                 </th>
               </tr>
+
               <tr>
                 <th>
                   <input type='checkbox' className='checkbox'></input>
                 </th>
                 <th>
+                  <input type='text' placeholder='Order Code'></input>
                 </th>
                 <th>
-                  <input type='text' placeholder='Category Name'></input>
+                  <div className="input-date">
+                    <input type='number' placeholder='From'></input>
+                    <input type='number' placeholder='To'></input>
+                  </div>
                 </th>
                 <th>
-                  <select>
-                    <option>All</option>
-                    <option>Enabled</option>
-                    <option>Disabled</option>
-                  </select>
+                  <input type='text' placeholder='Customer Email'></input>
                 </th>
                 <th>
                   <select>
@@ -94,41 +102,44 @@ const Categories = () => {
                   </select>
                 </th>
                 <th>
+
+                </th>
+                <th>
+
                 </th>
               </tr>
             </thead>
             <tbody>
-              {currentCategories && currentCategories.map((category) => (
-                <tr key={category.id}>
-                  <td><input type='checkbox' value={category.id} onChange={(e) => console.log(e.target.value)}></input></td>
-                  <td className='td-img'><img src={process.env.REACT_APP_DEV_URL + category.attributes.CategoryImg.data[0].attributes.url}></img></td>
-                  <td>{category.attributes.CategoryName}</td>
-                  <td>
-                    <div className="categories-status">
-                      {category.attributes.CategoryStatus ? <span className='categories-status-true'><GrStatusGoodSmall /></span> : <span ><GrStatusGoodSmall className='categories-status-false' /></span>}
-                    </div>
+              {currentOrders && currentOrders.map((orders) => (
+                <tr key={orders.id}>
+                  <td><input type='checkbox' value={orders.id} onChange={(e) => console.log(e.target.value)}></input></td>
+                  <td>{orders.attributes.stripeId.slice(0, 20)}</td>
+                  <td>{formatDate(orders.attributes.createdAt)}</td>
+                  <td>{orders.attributes.userEmail}</td>
+                  <td className={orders.attributes.status}>
+                    {orders.attributes.status}
                   </td>
-                  <td className='category-visibility'>
-                    {category.attributes.CategoryVisibility ? <label>Yes</label>: <label>No</label>}
-                  </td>
-                  <td className='categories-actions'>
+                  <td className='orders-total'>{orders.attributes.products[0].attributes.ProductPrice * orders.attributes.products[0].attributes.qty}</td>
+                  <td className='orders-actions'>
+                    <span><BsEyeFill className='icon action-eye' /></span>
                     <span><AiFillEdit className='icon action-edit' /></span>
                     <span><MdDelete className='icon action-dele' /></span>
+
                   </td>
                 </tr>
               ))}
 
               <div className="current-page-number">
-                <div className="number-categories-page">
+                <div className="number-orders-page">
                   <h4>Show</h4>
                   <input
                     type="number"
                     min={10}
-                    max={categories.length}
-                    value={categoriesPerPage}
+                    max={orders?.length}
+                    value={ordersPerPage}
                     onChange={handleNumberPageChange}
                   />
-                  <h4>category page</h4>
+                  <h4>order page</h4>
                 </div>
 
                 <div className="pagination-info">
@@ -146,7 +157,7 @@ const Categories = () => {
                   </div>
                   <div onClick={next} className='icon'><GrNext className='icon-next' /></div>
                   <div className="number-product-total">
-                    <h4>Total: <span>{categories.length}</span> Category</h4>
+                    <h4>Total: <span>{orders?.length}</span> Orders</h4>
                   </div>
                 </div>
               </div>
@@ -158,4 +169,4 @@ const Categories = () => {
   )
 }
 
-export default Categories
+export default Orders
