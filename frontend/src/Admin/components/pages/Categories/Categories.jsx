@@ -1,24 +1,28 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './Categories.scss'
 import { Context } from '../../../../utils/AppContext'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
+import axios from 'axios'
 
 const Categories = () => {
   const { categories } = useContext(Context)
+
+  const token = JSON.parse(localStorage.getItem('user'));
+  const jwt = token?.jwt;
 
   const [currentPage, setCurrentPage] = useState(1)
   const [categoriesPerPage, setCategoriesPerPage] = useState(10)
 
   const startIndex = (currentPage - 1) * categoriesPerPage
   const endIndex = startIndex + categoriesPerPage
-  const currentCategories = categories.slice(startIndex, endIndex)
+  const currentCategories = categories?.slice(startIndex, endIndex)
 
-  const totalPages = Math.ceil(categories.length / categoriesPerPage)
-
+  const totalPages = Math.ceil(categories?.length / categoriesPerPage)
+  const navigate = useNavigate()
   const next = () => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage)
@@ -37,6 +41,26 @@ const Categories = () => {
     const productNumber = parseInt(e.target.value)
     setCategoriesPerPage(productNumber)
   }
+
+  const handleDeleCategory = async (Id) => {
+    try {
+      const response = await axios.delete(`http://localhost:1337/api/categories/${Id}`, {
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwt}`,
+        }
+      })
+      window.location.reload()
+    } catch (error) {
+
+    }
+  }
+
+  const handleEditCategory = (Id) => {
+    // Điều hướng đến trang chỉnh sửa sản phẩm với productId
+    navigate(`./edit-category/${Id}`);
+  };
 
   console.log(categories)
   return (
@@ -112,8 +136,8 @@ const Categories = () => {
                     {category.attributes.CategoryVisibility ? <label>Yes</label>: <label>No</label>}
                   </td>
                   <td className='categories-actions'>
-                    <span><AiFillEdit className='icon action-edit' /></span>
-                    <span><MdDelete className='icon action-dele' /></span>
+                    <span><AiFillEdit className='icon action-edit' onClick={() => handleEditCategory(category.id)}/></span>
+                    <span><MdDelete className='icon action-dele' onClick={() => handleDeleCategory(category.id)}/></span>
                   </td>
                 </tr>
               ))}
@@ -124,7 +148,7 @@ const Categories = () => {
                   <input
                     type="number"
                     min={10}
-                    max={categories.length}
+                    max={categories?.length}
                     value={categoriesPerPage}
                     onChange={handleNumberPageChange}
                   />
@@ -146,7 +170,7 @@ const Categories = () => {
                   </div>
                   <div onClick={next} className='icon'><GrNext className='icon-next' /></div>
                   <div className="number-product-total">
-                    <h4>Total: <span>{categories.length}</span> Category</h4>
+                    <h4>Total: <span>{categories?.length}</span> Category</h4>
                   </div>
                 </div>
               </div>

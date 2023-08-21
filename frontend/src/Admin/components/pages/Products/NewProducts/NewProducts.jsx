@@ -25,7 +25,6 @@ function NewProducts() {
 
   const token = JSON.parse(localStorage.getItem('user'));
   const jwt = token?.jwt;
-  console.log(jwt);
 
   const { categories } = useContext(Context)
   console.log(inputCategories)
@@ -68,7 +67,7 @@ function NewProducts() {
             ProductStock: stockAvailabilitty,
             ProductSale: sale,
             ProductQuantity: updatesData.ProductQuantity,
-            categories: inputCategories,
+            category: inputCategories,
           }
         },
         {
@@ -79,6 +78,7 @@ function NewProducts() {
           },
         }
       );
+      console.log(res)
 
       setUpdatesData({
         ProductName: '',
@@ -167,7 +167,7 @@ function NewProducts() {
                   </label>
                   <select
                     name="categories"
-                    value={categories.attributes?.CategoryName}
+                    value={categories?.id}
                     onChange={(e) => setInputCategories(e.target.value)}
                     required
                     className="categories-select"

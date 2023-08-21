@@ -32,12 +32,6 @@
     "ProductPrice": {
       "type": "integer"
     },
-    "categories": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::category.category",
-      "inversedBy": "products"
-    },
     "ProductStatus": {
       "type": "boolean"
     },
@@ -52,6 +46,12 @@
     },
     "ProductQuantity": {
       "type": "biginteger"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
     }
   }
 }

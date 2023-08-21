@@ -14,7 +14,7 @@ const Category = () => {
     <div className='category'>
       <select value={valueSelect || ''} onChange={(e) => setValueSelect(e.target.value)}>
         <option value=''>Category</option>
-        {categories.map((cate) => (
+        {categories?.map((cate) => (
           <option key={cate.id} value={cate.id}>
             {cate.attributes.CategoryName}
           </option>

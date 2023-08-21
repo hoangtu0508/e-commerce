@@ -62,7 +62,7 @@ const Cart = ({ setShowCart }) => {
 
 
     console.log(cartItems)
-    
+
 
     return (
         <div className='cart-panel'>
@@ -90,7 +90,7 @@ const Cart = ({ setShowCart }) => {
                                                 <p>{productCart.attributes.qty} x {productCart.attributes.ProductPrice}</p>
 
                                             </div>
-                                           
+
 
                                             <div className='quantity'>
                                                 <span onClick={() => handleCartProductQuantity("dec", productCart)}>-</span>
