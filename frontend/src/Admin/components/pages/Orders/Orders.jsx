@@ -7,10 +7,15 @@ import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
+import { useNavigate } from 'react-router-dom'
 
 const Orders = () => {
+  const navigate = useNavigate()
 
   const { orders } = useContext(Context)
+
+  const token = JSON.parse(localStorage.getItem('user'));
+  const jwt = token?.jwt;
 
   const [currentPage, setCurrentPage] = useState(1)
   const [ordersPerPage, setOrdersPerPage] = useState(10) // Số lượng sản phẩm hiển thị trên mỗi trang
@@ -45,6 +50,31 @@ const Orders = () => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
   };
+
+  const handleDeleOrder = async (Id) => {
+    try {
+      const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwt}`,
+        }
+      })
+      window.location.reload()
+    } catch (error) {
+
+    }
+  }
+  const handleViewOrder = (Id) => {
+    // Điều hướng đến trang chỉnh sửa sản phẩm với productId
+    navigate(`./order-view/${Id}`);
+  };
+
+//   const totalPrice = currentOrders?.data.attributes.products.reduce((acc, item) => {
+//     return acc + item.attributes.ProductPrice * item.attributes.qty;
+// }, 0);
+
+console.log(currentOrders)
 
   return (
     <div className='admin-orders'>
@@ -115,16 +145,17 @@ const Orders = () => {
                   <td><input type='checkbox' value={orders.id} onChange={(e) => console.log(e.target.value)}></input></td>
                   <td>{orders.attributes.stripeId.slice(0, 20)}</td>
                   <td>{formatDate(orders.attributes.createdAt)}</td>
-                  <td>{orders.attributes.userEmail}</td>
-                  <td className={orders.attributes.status}>
-                    {orders.attributes.status}
+                  <td>{orders?.attributes.user?.email}</td>
+                  <td className={orders.attributes.status_order?.data?.attributes?.StatusName}>
+                    <label>{orders.attributes.status_order?.data?.attributes?.StatusName}</label>
                   </td>
-                  <td className='orders-total'>{orders.attributes.products[0].attributes.ProductPrice * orders.attributes.products[0].attributes.qty}</td>
+                  <td className='orders-total'>
+                    {orders?.attributes.products.reduce((acc, item) => {
+                      return acc + item.attributes.ProductPrice * item.attributes.qty}, 0)}
+                    </td>
                   <td className='orders-actions'>
-                    <span><BsEyeFill className='icon action-eye' /></span>
-                    <span><AiFillEdit className='icon action-edit' /></span>
-                    <span><MdDelete className='icon action-dele' /></span>
-
+                    <span><BsEyeFill className='icon action-eye' onClick={() => handleViewOrder(orders.id)}/></span>
+                    <span><MdDelete className='icon action-dele' onClick={() => handleDeleOrder(orders.id)}/></span>
                   </td>
                 </tr>
               ))}

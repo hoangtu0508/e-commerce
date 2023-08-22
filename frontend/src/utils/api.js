@@ -21,6 +21,7 @@ export const fetchDataFromApi = async (url) => {
 
 export const makePaymentRequest = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
@@ -28,6 +29,7 @@ export const makePaymentRequest = axios.create({
 
 export const getUserProfile = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
@@ -35,6 +37,7 @@ export const getUserProfile = axios.create({
 
 export const getOrderUser = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
@@ -42,6 +45,7 @@ export const getOrderUser = axios.create({
 
 export const postCartUser = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
@@ -49,6 +53,7 @@ export const postCartUser = axios.create({
 
 export const getData = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },
@@ -56,6 +61,7 @@ export const getData = axios.create({
 
 export const postData = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
+    mode: 'no-cors',
     headers: {
         Authorization: "bearer " + process.env.REACT_APP_STRIPE_APP_KEY,
     },

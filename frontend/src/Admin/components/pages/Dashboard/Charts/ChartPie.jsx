@@ -6,24 +6,22 @@ const ChartPie = (props) => {
 
     const data = props.orders.data;
 
+    console.log(data);
+
     const ordersByCategory = {};
     data?.forEach((order) => {
-        console.log(order)
-        order.attributes.products?.forEach((product) => {
-            console.log('pro', product)
-
-            product.attributes.categories.data.forEach((category) => {
-                console.log(category)
-                const { CategoryName } = category.attributes;
-                if (!ordersByCategory[CategoryName]) {
-                    ordersByCategory[CategoryName] = 0;
-                }
-                ordersByCategory[CategoryName]++;
-            });
+        console.log(order);
+        order?.attributes.products?.forEach((product) => {
+            console.log(product);
+            const category = product?.attributes.category.data
+            console.log(category);
+            const { CategoryName } = category?.attributes;
+            if (!ordersByCategory[CategoryName]) {
+                ordersByCategory[CategoryName] = 0;
+            }
+            ordersByCategory[CategoryName]++;
         });
     });
-
-    console.log('cat', ordersByCategory);
     // Hiển thị các đơn hàng trong từng danh mục
     const formattedData = Object.entries(ordersByCategory).map(([category, orderCount]) => ({
         category,

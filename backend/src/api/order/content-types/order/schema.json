@@ -18,14 +18,17 @@
     "products": {
       "type": "json"
     },
+    "status_order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::status-order.status-order",
+      "inversedBy": "orders"
+    },
+    "user": {
+      "type": "json"
+    },
     "userId": {
       "type": "biginteger"
-    },
-    "status": {
-      "type": "string"
-    },
-    "userEmail": {
-      "type": "email"
     }
   }
 }

@@ -7,8 +7,11 @@
     display: flex;
     justify-content: flex-end;
     z-index: 999;
+    // height: 80vh;
+    // overflow-y: scroll;
+
     .cart-layer {
-        background-color: rgba(0, 0 ,0, 0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         position: absolute;
         top: 0;
         left: 0;
@@ -24,6 +27,7 @@
         flex-direction: column;
 
         width: 360px;
+
         .cart-close {
             .cart-close-icon {
                 width: 30px;
@@ -42,30 +46,34 @@
 
         .cart-products {
             margin-bottom: 30px;
+
             .cart-product {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 text-align: center;
                 margin: 30px;
-                
+
                 .cart-product-content {
-    
+
                     display: flex;
                     justify-content: left;
                     align-items: center;
+
                     img {
                         width: 100px;
                         height: auto;
                     }
+
                     input {
                         width: 50px;
                         margin-left: 10px;
                         height: 30px;
                     }
+
                     .cart-product-detail {
                         margin-left: 10px;
-                        
+
                     }
 
                     .quantity {
@@ -75,6 +83,7 @@
                         justify-content: center;
                         align-items: center;
                         margin-left: 5px;
+
                         span {
                             padding: 5px;
                             border: 2px solid var(--main-color);
@@ -84,33 +93,39 @@
                 }
 
                 span {
-                    display: inline-block;;
+                    display: inline-block;
+                    ;
                     justify-content: right;
+
                     .dele-cart-product {
                         width: 25px;
                         height: auto;
                     }
                 }
             }
+
             .cart-total {
                 padding: 0 30px;
                 display: flex;
                 justify-content: space-between;
+
                 p {
                     font-size: 20px;
                 }
             }
-            
+
         }
 
         .cart-button {
+            z-index: 9999;
             padding: 10px 30px;
             width: 100%;
+
             button {
                 border: none;
                 background-color: var(--main-color);
                 color: var(--background-color);
-                margin: 10px 0 ;
+                margin: 10px 0;
                 padding: 10px 20px;
                 width: 100%;
 

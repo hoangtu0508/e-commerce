@@ -12,7 +12,7 @@ const Order = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getOrderUser(`/api/orders?filters[userId]=${userId}`);
+        const response = await getOrderUser(`/api/orders?filters[userId]=${userId}&populate=*`);
         console.log(response.data);
         setProductOrder(response.data);
       } catch (error) {
@@ -52,7 +52,7 @@ const Order = () => {
                   <td>{product.attributes.products[0].attributes.ProductName}</td>
                   <td>{product.attributes.products[0].attributes.ProductPrice}</td> 
                   <td>{product.attributes.products[0].attributes.qty}</td>
-                  <td className={product.attributes.status}>{product.attributes.status}</td>
+                  <td className={product?.attributes.status_order.data.attributes.StatusName}>{product?.attributes.status_order.data.attributes.StatusName}</td>
                   <td>{product.attributes.products[0].attributes.ProductPrice * product.attributes.products[0].attributes.qty}</td>
                   <td>{formatDate(product.attributes.publishedAt)}</td>
                 </tr>

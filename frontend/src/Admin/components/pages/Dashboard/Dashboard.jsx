@@ -26,7 +26,7 @@ const Dashboard = () => {
 
   const fetchDataOrder = async () => {
     try {
-      const response = await getData.get("/api/orders");
+      const response = await getData.get("/api/orders?populate=*");
       const data = response.data;
       setOrders(data);
       setIsLoading(false);
@@ -35,17 +35,23 @@ const Dashboard = () => {
       setIsLoading(false);
     }
   };
+  console.log(orders);
 
   const calculateTotalRevenue = () => {
     let totalRevenue = 0;
 
     if (orders.data?.length > 0) {
-      orders.data.map((order) => {
-        const productPrice = order.attributes.products[0].attributes.ProductPrice;
-        const quantity = order.attributes.products[0].attributes.qty;
-        const revenue = productPrice * quantity;
-        console.log('move')
-        totalRevenue += revenue;
+      orders?.data.map((order) => {
+        const products = order?.attributes.products
+        if(products.length > 0) {
+          products?.map((item) => {
+            const productPrice = item.attributes.ProductPrice;
+            const quantity = item.attributes.qty;
+            const revenue = productPrice * quantity;
+            totalRevenue += revenue;
+          }
+          )
+        }
       });
     }
 
@@ -153,7 +159,7 @@ const Dashboard = () => {
                   <td>{product.attributes.products[0].attributes.ProductName}</td>
                   <td>{product.attributes.products[0].attributes.ProductPrice}</td>
                   <td>{product.attributes.products[0].attributes.qty}</td>
-                  <td className={product.attributes.status}>{product.attributes.status}</td>
+                  <td className={product?.attributes?.status_order?.data?.attributes?.StatusName}>{product?.attributes?.status_order?.data?.attributes?.StatusName}</td>
                   <td>{product.attributes.products[0].attributes.ProductPrice * product.attributes.products[0].attributes.qty}</td>
                   <td>{formatDate(product.attributes.publishedAt)}</td>
                   <td className='orders-actions'>

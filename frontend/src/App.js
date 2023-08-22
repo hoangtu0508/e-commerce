@@ -27,6 +27,7 @@ import Customers from './Admin/components/pages/Customers/Customers';
 import EditProduct from './Admin/components/pages/Products/EditProduct/EditProduct';
 import privateRoutes from './routes/privateRoutes';
 import EditCategory from './Admin/components/pages/Categories/EditCategory/EditCategory';
+import OrderDetail from './Admin/components/pages/Orders/OrderDetail/OrderDetail';
 
 function App() {
   const { basket, addToBasket } = useBasket()
@@ -62,6 +63,7 @@ function App() {
             <Route path='categories/new-category' element={<NewCategories />}></Route>
             <Route path='categories/edit-category/:id' element={<EditCategory />}></Route>
             <Route path='orders' element={<Orders />}></Route>
+            <Route path='orders/order-view/:id' element={<OrderDetail />}></Route>
             <Route path='customers' element={<Customers />}></Route>
           </Route>
           {/* {privateRoutes.map((route, index) => {

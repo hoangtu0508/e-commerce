@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "status_orders",
+  "info": {
+    "singularName": "status-order",
+    "pluralName": "status-orders",
+    "displayName": "StatusOrder",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "StatusName": {
+      "type": "string"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "status_order"
+    }
+  }
+}

@@ -139,6 +139,12 @@
                             }
                         }
 
+                        label {
+                            padding: 5px 10px;
+                            border-radius: 20px;
+                            background-color: var(--background-color);
+                        }
+
                         .Pending {
                             color: red;
                         }
