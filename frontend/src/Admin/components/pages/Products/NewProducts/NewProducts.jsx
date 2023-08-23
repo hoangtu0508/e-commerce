@@ -40,8 +40,8 @@ function NewProducts() {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('files', image);
-
+    formData.append('files', image); 
+console.log(image);
     try {
       console.log(formData);
       const uploadResponse = await axios.post('http://localhost:1337/api/upload', formData, {

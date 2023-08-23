@@ -98,8 +98,6 @@ const AppContext = ({ children }) => {
     }
   };
 
-  console.log(users)
-
   const addToCart = async (product, qty) => {
     let items = [...cartItems];
     let index = items.findIndex((p) => p.id === product.id);

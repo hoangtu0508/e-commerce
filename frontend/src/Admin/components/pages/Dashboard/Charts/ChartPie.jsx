@@ -1,20 +1,15 @@
 import React from 'react';
-import { VictoryPie, VictoryTooltip } from 'victory';
+import { VictoryPie } from 'victory';
 
 const ChartPie = (props) => {
     const colorScale = ["#FF6384", "#36A2EB", "#FFCE56", "#8C8C8C", "#FF9F40"];
 
     const data = props.orders.data;
 
-    console.log(data);
-
     const ordersByCategory = {};
     data?.forEach((order) => {
-        console.log(order);
         order?.attributes.products?.forEach((product) => {
-            console.log(product);
             const category = product?.attributes.category.data
-            console.log(category);
             const { CategoryName } = category?.attributes;
             if (!ordersByCategory[CategoryName]) {
                 ordersByCategory[CategoryName] = 0;

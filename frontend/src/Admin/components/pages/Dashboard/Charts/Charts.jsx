@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
 
 const Charts = (props) => {
-    const [price, setPrice] = useState()
     const data = props.orders.data;
-    console.log('charts', data);
 
     const formatMonth = (dateString) => {
         const date = new Date(dateString);
@@ -18,9 +16,8 @@ const Charts = (props) => {
     data?.forEach((item) => {
         const month = formatMonth(item.attributes.createdAt)
         const products = item.attributes.products;
-
         const product = products.map(item => {
-            const price = item.attributes.ProductPrice;
+            const price = item.attributes.ProductPrice * item.attributes.qty;
             if (monthlyData[month]) {
                     monthlyData[month] += price;
                 } else {
@@ -33,8 +30,6 @@ const Charts = (props) => {
         x: month,
         y: monthlyData[month],
     }));
-
-    console.log(formattedData);
 
     return (
         <div className='dashboard-items chart-col-content'>

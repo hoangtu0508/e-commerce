@@ -11,13 +11,7 @@ const Layout = () => {
 
   const { jwt } = userData();
   const isLoggedIn = !!jwt
-  useEffect(() => {
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
-    if(isAdmin) {
-      navigate('/admin')
-    } 
-    
-  },[navigate])
+
   return (
 
 

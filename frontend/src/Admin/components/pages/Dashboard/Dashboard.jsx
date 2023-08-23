@@ -11,11 +11,16 @@ import ChartPie from "./Charts/ChartPie";
 import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { BsEyeFill } from 'react-icons/bs'
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+  const token = JSON.parse(localStorage.getItem('user'));
+  const jwt = token?.jwt;
   const [orders, setOrders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [products, setProducts] = useState([])
+  const [total, setTotal] = useState()
 
   useEffect(() => {
     fetchDataOrder();
@@ -43,7 +48,7 @@ const Dashboard = () => {
     if (orders.data?.length > 0) {
       orders?.data.map((order) => {
         const products = order?.attributes.products
-        if(products.length > 0) {
+        if (products.length > 0) {
           products?.map((item) => {
             const productPrice = item.attributes.ProductPrice;
             const quantity = item.attributes.qty;
@@ -54,7 +59,6 @@ const Dashboard = () => {
         }
       });
     }
-
     return totalRevenue;
   };
 
@@ -75,9 +79,25 @@ const Dashboard = () => {
     return date.toLocaleDateString();
   };
 
+  const handleDeleOrder = async (Id) => {
+    try {
+      const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${jwt}`,
+        }
+      })
+      window.location.reload()
+    } catch (error) {
 
+    }
+  }
+  const handleViewOrder = (Id) => {
+    // Điều hướng đến trang chỉnh sửa sản phẩm với productId
+    navigate(`orders/order-view/${Id}`);
+  };
 
-  console.log(products)
 
   return (
     <div className="dashboard">
@@ -160,12 +180,14 @@ const Dashboard = () => {
                   <td>{product.attributes.products[0].attributes.ProductPrice}</td>
                   <td>{product.attributes.products[0].attributes.qty}</td>
                   <td className={product?.attributes?.status_order?.data?.attributes?.StatusName}>{product?.attributes?.status_order?.data?.attributes?.StatusName}</td>
-                  <td>{product.attributes.products[0].attributes.ProductPrice * product.attributes.products[0].attributes.qty}</td>
+                  <td>
+                  {product?.attributes.products.reduce((acc, item) => {
+                      return acc + item.attributes.ProductPrice * item.attributes.qty}, 0)}
+                  </td>
                   <td>{formatDate(product.attributes.publishedAt)}</td>
                   <td className='orders-actions'>
-                    <span><BsEyeFill className='icon action-eye' /></span>
-                    <span><AiFillEdit className='icon action-edit' /></span>
-                    <span><MdDelete className='icon action-dele' /></span>
+                    <span><BsEyeFill className='icon action-eye' onClick={() => handleViewOrder(product.id)}/></span>
+                    <span><MdDelete className='icon action-dele' onClick={() => handleDeleOrder(product.id)}/></span>
                   </td>
                 </tr>
               ))}

@@ -6,10 +6,13 @@ import { GrNext, GrPrevious } from 'react-icons/gr'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const Customers = () => {
 
     const { users } = useContext(Context)
+
+    const navigate = useNavigate()
 
     const [currentPage, setCurrentPage] = useState(1)
     const [ordersPerPage, setOrdersPerPage] = useState(10) // Số lượng sản phẩm hiển thị trên mỗi trang
@@ -44,7 +47,10 @@ const Customers = () => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
       };
-    console.log(users)
+
+      const handleViewUser = (Id) => {
+        navigate(`/admin/customers/details/${Id}`)
+      }
     return (
         <div className='admin-customers'>
             <div className="admin-customers-title">
@@ -121,7 +127,7 @@ const Customers = () => {
                                     <td>{formatDate(orders.createdAt)}</td>
                                     <td className='orders-total'>{orders.role.name}</td>
                                     <td className='orders-actions'>
-                                        <span><BsEyeFill className='icon action-eye' /></span>
+                                        <span><BsEyeFill className='icon action-eye' onClick={() => handleViewUser(orders.id)}/></span>
                                         <span><AiFillEdit className='icon action-edit' /></span>
                                         <span><MdDelete className='icon action-dele' /></span>
                                     </td>

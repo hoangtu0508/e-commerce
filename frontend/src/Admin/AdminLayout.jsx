@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from './components/Header/Header'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './components/Footer/Footer'
 import SliderBar from './components/SliderBar/SliderBar'
 import './AdminLayout.scss'
 
 const AdminLayout = () => {
+const navigate = useNavigate()
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('isAdmin') ==="true";
+    if(!isAdmin) {
+      navigate('/')
+    } 
+    
+  },[navigate])
   return (
     <>
       <Header />
