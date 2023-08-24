@@ -1,0 +1,39 @@
+.security {
+    h3 {
+        margin-bottom: 20px;
+    }
+
+    .form {
+        border-radius: 10px;
+        background-color: white;
+        margin: 0px 20px 20px 0px;
+        padding: 30px;
+
+        .change-password-title {
+            padding: 20px;
+            background-color: #fff0e1;
+            color: #ff9f43;
+            border-radius: 5px;
+        }
+
+        .change-password-form {
+            form {
+                display: flex;
+                justify-content: space-between;
+
+                .form-input {
+                    width: 49%;
+                    margin: 20px 0px;
+                    input {
+                        padding: 10px;
+                        margin: 10px 0px;
+                        width: 100%;
+                        border-radius: 5px;
+                        border: 1px solid var(--main-color);
+                    }
+                }
+
+            }
+        }
+    }
+}

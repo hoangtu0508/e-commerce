@@ -26,7 +26,7 @@ const navigate = useNavigate()
           
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

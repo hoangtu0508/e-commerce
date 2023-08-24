@@ -29,6 +29,7 @@ import privateRoutes from './routes/privateRoutes';
 import EditCategory from './Admin/components/pages/Categories/EditCategory/EditCategory';
 import OrderDetail from './Admin/components/pages/Orders/OrderDetail/OrderDetail';
 import CustomersDetails from './Admin/components/pages/Customers/CustomersDetails/CustomersDetails';
+import Overview from './Admin/components/pages/Customers/CustomersDetails/Overview/Overview';
 
 function App() {
   const { basket, addToBasket } = useBasket()
@@ -66,7 +67,9 @@ function App() {
             <Route path='orders' element={<Orders />}></Route>
             <Route path='orders/order-view/:id' element={<OrderDetail />}></Route>
             <Route path='customers' element={<Customers />}></Route>
-            <Route path='customers/details/:id' element={<CustomersDetails />}></Route>
+            <Route path='customers/details/:id' element={<CustomersDetails />}>
+            </Route>
+            <Route path='overview' element={<Overview />} />
           </Route>
           {/* {privateRoutes.map((route, index) => {
             const Page = route.component;

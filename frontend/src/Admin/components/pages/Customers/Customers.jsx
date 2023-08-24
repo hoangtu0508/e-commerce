@@ -7,10 +7,14 @@ import { GrStatusGoodSmall } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
 import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
 
 const Customers = () => {
 
     const { users } = useContext(Context)
+
+    const token = JSON.parse(localStorage.getItem('user'));
+    const jwt = token?.jwt;
 
     const navigate = useNavigate()
 
@@ -46,11 +50,27 @@ const Customers = () => {
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
-      };
+    };
 
-      const handleViewUser = (Id) => {
+    const handleViewUser = (Id) => {
         navigate(`/admin/customers/details/${Id}`)
-      }
+    }
+
+    const handleDele = async (Id) => {
+        try {
+            const response = await axios.delete(`http://localhost:1337/api/users/${Id}`, {
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${jwt}`,
+                }
+            })
+            window.location.reload()
+        } catch (error) {
+
+        }
+    }
+
     return (
         <div className='admin-customers'>
             <div className="admin-customers-title">
@@ -127,9 +147,8 @@ const Customers = () => {
                                     <td>{formatDate(orders.createdAt)}</td>
                                     <td className='orders-total'>{orders.role.name}</td>
                                     <td className='orders-actions'>
-                                        <span><BsEyeFill className='icon action-eye' onClick={() => handleViewUser(orders.id)}/></span>
-                                        <span><AiFillEdit className='icon action-edit' /></span>
-                                        <span><MdDelete className='icon action-dele' /></span>
+                                        <span><BsEyeFill className='icon action-eye' onClick={() => handleViewUser(orders.id)} /></span>
+                                        <span><MdDelete className='icon action-dele' onClick={() => handleDele(orders.id)} /></span>
                                     </td>
                                 </tr>
                             ))}
@@ -144,7 +163,7 @@ const Customers = () => {
                                         value={ordersPerPage}
                                         onChange={handleNumberPageChange}
                                     />
-                                    <h4>order page</h4>
+                                    <h4>customer page</h4>
                                 </div>
 
                                 <div className="pagination-info">
@@ -162,7 +181,7 @@ const Customers = () => {
                                     </div>
                                     <div onClick={next} className='icon'><GrNext className='icon-next' /></div>
                                     <div className="number-customers-total">
-                                        <h4>Total: <span>{users?.length}</span> Orders</h4>
+                                        <h4>Total: <span>{users?.length}</span> Customers</h4>
                                     </div>
                                 </div>
                             </div>

@@ -67,6 +67,16 @@
     },
     "phone": {
       "type": "biginteger"
+    },
+    "AvatarUser": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
     }
   }
 }
