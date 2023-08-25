@@ -8,6 +8,8 @@ import { GrNext, GrPrevious } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Orders = () => {
   const navigate = useNavigate()
@@ -60,9 +62,23 @@ const Orders = () => {
           Authorization: `Bearer ${jwt}`,
         }
       })
-      window.location.reload()
+      const message = ("Delete Success")
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide
+      })
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
     } catch (error) {
-
+      toast.error('Delete Error', {
+        position: toast.POSITION.TOP_RIGHT,
+    });
     }
   }
   const handleViewOrder = (Id) => {
@@ -70,18 +86,18 @@ const Orders = () => {
     navigate(`./order-view/${Id}`);
   };
 
-//   const totalPrice = currentOrders?.data.attributes.products.reduce((acc, item) => {
-//     return acc + item.attributes.ProductPrice * item.attributes.qty;
-// }, 0);
+  //   const totalPrice = currentOrders?.data.attributes.products.reduce((acc, item) => {
+  //     return acc + item.attributes.ProductPrice * item.attributes.qty;
+  // }, 0);
 
-console.log(currentOrders)
+  console.log(currentOrders)
 
   return (
     <div className='admin-orders'>
       <div className="admin-orders-title">
         <h3>Orders</h3>
       </div>
-
+      <div className="toast-container"><ToastContainer limit={2} /></div>
       <div className="admin-orders-content">
         <div className="admin-orders-content-list">
           <table>
@@ -151,11 +167,12 @@ console.log(currentOrders)
                   </td>
                   <td className='orders-total'>
                     {orders?.attributes.products.reduce((acc, item) => {
-                      return acc + item.attributes.ProductPrice * item.attributes.qty}, 0)}
-                    </td>
+                      return acc + item.attributes.ProductPrice * item.attributes.qty
+                    }, 0)}
+                  </td>
                   <td className='orders-actions'>
-                    <span><BsEyeFill className='icon action-eye' onClick={() => handleViewOrder(orders.id)}/></span>
-                    <span><MdDelete className='icon action-dele' onClick={() => handleDeleOrder(orders.id)}/></span>
+                    <span><BsEyeFill className='icon action-eye' onClick={() => handleViewOrder(orders.id)} /></span>
+                    <span><MdDelete className='icon action-dele' onClick={() => handleDeleOrder(orders.id)} /></span>
                   </td>
                 </tr>
               ))}

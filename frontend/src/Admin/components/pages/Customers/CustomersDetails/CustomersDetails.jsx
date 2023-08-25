@@ -9,12 +9,26 @@ import Security from './Security/Security'
 import Address from './Address/Address'
 import { CgProfile } from 'react-icons/cg'
 import { FiFileText } from 'react-icons/fi'
+import Modal from '@mui/joy/Modal/Modal'
+import ModalDialog from '@mui/joy/ModalDialog/ModalDialog';
+import ModalClose from '@mui/joy/ModalClose/ModalClose';
+import EditProfile from './EditProfile/EditProfile'
 
 const CustomersDetails = () => {
   const [userDetails, setUserDetails] = useState()
   const [order, setOrder] = useState()
 
   const [activeComponent, setActiveComponent] = useState(1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleEditClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   const showComponent = (componentNumber) => {
     setActiveComponent(componentNumber);
@@ -37,10 +51,6 @@ const CustomersDetails = () => {
     return date.toLocaleString();
   };
 
-  const formatDateMonth = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString();
-  };
 
   const getUserDetails = async () => {
     try {
@@ -91,8 +101,8 @@ const CustomersDetails = () => {
   const calculateTotalRevenue = () => {
     let totalRevenue = 0;
 
-    if (order?.data.length > 0) {
-      order?.data.map((order) => {
+    if (order?.data?.length > 0) {
+      order?.data?.map((order) => {
         const products = order?.attributes.products
         if (products.length > 0) {
           products?.map((item) => {
@@ -108,28 +118,40 @@ const CustomersDetails = () => {
     return totalRevenue;
   };
 
-  const handleViewOrder = (Id) => {
-    navigate(`/admin/orders/order-view/${Id}`)
-  }
+  // const handleViewOrder = (Id) => {
+  //   navigate(`/admin/orders/order-view/${Id}`)
+  // }
 
-  const handleDeleOrder = async (Id) => {
-    try {
-      const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
-      window.location.reload()
-    } catch (error) {
+  // const handleDeleOrder = async (Id) => {
+  //   try {
+  //     const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
+  //       mode: 'no-cors',
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //         Authorization: `Bearer ${jwt}`,
+  //       }
+  //     })
+  //     window.location.reload()
+  //   } catch (error) {
 
-    }
-  }
+  //   }
+  // }
 
   console.log(order);
   return (
     <div className='customers-details'>
+      <div className="modal">
+        <Modal
+          open={isModalOpen}
+          onClose={() => handleModalClose()}
+          maxWidth="lg" PaperProps={{ style: { width: '800px'} }}
+        >
+          <ModalDialog>
+            <ModalClose />
+            <EditProfile />
+          </ModalDialog>
+        </Modal>
+      </div >
       <div className='customers-details-title'>
         <Link to="/admin/orders"><BiArrowBack className='icon-back' /></Link>
         <h2>Order Details</h2>
@@ -157,7 +179,7 @@ const CustomersDetails = () => {
               <div className="customer cart">
                 <span><AiOutlineShoppingCart className='icon cart-icon' /></span>
                 <div className="customer-cart title">
-                  <h3>{order?.data.length}</h3>
+                  <h3>{order?.data?.length}</h3>
                   <h4>Orders</h4>
                 </div>
               </div>
@@ -177,15 +199,15 @@ const CustomersDetails = () => {
               <h4>Status: {userDetails?.blocked ? (<label className='passive'>Passive</label>) : (<label className='active'>Active</label>)}</h4>
               <h4>Contact: <label>{userDetails?.phone}</label></h4>
               <div className="btn-edit">
-                <input type='submit' value='Edit Details'></input>
+                <input type='submit' value='Edit Details' onClick={handleEditClick}></input>
               </div>
             </div>
           </div>
           <div className="content-right">
             <div className="button-container">
-              <Link className={`button ${activeComponent === 1 ? 'active' : ''}`} onClick={() => showComponent(1)}><CgProfile className='icon'/> Overview</Link>
-              <Link className={`button ${activeComponent === 2 ? 'active' : ''}`} onClick={() => showComponent(2)}><BiLockAlt className='icon'/> Security</Link>
-              <Link className={`button ${activeComponent === 3 ? 'active' : ''}`} onClick={() => showComponent(3)}><FiFileText className='icon'/> Address & Billing</Link>
+              <Link className={`button ${activeComponent === 1 ? 'active' : ''}`} onClick={() => showComponent(1)}><CgProfile className='icon' /> Overview</Link>
+              <Link className={`button ${activeComponent === 2 ? 'active' : ''}`} onClick={() => showComponent(2)}><BiLockAlt className='icon' /> Security</Link>
+              <Link className={`button ${activeComponent === 3 ? 'active' : ''}`} onClick={() => showComponent(3)}><FiFileText className='icon' /> Address & Billing</Link>
             </div>
 
             {activeComponent === 1 && <Overview />}
@@ -194,7 +216,7 @@ const CustomersDetails = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 }
 

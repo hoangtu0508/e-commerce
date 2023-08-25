@@ -4,6 +4,8 @@ import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import '../NewCategories/NewCategories.scss'
 import axios from 'axios'
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const EditCategory = () => {
     const navigate = useNavigate()
@@ -90,18 +92,27 @@ const EditCategory = () => {
                 }
             );
 
-            console.log(res);
+            const message = ("Upload Success")
+            toast.success(message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000, //3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                transition: Slide
+            })
+            setTimeout(() => {
+                navigate("/admin/categories")
+                window.location.reload()
+            }, [1000])
 
-            if (res.status === 200) {
-                console.log('Success');
-            }
         } catch (error) {
-            console.error('Error:', error.message);
+            toast.error('Upload Error', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
-        setTimeout(() => {
-            navigate("/admin/categories")
-            window.location.reload()
-          }, [1000])
+        
     };
 
     const handleFileChange = (e) => {
@@ -151,7 +162,7 @@ const EditCategory = () => {
                 <Link to="/admin/categories"><BiArrowBack className='icon-back' /></Link>
                 <h2>Create A New Categories</h2>
             </div>
-
+            <div className="toast-container"><ToastContainer limit={2} /></div>
             <div className="new-category-form">
                 <form onSubmit={handleSubmit}>
                     <div className="form-content">

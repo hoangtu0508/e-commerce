@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi'
 import axios from 'axios';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const OrderDetail = () => {
     const [orderDetail, setOrderDetail] = useState()
@@ -74,17 +76,25 @@ const OrderDetail = () => {
                     },
                 }
             );
-            console.log(res);
+            setTimeout(() => {
+                window.location.reload()
+            }, [1000])
+            const message = ("Upload Success")
+            toast.success(message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000, //3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                transition: Slide
+            })
 
-            if (res.status === 200) {
-                console.log('Success');
-            }
         } catch (error) {
-            console.error('Error:', error.message);
+            toast.error('Upload Error', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
-        setTimeout(() => {
-            window.location.reload()
-        }, [1000])
     };
 
     const handleDeleOrder = async () => {
@@ -96,10 +106,24 @@ const OrderDetail = () => {
                     Authorization: `Bearer ${jwt}`,
                 }
             })
-            navigate('/admin/orders')
-            window.location.reload()
+            setTimeout(() => {
+                window.location.reload()
+                navigate('/admin/orders')
+            }, [1000])
+            const message = ("Delete Success")
+            toast.success(message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000, //3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                transition: Slide
+            })
         } catch (error) {
-
+            toast.error('Delete Error', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }
 
@@ -122,7 +146,7 @@ const OrderDetail = () => {
                     <Link onClick={handleDeleOrder}>Delete Order</Link>
                 </div>
             </div>
-
+            <div className="toast-container"><ToastContainer limit={2} /></div>
             <div className="order-code">
                 <div className="order-code-title">
                     <h3>Order: #{orderDetail?.data?.id}</h3>

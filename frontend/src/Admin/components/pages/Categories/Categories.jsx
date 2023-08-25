@@ -7,6 +7,8 @@ import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import axios from 'axios'
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Categories = () => {
   const { categories } = useContext(Context)
@@ -51,9 +53,24 @@ const Categories = () => {
           Authorization: `Bearer ${jwt}`,
         }
       })
-      window.location.reload()
+      const message = ("Delete Success")
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide
+      })
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+      
     } catch (error) {
-
+      toast.error('Delete Error', {
+        position: toast.POSITION.TOP_RIGHT,
+    });
     }
   }
 
@@ -71,7 +88,7 @@ const Categories = () => {
           <Link to="new-category">New Category</Link>
         </div>
       </div>
-
+      <div className="toast-container"><ToastContainer limit={2} /></div>
       <div className="admin-categories-content">
         <div className="admin-categories-content-list">
           <table>

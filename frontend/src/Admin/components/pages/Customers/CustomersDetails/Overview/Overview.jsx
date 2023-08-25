@@ -6,10 +6,41 @@ import { useNavigate, useParams } from 'react-router-dom'
 import './Overview.scss'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { AiFillHeart } from 'react-icons/ai'
+import { GrNext, GrPrevious } from 'react-icons/gr'
 
 const Overview = () => {
     const [order, setOrder] = useState()
+    console.log(order);
     const { id } = useParams()
+
+    const [currentPage, setCurrentPage] = useState(1)
+    const [productsPerPage, setProductsPerPage] = useState(5) // Số lượng sản phẩm hiển thị trên mỗi trang
+
+    // Tính chỉ số bắt đầu và kết thúc của danh sách sản phẩm hiển thị trên trang hiện tại
+    const startIndex = (currentPage - 1) * productsPerPage
+    const endIndex = startIndex + productsPerPage
+    const currentProducts = order?.data.slice(startIndex, endIndex)
+
+    const totalPages = Math.ceil(order?.data.length / productsPerPage)
+
+    const next = () => {
+        const nextPage = currentPage + 1;
+        setCurrentPage(nextPage)
+    }
+    const prev = () => {
+        const prevPage = currentPage - 1
+        setCurrentPage(prevPage)
+    }
+
+    const handlePageChange = (e) => {
+        const pageNumber = parseInt(e.target.value)
+        setCurrentPage(pageNumber)
+    }
+
+    const handleNumberPageChange = (e) => {
+        const productNumber = parseInt(e.target.value)
+        setProductsPerPage(productNumber)
+    }
 
     useEffect(() => {
         handleGetOrder();
@@ -62,13 +93,13 @@ const Overview = () => {
         <div className='over-view'>
             <div className="over-view-header">
                 <div className="form account-balance">
-                    <span><BiMoneyWithdraw className='icon money'/></span>
+                    <span><BiMoneyWithdraw className='icon money' /></span>
                     <h2>Account Balance</h2>
                     <h3><b>$3000</b> Credit Left</h3>
                     <p>Account balance for next purchase</p>
                 </div>
                 <div className="form wish-list">
-                    <span><AiFillHeart className='icon heart'/></span>
+                    <span><AiFillHeart className='icon heart' /></span>
                     <h2>Wishlist</h2>
                     <h3><b>20</b> Items in wishlist</h3>
                     <p>Receive notification when items go on sale</p>
@@ -88,7 +119,7 @@ const Overview = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {order?.data.map((item) => (
+                        {currentProducts?.map((item) => (
                             <tr key={item.id}>
                                 <td><input type='checkbox'></input></td>
                                 <td>{item.attributes.stripeId.slice(0, 18)}</td>
@@ -106,6 +137,38 @@ const Overview = () => {
 
                     </tbody>
                 </table>
+                <div className="current-page-number">
+                    <div className="number-product-page">
+                        <h4>Show</h4>
+                        <input
+                            type="number"
+                            min={10}
+                            max={order?.length}
+                            value={productsPerPage}
+                            onChange={handleNumberPageChange}
+                        />
+                        <h4>order page</h4>
+                    </div>
+
+                    <div className="pagination-info">
+                        <div onClick={prev} className='icon'><GrPrevious className='icon-prev' /></div>
+                        <div className="page-number">
+                            <span>1</span>
+                            <input
+                                type="number"
+                                min="1"
+                                max={totalPages}
+                                value={currentPage}
+                                onChange={handlePageChange}
+                            />
+                            <span>{totalPages}</span>
+                        </div>
+                        <div onClick={next} className='icon'><GrNext className='icon-next' /></div>
+                        <div className="number-product-total">
+                            <h4>Total: <span>{order?.data.length}</span> Order</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -1,7 +1,13 @@
+
 .customers-details {
     padding: 30px;
     color: var(--main-color);
-
+    .modal {
+        .modal-title {
+            margin: 40px;
+            
+        }
+    }
     .customers-details-title {
         display: flex;
         justify-content: left;
@@ -141,6 +147,7 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        margin-top: 40px;
 
                         input {
                             padding: 15px 30px;

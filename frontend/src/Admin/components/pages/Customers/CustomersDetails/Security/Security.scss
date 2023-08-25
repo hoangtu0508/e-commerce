@@ -18,22 +18,59 @@
 
         .change-password-form {
             form {
-                display: flex;
-                justify-content: space-between;
 
-                .form-input {
-                    width: 49%;
-                    margin: 20px 0px;
-                    input {
-                        padding: 10px;
-                        margin: 10px 0px;
-                        width: 100%;
-                        border-radius: 5px;
-                        border: 1px solid var(--main-color);
+                .change-password-form-input {
+                    display: flex;
+                    justify-content: space-between;
+
+                    .form-input {
+                        width: 49%;
+                        margin: 20px 0px;
+
+                        input {
+                            padding: 10px;
+                            margin: 10px 0px;
+                            width: 100%;
+                            border-radius: 5px;
+                            border: 1px solid var(--main-color);
+                        }
                     }
                 }
 
+                .btn-submit {
+                    background-color: #7367f0;
+                    color: white;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 5px;
+                }
+
+
             }
+        }
+    }
+
+    .two-steps {
+        h4 {
+            margin: 10px 0px;
+        }
+
+        .two-steps-phone {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--main-color);
+
+            .actions {
+                .icon {
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+        }
+
+        p {
+            margin-top: 15px;
         }
     }
 }

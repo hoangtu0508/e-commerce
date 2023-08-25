@@ -40,13 +40,14 @@
                         .input-date {
                             display: flex;
                             justify-content: left;
+
                             input {
                                 margin-right: 5%;
                                 width: 40%;
                             }
                         }
 
-    
+
 
                         th {
                             display: flex;
@@ -87,6 +88,7 @@
                         border-top: 1px solid var(--main-color-little-2);
                         text-align: left;
                         align-items: center;
+
                         .orders-total {
                             text-align: center;
                         }
@@ -148,11 +150,11 @@
                         .Pending {
                             color: red;
                         }
-                        
+
                         .Processing {
                             color: rgb(205, 187, 50);
                         }
-    
+
                         .Completed {
                             color: green;
                         }
@@ -223,6 +225,7 @@
                     }
                 }
             }
+
         }
     }
 }

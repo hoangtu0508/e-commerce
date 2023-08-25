@@ -6,6 +6,8 @@ import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import { Context } from '../../../../../utils/AppContext';
 import useFetch from '../../../../../hooks/useFetch';
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function EditProducts() {
   const navigate = useNavigate()
@@ -73,7 +75,7 @@ function EditProducts() {
       } else {
         imgUrlData = updatesData?.ProductImg?.data[0]?.id
       }
-console.log(inputCategories);
+      console.log(inputCategories);
       const res = await axios.put(
         `http://localhost:1337/api/products/${id}?populate=*`,
         {
@@ -100,18 +102,27 @@ console.log(inputCategories);
           },
         }
       );
-      console.log(res);
+      setTimeout(() => {
+        navigate("/admin/product")
+        window.location.reload()
+      }, [1000])
+      const message = ("Upload Success")
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide
+      })
 
-      if (res.status === 200) {
-        console.log('Success');
-      }
     } catch (error) {
-      console.error('Error:', error.message);
+      toast.error('Upload Error', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
-    setTimeout(() => {
-      navigate("/admin/product")
-      window.location.reload()
-    }, [1000])
+    
   };
 
   const handleFileChange = (e) => {
@@ -149,7 +160,7 @@ console.log(inputCategories);
         <Link to="/admin/product"><BiArrowBack className='icon-back' /></Link>
         <h2>Edit Product</h2>
       </div>
-
+      <div className="toast-container"><ToastContainer limit={2} /></div>
       <div className='new-product-form'>
         <form onSubmit={handleSubmit}>
           <div className="form-content">
@@ -195,19 +206,6 @@ console.log(inputCategories);
                   <label>
                     Choose a category: {""}
                   </label>
-                  {/* <select
-                    name="categories"
-                    value={categories.id}
-                    onChange={(e) => setInputCategories(e.target.value)}
-                    required
-                    className="categories-select"
-                  >
-                    {categories?.map((category) => (
-                      <option key={category.id} value={category.id}  selected={category.id === inputCategories?.id}>
-                        {category.attributes.CategoryName}
-                      </option>
-                    ))}
-                  </select> */}
                   <select
                     name="categories"
                     value={categories?.id}
