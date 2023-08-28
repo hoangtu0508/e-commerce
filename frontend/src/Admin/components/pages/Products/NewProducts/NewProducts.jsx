@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useContext, useState } from 'react';
 import './NewProducts.scss'
 import { Link } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import { Context } from '../../../../../utils/AppContext';
+import { fetchData } from '../../../../../utils/api';
 
 function NewProducts() {
   const [image, setImage] = useState(null);
@@ -15,19 +15,13 @@ function NewProducts() {
     ProductPrice: '',
     ProductQuantity: null,
   });
-
   const [status, setStatus] = useState(1)
   const [visibility, setVisibility] = useState(1)
   const [stockAvailabilitty, setStockAvailabilitty] = useState(1)
   const [sale, setSale] = useState(1)
   const [inputCategories, setInputCategories] = useState()
 
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
-
   const { categories } = useContext(Context)
-  console.log(inputCategories)
 
   const updateEdit = (e) => {
     const newupdate = { ...updatesData };
@@ -41,21 +35,12 @@ function NewProducts() {
 
     const formData = new FormData();
     formData.append('files', image); 
-console.log(image);
+
     try {
       console.log(formData);
-      const uploadResponse = await axios.post('http://localhost:1337/api/upload', formData, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        },
-      });
-
-      console.log(uploadResponse);
-
-      const res = await axios.post(
-        'http://localhost:1337/api/products',
+      const uploadResponse = await fetchData.post('/api/upload', formData);
+      const res = await fetchData.post(
+        '/api/products',
         {
           data: {
             ProductName: updatesData.ProductName,
@@ -69,16 +54,8 @@ console.log(image);
             ProductQuantity: updatesData.ProductQuantity,
             category: inputCategories,
           }
-        },
-        {
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
         }
       );
-      console.log(res)
 
       setUpdatesData({
         ProductName: '',
@@ -93,10 +70,6 @@ console.log(image);
       setInputCategories(undefined);
       setImage(null);
       setImageUrl(null);
-
-
-
-      console.log(res);
 
       if (res.status === 200) {
         console.log('Success');

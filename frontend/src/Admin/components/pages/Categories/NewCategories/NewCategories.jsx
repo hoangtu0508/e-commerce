@@ -1,31 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import './NewCategories.scss'
-import axios from 'axios'
+import { fetchData } from '../../../../../utils/api'
+import { Context } from '../../../../../utils/AppContext'
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const NewCategories = () => {
+    const { categories } = useContext(Context)
+
+    const navigate = useNavigate()
+
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [updatesData, setUpdatesData] = useState({
         CategoryName: '',
         CategoryDesc: '',
     });
-
     const [status, setStatus] = useState(1)
     const [visibility, setVisibility] = useState(1)
-
-    const [dataCate, setDataCate] = useState()
-
     const [showList, setShowList] = useState(false);
-
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
-
-    useEffect(() => {
-        handleShowCategory()
-    }, [])
 
     const handleToggleList = () => {
         setShowList(!showList);
@@ -45,19 +41,10 @@ const NewCategories = () => {
         formData.append('files', image);
 
         try {
-            console.log(formData);
-            const uploadResponse = await axios.post('http://localhost:1337/api/upload', formData, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            });
+            const uploadResponse = await fetchData.post('/api/upload', formData);
 
-            console.log(uploadResponse);
-
-            const res = await axios.post(
-                'http://localhost:1337/api/categories',
+            const res = await fetchData.post(
+                '/api/categories',
                 {
                     data: {
                         CategoryName: updatesData.CategoryName,
@@ -66,13 +53,6 @@ const NewCategories = () => {
                         CategoryStatus: status,
                         CategoryVisibility: visibility,
                     }
-                },
-                {
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${jwt}`,
-                    },
                 }
             );
 
@@ -85,15 +65,24 @@ const NewCategories = () => {
             setImage(null);
             setImageUrl(null);
 
+            setTimeout(() => {
+                navigate('/admin/categories')
+            }, [1000])
+            const message = ("New Category Success")
+            toast.success(message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000, //3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                transition: Slide
+            })
 
-
-            console.log(res);
-
-            if (res.status === 200) {
-                console.log('Success');
-            }
         } catch (error) {
-            console.error('Error:', error.message);
+            toast.error('New Category Error', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     };
 
@@ -103,30 +92,13 @@ const NewCategories = () => {
         setImageUrl(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleShowCategory = async () => {
-        try {
-            const data = await axios.get('http://localhost:1337/api/categories', {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
-            setDataCate(data.data)
-        } catch (error) {
-            console.log(error)
-        }
-
-
-    }
-
     return (
         <div className='new-category'>
             <div className="new-category-title">
                 <Link to="/admin/categories"><BiArrowBack className='icon-back' /></Link>
                 <h2>Create A New Categories</h2>
             </div>
-
+            <div className="toast-container"><ToastContainer limit={2} /></div>
             <div className="new-category-form">
                 <form onSubmit={handleSubmit}>
                     <div className="form-content">
@@ -185,7 +157,7 @@ const NewCategories = () => {
                                     {showList && (
                                         <div className="list-category">
                                             <ul>
-                                                {dataCate.data?.map(cate => {
+                                                {categories?.map(cate => {
                                                     return (
                                                         <li>{cate.attributes.CategoryName}</li>
                                                     )

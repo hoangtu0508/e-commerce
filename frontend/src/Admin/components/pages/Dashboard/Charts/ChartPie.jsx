@@ -4,7 +4,7 @@ import { VictoryPie } from 'victory';
 const ChartPie = (props) => {
     const colorScale = ["#FF6384", "#36A2EB", "#FFCE56", "#8C8C8C", "#FF9F40"];
 
-    const data = props.orders.data;
+    const data = props.orders;
 
     const ordersByCategory = {};
     data?.forEach((order) => {

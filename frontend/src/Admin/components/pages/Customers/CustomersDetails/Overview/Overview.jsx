@@ -1,4 +1,3 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BsEyeFill } from 'react-icons/bs'
 import { MdDelete } from 'react-icons/md'
@@ -7,11 +6,12 @@ import './Overview.scss'
 import { BiMoneyWithdraw } from 'react-icons/bi'
 import { AiFillHeart } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
+import { fetchData } from '../../../../../../utils/api'
 
 const Overview = () => {
     const [order, setOrder] = useState()
-    console.log(order);
     const { id } = useParams()
+    const navigate = useNavigate()
 
     const [currentPage, setCurrentPage] = useState(1)
     const [productsPerPage, setProductsPerPage] = useState(5) // Số lượng sản phẩm hiển thị trên mỗi trang
@@ -46,10 +46,6 @@ const Overview = () => {
         handleGetOrder();
     }, [id])
 
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
-    const navigate = useNavigate()
-
     const formatDateMonth = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString();
@@ -57,13 +53,7 @@ const Overview = () => {
 
     const handleGetOrder = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/orders?filters[userId]=${id}&populate=*`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.get(`/api/orders?filters[userId]=${id}&populate=*`)
             setOrder(response.data)
         } catch (error) {
             console.log(error);
@@ -76,13 +66,7 @@ const Overview = () => {
 
     const handleDeleOrder = async (Id) => {
         try {
-            const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.delete(`/api/orders/${Id}`)
             window.location.reload()
         } catch (error) {
 

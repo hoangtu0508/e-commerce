@@ -4,7 +4,7 @@ import { Context } from '../../../utils/AppContext'
 
 const MyProfile = () => {
     
-    const {userData} = useContext(Context)
+    const {userLogin} = useContext(Context)
 
     return (
         <div className='my-profile'>
@@ -13,14 +13,14 @@ const MyProfile = () => {
                 <div className='right-profile-content-info'>
                     <label><h3>Full Name:</h3></label>
                     <div className='content-info-title'>
-                        <label>{userData.username}</label>
+                        <label>{userLogin?.username}</label>
                     </div>
 
                 </div>
                 <div className='right-profile-content-info'>
                     <label><h3>Email:</h3></label>
                     <div className='content-info-title'>
-                        <label>{userData.email}</label>
+                        <label>{userLogin?.email}</label>
                     </div>
 
                 </div>

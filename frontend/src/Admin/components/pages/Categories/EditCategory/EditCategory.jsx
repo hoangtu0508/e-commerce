@@ -1,34 +1,30 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import '../NewCategories/NewCategories.scss'
-import axios from 'axios'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../../utils/api'
+import { Context } from '../../../../../utils/AppContext'
 
 const EditCategory = () => {
+    const {categories} = useContext(Context)
+
     const navigate = useNavigate()
     const { id } = useParams();
+
     const [image, setImage] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
     const [updatesData, setUpdatesData] = useState({
         CategoryName: '',
         CategoryDescription: '',
     });
-
     const [status, setStatus] = useState()
     const [visibility, setVisibility] = useState()
-
-    const [dataCate, setDataCate] = useState()
-
     const [showList, setShowList] = useState(false);
 
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
-
     useEffect(() => {
-        handleGetCategory();
         getCategoryId();
     }, [id])
 
@@ -53,15 +49,7 @@ const EditCategory = () => {
             let uploadResponse;
 
             if (image) {
-                uploadResponse = await axios.post('http://localhost:1337/api/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        Authorization: `Bearer ${jwt}`,
-                    },
-                });
-
-                console.log(uploadResponse)
-
+                uploadResponse = await fetchData.post('/api/upload', formData);
             }
 
             let imgUrlData
@@ -72,8 +60,8 @@ const EditCategory = () => {
                 imgUrlData = updatesData?.CategoryImg?.data[0]?.id
             }
 
-            const res = await axios.put(
-                `http://localhost:1337/api/categories/${id}`,
+            const res = await fetchData.put(
+                `/api/categories/${id}`,
                 {
                     data: {
                         CategoryName: updatesData.CategoryName,
@@ -82,13 +70,6 @@ const EditCategory = () => {
                         CategoryStatus: status,
                         CategoryVisibility: visibility,
                     }
-                },
-                {
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${jwt}`,
-                    },
                 }
             );
 
@@ -121,31 +102,9 @@ const EditCategory = () => {
         setImageUrl(URL.createObjectURL(e.target.files[0]));
     };
 
-    const handleGetCategory = async () => {
-        try {
-            const data = await axios.get('http://localhost:1337/api/categories/', {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
-            setDataCate(data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
     const getCategoryId = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/categories/${id}?populate=*`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
-
+            const response = await fetchData.get(`/api/categories/${id}?populate=*`)
             setUpdatesData(response.data.data.attributes)
             setStatus(response.data.data.attributes.CategoryStatus)
             setVisibility(response.data.data.attributes.CategoryVisibility)
@@ -153,8 +112,6 @@ const EditCategory = () => {
 
         }
     }
-
-    console.log(updatesData)
 
     return (
         <div className='new-category'>
@@ -225,7 +182,7 @@ const EditCategory = () => {
                                     {showList && (
                                         <div className="list-category">
                                             <ul>
-                                                {dataCate.data?.map(cate => {
+                                                {categories?.map(cate => {
                                                     return (
                                                         <li>{cate.attributes.CategoryName}</li>
                                                     )

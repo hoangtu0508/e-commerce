@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import './Security.scss'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { TbEdit } from 'react-icons/tb'
 import { MdDeleteOutline } from 'react-icons/md'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../../../utils/api'
 
 const Security = () => {
   const [user, setUser] = useState()
   const [confirmPassword, setConfirmPassword] = useState()
   const [newPassword, setNewPassword] = useState()
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
 
   const { id } = useParams()
 
@@ -23,13 +20,7 @@ const Security = () => {
 
   const getUserDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/users/${id}?populate=*`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.get(`/api/users/${id}?populate=*`)
       setUser(response.data)
     } catch (error) {
       console.log(error);
@@ -49,18 +40,11 @@ const Security = () => {
     }
     
     try {
-      const response = await axios.put(process.env.REACT_APP_DEV_URL + `/api/users/${id}`, {
+      const response = await fetchData.put(`/api/users/${id}`, {
         data: {
           password: newPassword,
         }
-      }, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      }
-      )
+      })
       const message = ("Change Password Success")
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
@@ -78,10 +62,9 @@ const Security = () => {
         position: toast.POSITION.TOP_RIGHT,
         toastId
       });
-      console.log(error)
     }
   }
-  console.log(newPassword);
+
   return (
     <div className='security'>
       <div className="form security-change-password">

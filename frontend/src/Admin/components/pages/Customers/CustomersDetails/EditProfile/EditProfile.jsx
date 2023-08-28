@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import './EditProfile.scss'
-import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { fetchData } from '../../../../../../utils/api';
 
 const EditProfile = () => {
     const [user, setUser] = useState({
@@ -17,9 +16,6 @@ const EditProfile = () => {
     const [inputRole, setInputRole] = useState()
 
     const { id } = useParams()
-
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
 
     useEffect(() => {
         handleGetUser();
@@ -35,13 +31,7 @@ const EditProfile = () => {
 
     const handleGetUser = async () => {
         try {
-            const response = await axios.get(process.env.REACT_APP_DEV_URL + `/api/users/${id}?populate=*`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.get(`/api/users/${id}?populate=*`)
             setUser(response.data)
             setStatus(response.data.blocked)
         } catch (error) {
@@ -51,13 +41,7 @@ const EditProfile = () => {
 
     const handleGetRole = async () => {
         try {
-            const response = await axios.get(process.env.REACT_APP_DEV_URL + '/api/users-permissions/roles', {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
-            })
+            const response = await fetchData.get('/api/users-permissions/roles')
             setRole(response.data)
         } catch (error) {
             console.log(error);
@@ -67,25 +51,17 @@ const EditProfile = () => {
     const handleUpload = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(process.env.REACT_APP_DEV_URL + `/api/users/${id}?populate=*`, {
-                data: {
-                    username: user.username,
-                    email: user.email,
-                    phone: user.phone,
-                    role: inputRole,
-                    blocked: status
-                }
-            }, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                },
+            const response = await fetchData.put(`/api/users/${id}?populate=*`, {
+                username: user.username,
+                email: user.email,
+                phone: user.phone,
+                role: inputRole,
+                blocked: status
+
             })
-            console.log(response);
-            // setTimeout(() => {
-            //     window.location.reload()
-            //   }, [1000])
+            setTimeout(() => {
+                window.location.reload()
+              }, [1000])
             const message = ("Upload Success")
             toast.success(message, {
                 position: toast.POSITION.TOP_CENTER,
@@ -103,8 +79,6 @@ const EditProfile = () => {
             });
         }
     }
-
-    console.log(user);
 
     return (
         <div className="modal">

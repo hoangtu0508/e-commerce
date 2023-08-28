@@ -1,13 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
-import axios from 'axios';
 import '../NewProducts/NewProducts.scss'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi'
 import { FiCamera } from 'react-icons/fi'
 import { Context } from '../../../../../utils/AppContext';
-import useFetch from '../../../../../hooks/useFetch';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../../utils/api';
 
 function EditProducts() {
   const navigate = useNavigate()
@@ -23,22 +22,15 @@ function EditProducts() {
     ProductPrice: '',
     ProductQuantity: null,
   });
-
   const [status, setStatus] = useState(true)
   const [visibility, setVisibility] = useState(1)
   const [stockAvailabilitty, setStockAvailabilitty] = useState(1)
   const [sale, setSale] = useState(1)
   const [inputCategories, setInputCategories] = useState()
 
-  console.log(inputCategories)
-
   useEffect(() => {
     getProductId()
   }, [id])
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
-  console.log(updatesData);
 
   const updateEdit = (e) => {
     const newupdate = { ...updatesData };
@@ -57,15 +49,7 @@ function EditProducts() {
       let uploadResponse;
 
       if (image) {
-        uploadResponse = await axios.post('http://localhost:1337/api/upload', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${jwt}`,
-          },
-        });
-
-        console.log(uploadResponse)
-
+        uploadResponse = await fetchData.post('/api/upload', formData);
       }
 
       let imgUrlData
@@ -76,8 +60,8 @@ function EditProducts() {
         imgUrlData = updatesData?.ProductImg?.data[0]?.id
       }
       console.log(inputCategories);
-      const res = await axios.put(
-        `http://localhost:1337/api/products/${id}?populate=*`,
+      const res = await fetchData.put(
+        `/api/products/${id}?populate=*`,
         {
           data: {
             ProductName: updatesData.ProductName,
@@ -93,13 +77,6 @@ function EditProducts() {
               set: [inputCategories]
             }
           }
-        },
-        {
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
         }
       );
       setTimeout(() => {
@@ -134,14 +111,7 @@ function EditProducts() {
 
   const getProductId = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/products/${id}?populate=*`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        },
-      })
-
+      const response = await fetchData.get(`/api/products/${id}?populate=*`)
       setUpdatesData(response.data.data.attributes)
       setInputCategories(response.data.data.attributes.category.data)
       setStatus(response.data.data.attributes.ProductStatus)

@@ -2,7 +2,7 @@ import React from 'react';
 import { VictoryBar, VictoryChart, VictoryAxis } from 'victory';
 
 const Charts = (props) => {
-    const data = props.orders.data;
+    const data = props.orders;
 
     const formatMonth = (dateString) => {
         const date = new Date(dateString);

@@ -9,15 +9,11 @@ import { GrNext, GrPrevious } from 'react-icons/gr'
 import axios from 'axios'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../utils/api'
 
 const Products = () => {
   const { products } = useContext(Context)
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
-
   const [productId, setProductId] = useState(null)
-  console.log(productId)
 
   const navigate = useNavigate()
 
@@ -52,13 +48,7 @@ const Products = () => {
 
   const handleDeleProduct = async (Id) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/products/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.delete(`/api/products/${Id}`)
       setTimeout(() => {
         window.location.reload()
       }, [1000])

@@ -1,15 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './EditProfile.scss'
-import axios from 'axios'
-import { getUserProfile } from '../../../utils/api'
+import { fetchData, getUserProfile } from '../../../utils/api'
 import { Context } from '../../../utils/AppContext'
 
 const EditProfile = () => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    const userId = user.user.id
-    console.log(userId)
-
-    const { userData, setUserData } = useContext(Context)
+    const { userData, setUserData, userLogin, idUser } = useContext(Context)
 
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
@@ -19,7 +14,7 @@ const EditProfile = () => {
         // Lấy thông tin người dùng hiện tại từ API của Strapi và cập nhật state
         const fetchUserData = async () => {
             try {
-                const response = await getUserProfile.get(`/api/users/${userId}`); // Thay đổi URL tương ứng với API của Strapi
+                const response = await fetchData.get(`/api/users/${idUser}`); // Thay đổi URL tương ứng với API của Strapi
                 setUserData({ ...response.data, password: '', newPassword: '', confirmPassword: '' });
             } catch (error) {
                 console.error('Lỗi khi lấy thông tin người dùng:', error);
@@ -38,8 +33,8 @@ const EditProfile = () => {
             return;
         } 
         try {
-            const response = await getUserProfile.put(`/api/users/${userId}`, {
-                name: userData.name,
+            const response = await fetchData.put(`/api/users/${idUser}`, {
+                username: userData.username,
                 email: userData.email,
                 password: userData.newPassword,
             }); // Thay đổi URL tương ứng với API của Strapi

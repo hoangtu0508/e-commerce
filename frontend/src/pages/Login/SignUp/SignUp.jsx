@@ -4,7 +4,7 @@ import Button from '../../../conponents/Button/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
 import './SignUp.scss'
-import axios from 'axios'
+import { fetchDataApiToken } from '../../../utils/api'
 
 const initialUser = {email: "", password: "", username: ""}
 const SignUp = () => {
@@ -12,9 +12,9 @@ const SignUp = () => {
     const navigate = useNavigate();
     const SignUp = async () => {
         try {
-            const url = `http://localhost:1337/api/auth/local/register`
+            const url = `/api/auth/local/register`
             if(user.username && user.email && user.password){
-                const res = await axios.post(url, user);
+                const res = await fetchDataApiToken.post(url, user);
                 if(res) {
                     setUser(initialUser);
                     navigate("/sign-in")

@@ -13,8 +13,6 @@ const Layout = () => {
   const isLoggedIn = !!jwt
 
   return (
-
-
     <div className='App'>
       <Nav basketItems={0} isLoggedIn={isLoggedIn} />
       <Outlet />

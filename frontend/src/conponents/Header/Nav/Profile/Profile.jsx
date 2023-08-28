@@ -18,7 +18,7 @@ const Profile = ({ setIsLogin }) => {
     navigate('/')
   }
 
-  const {userData} = useContext(Context)
+  const {userLogin} = useContext(Context)
   return (
     <div className='profile'>
       <div className='profile_account'>
@@ -32,7 +32,7 @@ const Profile = ({ setIsLogin }) => {
         <span><BsEmojiSunglasses className='profile-icon' /></span>
 
         <div className='profile_account_info'>
-          <p>{userData?.username || "Guest"}</p>
+          <p>{userLogin?.username || "Guest"}</p>
         </div>
       </div>
 

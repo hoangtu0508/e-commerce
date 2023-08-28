@@ -1,52 +1,30 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { getData } from "../../../../utils/api";
+import React from "react";
+import { fetchData} from "../../../../utils/api";
 import './Dashboard.scss'
 import { CiMoneyCheck1 } from 'react-icons/ci'
 import { BsFillBoxFill } from 'react-icons/bs'
 import { BiSolidBox } from 'react-icons/bi'
-import { Bar } from "react-chartjs-2";
 import Charts from "./Charts/Charts";
 import ChartPie from "./Charts/ChartPie";
-import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
-import { AiFillEdit } from 'react-icons/ai'
+import { MdDelete} from 'react-icons/md'
 import { BsEyeFill } from 'react-icons/bs'
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { Context } from "../../../../utils/AppContext";
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Dashboard = () => {
   const navigate = useNavigate()
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
-  const [orders, setOrders] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [products, setProducts] = useState([])
-  const [total, setTotal] = useState()
 
-  useEffect(() => {
-    fetchDataOrder();
-    fetchDataProduct();
-  }, []);
-
-
-
-  const fetchDataOrder = async () => {
-    try {
-      const response = await getData.get("/api/orders?populate=*");
-      const data = response.data;
-      setOrders(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
-  console.log(orders);
+  const {products, orders} = useContext(Context)
 
   const calculateTotalRevenue = () => {
     let totalRevenue = 0;
 
-    if (orders.data?.length > 0) {
-      orders?.data.map((order) => {
+    if (orders.length > 0) {
+      orders?.map((order) => {
         const products = order?.attributes.products
         if (products.length > 0) {
           products?.map((item) => {
@@ -62,18 +40,6 @@ const Dashboard = () => {
     return totalRevenue;
   };
 
-  const fetchDataProduct = async () => {
-    try {
-      const response = await getData.get("/api/products");
-      const data = response.data;
-      setProducts(data);
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  }
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();
@@ -81,16 +47,25 @@ const Dashboard = () => {
 
   const handleDeleOrder = async (Id) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
+      const response = await fetchData.delete(`/api/orders/${Id}`)
+      setTimeout(() => {
+        window.location.reload()
+      }, [1000])
+      const message = ("Delete Success")
+      toast.success(message, {
+        position: toast.POSITION.TOP_CENTER,
+        autoClose: 3000, //3 seconds
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        transition: Slide
       })
-      window.location.reload()
-    } catch (error) {
 
+    } catch (error) {
+      toast.error('Delete Error', {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   }
   const handleViewOrder = (Id) => {
@@ -102,9 +77,10 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <h2>Dashboard</h2>
+      <div className="toast-container"><ToastContainer limit={2} /></div>
       <div className="dashboard-content">
         <div className="dashboard-items dashboard-total-revenue">
-          {isLoading ? (
+          {!orders ? (
             <p>Loading statistics...</p>
           ) : (
             <div className="content total-revenue-content">
@@ -116,12 +92,12 @@ const Dashboard = () => {
         </div>
 
         <div className="dashboard-items dashboard-total-order">
-          {isLoading ? (
+          {!orders ? (
             <p>Loading orders...</p>
           ) : (
             <div className="content total-order-content">
               <h3>TOTAL ORDER</h3>
-              <p><BsFillBoxFill className="content-icon" />{orders.data?.length}</p>
+              <p><BsFillBoxFill className="content-icon" />{orders.length}</p>
             </div>
           )
 
@@ -129,12 +105,12 @@ const Dashboard = () => {
         </div>
 
         <div className="dashboard-items dashboard-total-products">
-          {isLoading ? (
+          {!products ? (
             <p>Loading products...</p>
           ) : (
             <div className="content total-products-content">
               <h3>TOTAL PRODUCT</h3>
-              <p><BiSolidBox className="content-icon" />{products?.data?.length}</p>
+              <p><BiSolidBox className="content-icon" />{products?.length}</p>
             </div>
           )
 
@@ -172,7 +148,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.data && orders.data.slice(0, 5).map((product) => (
+              {orders && orders.slice(0, 5).map((product) => (
                 <tr key={product.id}>
                   <input type="checkbox"></input>
                   <td className='td-img'><img src={process.env.REACT_APP_DEV_URL + product.attributes.products[0].attributes.ProductImg.data[0].attributes.url}></img></td>

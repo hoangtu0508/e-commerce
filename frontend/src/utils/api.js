@@ -51,7 +51,7 @@ export const postCartUser = axios.create({
     },
 });
 
-export const getData = axios.create({
+export const fetchData = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
     mode: 'no-cors',
     headers: {
@@ -59,7 +59,7 @@ export const getData = axios.create({
     },
 });
 
-export const postData = axios.create({
+export const fetchDataApiToken = axios.create({
     baseURL: process.env.REACT_APP_DEV_URL,
     mode: 'no-cors',
     headers: {

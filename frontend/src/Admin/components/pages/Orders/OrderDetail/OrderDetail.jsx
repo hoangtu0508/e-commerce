@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import './OrderDetail.scss'
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi'
-import axios from 'axios';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../../utils/api';
 
 const OrderDetail = () => {
     const [orderDetail, setOrderDetail] = useState()
@@ -14,26 +14,16 @@ const OrderDetail = () => {
     const customer = orderDetail?.data.attributes.user
     const statusOrderId = orderDetail?.data.attributes.status_order.data?.id
 
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
-
-    console.log(statusOrderId);
-
     const { id } = useParams()
     const navigate = useNavigate()
+
     useEffect(() => {
         getOrderId();
         getStatusOrder();
     }, [id])
     const getOrderId = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/orders/${id}?populate=*`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.get(`/api/orders/${id}?populate=*`)
             setOrderDetail(response.data)
         } catch (error) {
             console.log(error)
@@ -42,13 +32,7 @@ const OrderDetail = () => {
 
     const getStatusOrder = async () => {
         try {
-            const response = await axios.get(`http://localhost:1337/api/status-orders`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.get(`/api/status-orders`)
             setStatusOrder(response.data)
         } catch (error) {
             console.log(error)
@@ -59,23 +43,15 @@ const OrderDetail = () => {
         e.preventDefault();
 
         try {
-            const res = await axios.put(
-                `http://localhost:1337/api/orders/${id}?populate=*`,
+            const res = await fetchData.put(
+                `/api/orders/${id}?populate=*`,
                 {
                     data: {
                         status_order: {
                             set: [inputStatus]
                         }
                     }
-                },
-                {
-                    mode: 'no-cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${jwt}`,
-                    },
-                }
-            );
+                });
             setTimeout(() => {
                 window.location.reload()
             }, [1000])
@@ -99,13 +75,7 @@ const OrderDetail = () => {
 
     const handleDeleOrder = async () => {
         try {
-            const response = await axios.delete(`http://localhost:1337/api/orders/${id}`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
-            })
+            const response = await fetchData.delete(`/api/orders/${id}`)
             setTimeout(() => {
                 window.location.reload()
                 navigate('/admin/orders')

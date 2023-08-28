@@ -3,18 +3,15 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Categories.scss'
 import { Context } from '../../../../utils/AppContext'
 import { GrStatusGoodSmall } from 'react-icons/gr'
-import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
+import { MdDelete } from 'react-icons/md'
 import { AiFillEdit } from 'react-icons/ai'
 import { GrNext, GrPrevious } from 'react-icons/gr'
-import axios from 'axios'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../utils/api'
 
 const Categories = () => {
   const { categories } = useContext(Context)
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
 
   const [currentPage, setCurrentPage] = useState(1)
   const [categoriesPerPage, setCategoriesPerPage] = useState(10)
@@ -46,13 +43,7 @@ const Categories = () => {
 
   const handleDeleCategory = async (Id) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/categories/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.delete(`/api/categories/${Id}`)
       const message = ("Delete Success")
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,

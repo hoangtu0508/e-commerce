@@ -4,9 +4,8 @@ import Input from '../../../conponents/Input/Input'
 import Button from '../../../conponents/Button/Button'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthLogin from '../AuthLogin/AuthLogin'
-import axios from 'axios'
 import { storeUser } from '../../../utils/helpers'
-import { getUserProfile } from '../../../utils/api'
+import { fetchData, fetchDataApiToken } from '../../../utils/api'
 
 const initialUser = { password: "", identifier: "" };
 const SignIn = () => {
@@ -21,16 +20,15 @@ const SignIn = () => {
     }
 
     const handleLogin = async () => {
-        const url = `http://localhost:1337/api/auth/local`
+        const url = `/api/auth/local`
         try {
             if (user.identifier && user.password) {
-                const { data } = await axios.post(url, user);
+                const { data } = await fetchDataApiToken.post(url, user);
                 const userId = data.user.id
                 storeUser(data)
-                console.log(data)
                 if (data.jwt) {
                     setUser(initialUser)
-                    const { data } = await getUserProfile.get(`/api/users/${userId}?populate=*`)
+                    const { data } = await fetchData.get(`/api/users/${userId}?populate=*`)
 
                     if (data.role && data.role.type === 'admin') {
                         localStorage.setItem('isAdmin', 'true');

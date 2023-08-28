@@ -4,12 +4,14 @@ import { BsEmojiSunglasses } from 'react-icons/bs'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { FaUserAlt, FaRegImage, FaUserEdit,FaShoppingCart} from "react-icons/fa";
 import { BiSolidLogOutCircle } from 'react-icons/bi'
-import { getUserProfile } from '../../utils/api';
+import { fetchData, getUserProfile } from '../../utils/api';
 import { Context } from '../../utils/AppContext';
 
 const Profile = () => {
 
-    const {userData, setUserData, setIsLogin} = useContext(Context)
+    const {userLogin, setIsLogin} = useContext(Context)
+
+    console.log(userLogin);
 
     const navigate = useNavigate()
     function handleLogout() {
@@ -19,6 +21,7 @@ const Profile = () => {
         // localStorage.removeItem('userInfo');
     }
 
+    
     return (
         <div className='profile-page'>
             <div className='left-profile'>
@@ -26,8 +29,8 @@ const Profile = () => {
                     <span><BsEmojiSunglasses className='left-profile-icon' /></span>
                 </div>
                 <div className='left-profile-title'>
-                    <h2>{userData.username || "Guest"}</h2>
-                    <h4>{userData.email}</h4>
+                    <h2>{userLogin?.username || "Guest"}</h2>
+                    <h4>{userLogin?.email}</h4>
                 </div>
                 <hr />
 
@@ -67,7 +70,7 @@ const Profile = () => {
             </div>
 
             <div className='right-profile'>
-                <Outlet userData={userData}/>
+                <Outlet userData={userLogin}/>
             </div>
         </div>
     )

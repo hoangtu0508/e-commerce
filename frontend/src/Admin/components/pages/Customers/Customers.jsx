@@ -1,20 +1,17 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import './Customers.scss'
-import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
-import { AiFillEdit } from 'react-icons/ai'
+import { MdDelete} from 'react-icons/md'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { GrStatusGoodSmall } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
-import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
+import { fetchData } from '../../../../utils/api'
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Customers = () => {
-
     const { users } = useContext(Context)
-
-    const token = JSON.parse(localStorage.getItem('user'));
-    const jwt = token?.jwt;
 
     const navigate = useNavigate()
 
@@ -58,16 +55,25 @@ const Customers = () => {
 
     const handleDele = async (Id) => {
         try {
-            const response = await axios.delete(`http://localhost:1337/api/users/${Id}`, {
-                mode: 'no-cors',
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    Authorization: `Bearer ${jwt}`,
-                }
+            const response = await fetchData.delete(`/api/users/${Id}`)
+            setTimeout(() => {
+                window.location.reload()
+            }, [1000])
+            const message = ("Delete Success")
+            toast.success(message, {
+                position: toast.POSITION.TOP_CENTER,
+                autoClose: 3000, //3 seconds
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                transition: Slide
             })
-            window.location.reload()
-        } catch (error) {
 
+        } catch (error) {
+            toast.error('Detele Error', {
+                position: toast.POSITION.TOP_RIGHT,
+            });
         }
     }
 
@@ -76,6 +82,7 @@ const Customers = () => {
             <div className="admin-customers-title">
                 <h3>Customers</h3>
             </div>
+            <div className="toast-container"><ToastContainer limit={2} /></div>
             <div className="admin-customers-content">
                 <div className="admin-customers-content-list">
                     <table>

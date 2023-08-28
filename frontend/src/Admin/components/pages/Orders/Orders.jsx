@@ -1,23 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Orders.scss'
-import axios from 'axios'
-import { GrStatusGoodSmall } from 'react-icons/gr'
-import { MdDelete, MdArrowBackIosNew } from 'react-icons/md'
-import { AiFillEdit } from 'react-icons/ai'
+import { MdDelete } from 'react-icons/md'
 import { GrNext, GrPrevious } from 'react-icons/gr'
 import { Context } from '../../../../utils/AppContext'
 import { BsEyeFill } from 'react-icons/bs'
 import { useNavigate } from 'react-router-dom'
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchData } from '../../../../utils/api'
 
 const Orders = () => {
   const navigate = useNavigate()
 
   const { orders } = useContext(Context)
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
 
   const [currentPage, setCurrentPage] = useState(1)
   const [ordersPerPage, setOrdersPerPage] = useState(10) // Số lượng sản phẩm hiển thị trên mỗi trang
@@ -55,13 +50,7 @@ const Orders = () => {
 
   const handleDeleOrder = async (Id) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.delete(`/api/orders/${Id}`)
       const message = ("Delete Success")
       toast.success(message, {
         position: toast.POSITION.TOP_CENTER,
@@ -85,12 +74,6 @@ const Orders = () => {
     // Điều hướng đến trang chỉnh sửa sản phẩm với productId
     navigate(`./order-view/${Id}`);
   };
-
-  //   const totalPrice = currentOrders?.data.attributes.products.reduce((acc, item) => {
-  //     return acc + item.attributes.ProductPrice * item.attributes.qty;
-  // }, 0);
-
-  console.log(currentOrders)
 
   return (
     <div className='admin-orders'>

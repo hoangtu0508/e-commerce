@@ -13,13 +13,15 @@ import Modal from '@mui/joy/Modal/Modal'
 import ModalDialog from '@mui/joy/ModalDialog/ModalDialog';
 import ModalClose from '@mui/joy/ModalClose/ModalClose';
 import EditProfile from './EditProfile/EditProfile'
+import { fetchData } from '../../../../../utils/api'
 
 const CustomersDetails = () => {
+  const { id } = useParams()
+  const navigate = useNavigate()
+
   const [userDetails, setUserDetails] = useState()
   const [order, setOrder] = useState()
-
   const [activeComponent, setActiveComponent] = useState(1);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleEditClick = () => {
@@ -34,17 +36,10 @@ const CustomersDetails = () => {
     setActiveComponent(componentNumber);
   };
 
-  const { id } = useParams()
-
-  const navigate = useNavigate()
-
   useEffect(() => {
     getUserDetails();
     handleGetOrder()
   }, [id])
-
-  const token = JSON.parse(localStorage.getItem('user'));
-  const jwt = token?.jwt;
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -54,13 +49,7 @@ const CustomersDetails = () => {
 
   const getUserDetails = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/users/${id}?populate=*`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.get(`/api/users/${id}?populate=*`)
       setUserDetails(response.data)
     } catch (error) {
       console.log(error);
@@ -69,13 +58,7 @@ const CustomersDetails = () => {
 
   const handleDele = async (Id) => {
     try {
-      const response = await axios.delete(`http://localhost:1337/api/users/${Id}`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.delete(`/api/users/${Id}`)
       navigate('/admin/customers')
       window.location.reload()
     } catch (error) {
@@ -85,13 +68,7 @@ const CustomersDetails = () => {
 
   const handleGetOrder = async () => {
     try {
-      const response = await axios.get(`http://localhost:1337/api/orders?filters[userId]=${id}&populate=*`, {
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${jwt}`,
-        }
-      })
+      const response = await fetchData.get(`/api/orders?filters[userId]=${id}&populate=*`)
       setOrder(response.data)
     } catch (error) {
       console.log(error);
@@ -118,26 +95,6 @@ const CustomersDetails = () => {
     return totalRevenue;
   };
 
-  // const handleViewOrder = (Id) => {
-  //   navigate(`/admin/orders/order-view/${Id}`)
-  // }
-
-  // const handleDeleOrder = async (Id) => {
-  //   try {
-  //     const response = await axios.delete(`http://localhost:1337/api/orders/${Id}`, {
-  //       mode: 'no-cors',
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //         Authorization: `Bearer ${jwt}`,
-  //       }
-  //     })
-  //     window.location.reload()
-  //   } catch (error) {
-
-  //   }
-  // }
-
-  console.log(order);
   return (
     <div className='customers-details'>
       <div className="modal">
@@ -198,6 +155,7 @@ const CustomersDetails = () => {
               <h4>Email: <label>{userDetails?.email}</label></h4>
               <h4>Status: {userDetails?.blocked ? (<label className='passive'>Passive</label>) : (<label className='active'>Active</label>)}</h4>
               <h4>Contact: <label>{userDetails?.phone}</label></h4>
+              <h4>Role: <label>{userDetails?.role.name}</label></h4>
               <div className="btn-edit">
                 <input type='submit' value='Edit Details' onClick={handleEditClick}></input>
               </div>

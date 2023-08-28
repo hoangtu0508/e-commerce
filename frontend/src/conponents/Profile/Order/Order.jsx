@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './Order.scss';
-import { getOrderUser } from '../../../utils/api';
+import { fetchData } from '../../../utils/api';
+import { Context } from '../../../utils/AppContext';
 
 const Order = () => {
   const [productOrder, setProductOrder] = useState([]);
+  const {idUser} = useContext(Context)
 
-  const user = JSON.parse(localStorage.getItem('user'));
-  const userId = user.user.id;
-  console.log(userId);
+  console.log(idUser);
 
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await getOrderUser(`/api/orders?filters[userId]=${userId}&populate=*`);
-        console.log(response.data);
+        const response = await fetchData.get(`/api/orders?filters[userId]=${idUser}&populate=*`);
         setProductOrder(response.data);
       } catch (error) {
         console.error('Lỗi khi lấy thông tin người dùng:', error);
@@ -21,7 +20,7 @@ const Order = () => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [idUser]);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleDateString();

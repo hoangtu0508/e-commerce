@@ -3,7 +3,7 @@ import { getToken } from './helpers'
 import Strapi from 'strapi-sdk-js'
 import axios from 'axios'
 import { useLocation } from 'react-router-dom'
-import { fetchDataFromApi, getData, getUserProfile, postCartUser } from './api'
+import { fetchData, fetchDataFromApi, getData, getUserProfile, postCartUser } from './api'
 
 export const Context = createContext()
 const jwt = getToken()
@@ -22,6 +22,7 @@ const AppContext = ({ children }) => {
   const [userCart, setUserCart] = useState([])
 
   const [isLogin, setIsLogin] = useState(false)
+  const [userLogin, setUserLogin] = useState()
   const location = useLocation();
 
   const [userData, setUserData] = useState({
@@ -32,8 +33,21 @@ const AppContext = ({ children }) => {
     confirmPassword: '',
   });
 
+  useEffect(() => {
+    fetchUserData()
+  }, [])
+
+  const fetchUserData = async () => {
+    try {
+      const response = await fetchData.get(`/api/users/${idUser}`);
+      setUserLogin(response.data);
+    } catch (error) {
+      console.error('Lỗi khi lấy thông tin người dùng:', error);
+    }
+  };
+
   const user = JSON.parse(localStorage.getItem('user'))
-  const userId = user?.user.id
+  const idUser = user?.user.id
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -47,20 +61,6 @@ const AppContext = ({ children }) => {
     }
 
   }, [cartItems]);
-
-  useEffect(() => {
-    // Lấy thông tin người dùng hiện tại từ API của Strapi và cập nhật state
-    const fetchUserData = async () => {
-      try {
-        const response = await getUserProfile.get(`/api/users/${userId}`);
-        setUserData(response.data);
-      } catch (error) {
-        console.error('Lỗi khi lấy thông tin người dùng:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
 
   useEffect(() => {
     getProducts();
@@ -88,13 +88,13 @@ const AppContext = ({ children }) => {
 
   const getUsers = async () => {
     try {
-      const response = await getData.get("/api/users?populate=*");
+      const response = await fetchData.get("/api/users?populate=*");
       const data = response.data;
       setUsers(data);
 
     } catch (error) {
       console.log(error);
-   
+
     }
   };
 
@@ -110,10 +110,10 @@ const AppContext = ({ children }) => {
     }
 
     try {
-      const response = await postCartUser.post('/api/carts', {
+      const response = await fetchData.post('/api/carts', {
         data: {
           products: items,
-          userId: userId,
+          userId: idUser,
         },
       });
 
@@ -135,10 +135,10 @@ const AppContext = ({ children }) => {
     const updatedItems = cartItems.filter((p) => p.id !== product.id);
 
     try {
-      const response = await postCartUser.put('api/carts', {
+      const response = await fetchData.put('api/carts', {
         data: {
           products: updatedItems,
-          userId: userId,
+          userId: idUser,
         },
       });
 
@@ -215,7 +215,9 @@ const AppContext = ({ children }) => {
         orders,
         setOrders,
         users,
-        setUsers
+        setUsers,
+        userLogin,
+        idUser,
       }}
     >
       {children}

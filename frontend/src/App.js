@@ -25,7 +25,6 @@ import Categories from './Admin/components/pages/Categories/Categories';
 import Orders from './Admin/components/pages/Orders/Orders';
 import Customers from './Admin/components/pages/Customers/Customers';
 import EditProduct from './Admin/components/pages/Products/EditProduct/EditProduct';
-import privateRoutes from './routes/privateRoutes';
 import EditCategory from './Admin/components/pages/Categories/EditCategory/EditCategory';
 import OrderDetail from './Admin/components/pages/Orders/OrderDetail/OrderDetail';
 import CustomersDetails from './Admin/components/pages/Customers/CustomersDetails/CustomersDetails';
